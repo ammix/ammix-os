@@ -1,7 +1,10 @@
 # Allow build scripts to be referenced without being copied into the final image
 FROM scratch AS ctx
 COPY build_files /
-COPY files /
+COPY files/etc /etc
+COPY files/usr /usr
+
+RUN ls -lR /usr/share/plymouth/themes/
 
 # Base Image
 FROM ghcr.io/ublue-os/cosmic-atomic-main:42
