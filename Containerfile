@@ -3,12 +3,10 @@ FROM scratch AS ctx
 COPY build_files /
 COPY files /
 
-ARG TAG=42
-
 # Base Image
-FROM ghcr.io/ublue-os/cosmic-atomic-main:${TAG}
+FROM ghcr.io/ublue-os/cosmic-atomic-main:42
 
-COPY --from=ghcr.io/ublue-os/akmods:main-${TAG} /rpms/ /tmp/rpms
+COPY --from=ghcr.io/ublue-os/akmods:main-42 /rpms/ /tmp/rpms
 RUN find /tmp/rpms
 RUN rpm-ostree install /tmp/rpms/ublue-os/ublue-os-akmods*.rpm
 RUN rpm-ostree install /tmp/rpms/kmods/kmod-openrazer*.rpm
