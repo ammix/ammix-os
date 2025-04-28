@@ -57,7 +57,7 @@ rm /tmp/FiraCode.zip
 
 curl -fLo /tmp/VictorMono_v1.5.6.zip https://rubjo.github.io/victor-mono/VictorMonoAll.zip
 unzip -o /tmp/VictorMono_v1.5.6.zip -d /tmp/
-mv /tmp/victor-mono-1.5.6/otf/* /usr/share/fonts/VictorMono/
+mv /tmp/victor-mono-1.5.6/OTF/* /usr/share/fonts/VictorMono/
 rm /tmp/VictorMono_v1.5.6.zip
 rm -rf /tmp/victor-mono-1.5.6/
 
