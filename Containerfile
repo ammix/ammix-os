@@ -8,13 +8,6 @@ COPY ./files /files
 # Base Image
 FROM ghcr.io/ublue-os/cosmic-atomic-main:42
 
-COPY --from=ghcr.io/ublue-os/akmods:main-42 /rpms/ /tmp/rpms
-RUN find /tmp/rpms
-# RUN rpm-ostree install /tmp/rpms/ublue-os/ublue-os-akmods*.rpm
-RUN rpm-ostree install /tmp/rpms/kmods/kmod-openrazer*.rpm
-
-RUN rm -rf /tmp/rpms/
-
 RUN --mount=type=bind,from=stage-files,src=/files,dst=/tmp/files \
     if [ -d /tmp/files/etc ]; then cp -a /tmp/files/etc/. /etc/; fi && \
     if [ -d /tmp/files/usr ]; then cp -a /tmp/files/usr/. /usr/; fi && \
@@ -32,6 +25,12 @@ RUN --mount=type=bind,from=ctx,source=/,target=/ctx \
     /ctx/build.sh && \
     ostree container commit
 
+COPY --from=ghcr.io/ublue-os/akmods:main-42 /rpms/ /tmp/rpms
+RUN find /tmp/rpms
+# RUN rpm-ostree install /tmp/rpms/ublue-os/ublue-os-akmods*.rpm
+RUN rpm-ostree install /tmp/rpms/kmods/kmod-openrazer*.rpm
+
+RUN rm -rf /tmp/rpms/
 ### LINTING
 ## Verify final image and contents are correct.
 RUN bootc container lint

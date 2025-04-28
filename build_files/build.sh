@@ -52,13 +52,8 @@ systemctl enable podman.socket
 systemctl enable syncthing@maxim.service
 systemctl enable scx_loader.service
 
-echo "DEBUG: Checking Plymouth themes directory..."
-ls -l /usr/share/plymouth/themes/
-echo "DEBUG: Checking specific theme directory contents..."
-ls -l /usr/share/plymouth/themes/catppuccin-mocha/
 # Plymouth
 plymouth-set-default-theme catppuccin-mocha
-dracut --force --regenerate-all
 
 # Cleanup
 rm -rf /tmp/*
