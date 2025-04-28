@@ -3,7 +3,7 @@ FROM scratch AS ctx
 COPY build_files /
 
 FROM scratch AS stage-files
-COPY ./files /files # Copy your entire local ./files directory here
+COPY ./files /files
 
 # Base Image
 FROM ghcr.io/ublue-os/cosmic-atomic-main:42
