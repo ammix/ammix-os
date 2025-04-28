@@ -1,0 +1,20 @@
+# Append our default paths
+append_path '/usr/local/sbin'
+append_path '/usr/local/bin'
+append_path '/usr/bin'
+
+# Force PATH to be environment
+export PATH
+
+# Termcap is outdated, old, and crusty, kill it.
+unset TERMCAP
+
+# Man is much better than us at figuring this out
+unset MANPATH
+
+# Vulkan Video support
+export RADV_PERFTEST = video_decode,video_encode
+
+export EDITOR=hx
+export MANPAGER='nvim +Man!'
+export MAKEFLAGS="--jobs=$(nproc)"
