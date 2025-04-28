@@ -55,7 +55,7 @@ curl -fLo /tmp/FiraCode.zip https://github.com/ryanoasis/nerd-fonts/releases/dow
 unzip /tmp/FiraCode.zip -d /usr/share/fonts/nerd-fonts/FiraCode/
 rm /tmp/FiraCode.zip
 
-curl -fLo /tmp/VictorMono_v1.5.6.zip https://github.com/rubjo/victor-mono/archive/refs/tags/v1.5.6.zip
+curl -fLo /tmp/VictorMono_v1.5.6.zip https://rubjo.github.io/victor-mono/VictorMonoAll.zip
 unzip -o /tmp/VictorMono_v1.5.6.zip -d /tmp/
 mv /tmp/victor-mono-1.5.6/otf/* /usr/share/fonts/VictorMono/
 rm /tmp/VictorMono_v1.5.6.zip
