@@ -1,8 +1,9 @@
 # Allow build scripts to be referenced without being copied into the final image
 FROM scratch AS ctx
 COPY build_files /
-COPY files/etc /etc
-COPY files/usr /usr
+
+FROM scratch AS stage-files
+COPY ./files /files # Copy your entire local ./files directory here
 
 # Base Image
 FROM ghcr.io/ublue-os/cosmic-atomic-main:42
@@ -13,6 +14,12 @@ RUN find /tmp/rpms
 RUN rpm-ostree install /tmp/rpms/kmods/kmod-openrazer*.rpm
 
 RUN rm -rf /tmp/rpms/
+
+RUN --mount=type=bind,from=stage-files,src=/files,dst=/tmp/files \
+    if [ -d /tmp/files/etc ]; then cp -a /tmp/files/etc/. /etc/; fi && \
+    if [ -d /tmp/files/usr ]; then cp -a /tmp/files/usr/. /usr/; fi && \
+    echo "File copy complete." && \
+    ostree container commit
 
 ### MODIFICATIONS
 ## make modifications desired in your image and install packages by modifying the build.sh script
