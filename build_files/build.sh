@@ -42,47 +42,7 @@ dnf5 -y copr disable atim/starship
 dnf5 -y copr disable kylegospo/webapp-manager
 dnf5 -y copr disable bieszczaders/kernel-cachyos-addons
 
-## Flatpaks
-flatpak remote-add --system --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
-
-flatpak install -y \
-    io.gitlab.librewolf-community \
-    app.zen_browser.zen \
-    com.discordapp.Discord \
-    com.heroicgameslauncher.hgl \
-    com.usebottles.bottles \
-    net.lutris.Lutris \
-    com.vysp3r.ProtonPlus \
-    org.keepassxc.KeePassXC \
-    md.obsidian.Obsidian \
-    app.polychromatic.controller \
-    com.valvesoftware.Steam \
-    com.github.tchx84.Flatseal \
-    org.musicbrainz.Picard
-
-flatpak uninstall -y \
-    org.mozilla.firefox \
-    org.gnome.eog
-
-
 ## Fonts
-# Create directories
-mkdir -p /usr/share/fonts/nerd-fonts/FiraCode
-mkdir -p /usr/share/fonts/nerd-fonts/SymbolsOnly
-mkdir -p /usr/share/fonts/VictorMono
-
-curl -fLo /tmp/SymbolsOnly.zip https://github.com/ryanoasis/nerd-fonts/releases/download/v3.4.0/NerdFontsSymbolsOnly.zip
-unzip /tmp/SymbolsOnly.zip -d /usr/share/fonts/nerd-fonts/SymbolsOnly/
-rm /tmp/SymbolsOnly.zip
-
-curl -fLo /tmp/FiraCode.zip https://github.com/ryanoasis/nerd-fonts/releases/download/v3.4.0/FiraCode.zip
-unzip /tmp/FiraCode.zip -d /usr/share/fonts/nerd-fonts/FiraCode/
-rm /tmp/FiraCode.zip
-
-curl -fLo /tmp/VictorMonoAll.zip https://rubjo.github.io/victor-mono/VictorMonoAll.zip
-unzip -o /tmp/VictorMonoAll.zip -d /usr/share/fonts/VictorMono/ '*.otf'
-rm /tmp/VictorMonoAll.zip
-
 fc-cache -f -v
 
 # Systemd
