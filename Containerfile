@@ -1,5 +1,3 @@
-# Allow build scripts to be referenced without being copied into the final image
-
 # Vars
 ARG BASE_IMAGE=cosmic-atomic-main
 ARG FEDORA_VERSION=42
