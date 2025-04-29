@@ -12,9 +12,11 @@ set -ouex pipefail
 dnf5 copr enable -y atim/starship
 dnf5 copr enable -y kylegospo/webapp-manager
 dnf5 copr enable -y bieszczaders/kernel-cachyos-addons
+dnf5 copr enable -y che/nerd-fonts
 
 dnf5 install -y \
   starship \
+  nerd-fonts \
   webapp-manager \
   scx-scheds \
   syncthing \
@@ -40,6 +42,7 @@ dnf5 remove -y firefox firefox-langpacks
 dnf5 -y copr disable atim/starship
 dnf5 -y copr disable kylegospo/webapp-manager
 dnf5 -y copr disable bieszczaders/kernel-cachyos-addons
+dnf5 -y copr disable che/nerd-fonts
 
 dnf5 clean packages
 
