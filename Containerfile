@@ -19,8 +19,6 @@ RUN --mount=type=bind,from=stage-files,src=/files,dst=/tmp/files \
 ## the following RUN directive does all the things required to run "build.sh" as recommended.
 COPY --from=ghcr.io/ublue-os/akmods:main-42 /rpms/ /tmp/rpms
 RUN find /tmp/rpms
-# RUN rpm-ostree install /tmp/rpms/ublue-os/ublue-os-akmods*.rpm
-RUN rpm-ostree install /tmp/rpms/kmods/kmod-openrazer*.rpm
 
 RUN --mount=type=bind,from=ctx,source=/,target=/ctx \
     --mount=type=cache,dst=/var/cache \
