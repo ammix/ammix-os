@@ -54,8 +54,6 @@ systemctl enable podman.socket
 systemctl enable syncthing@maxim.service
 systemctl enable scx_loader.service
 
-systemctl disable rpm-ostreed-automatic.timer
-
 # Plymouth
 plymouth-set-default-theme catppuccin-mocha
 
