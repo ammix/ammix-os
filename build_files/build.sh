@@ -38,7 +38,6 @@ dnf5 install -y \
 
 dnf5 remove -y firefox firefox-langpacks
 
-
 dnf5 -y copr disable atim/starship
 dnf5 -y copr disable kylegospo/webapp-manager
 dnf5 -y copr disable bieszczaders/kernel-cachyos-addons
@@ -56,6 +55,3 @@ systemctl enable scx_loader.service
 
 # Plymouth
 plymouth-set-default-theme catppuccin-mocha
-
-# Cleanup
-rm -rf /tmp/*
