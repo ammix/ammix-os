@@ -1,0 +1,16 @@
+#
+# This file is parsed by pam_env module
+#
+# Syntax: simple "KEY=VAL" pairs on separate lines
+
+# Vulkan Video support for vulkan-radeon
+RADV_PERFTEST=video_decode,video_encode
+
+
+OZONE_PLATFORM=wayland
+ELECTRON_OZONE_PLATFORM_HINT=auto
+CLUTTER_BACKEND=wayland
+MOZ_ENABLE_WAYLAND=1
+
+XCURSOR_SIZE=24
+XCURSOR_THEME=Bibata-Modern-Ice

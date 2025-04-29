@@ -2,9 +2,6 @@
 
 set -ouex pipefail
 
-echo "DEBUG: Checking Plymouth themes directory at START of build.sh..."
-ls -lR /usr/share/plymouth/themes/
-
 ### Install packages
 
 # Packages can be installed from any enabled yum repo on the image.

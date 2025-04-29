@@ -17,20 +17,19 @@ RUN --mount=type=bind,from=stage-files,src=/files,dst=/tmp/files \
 ### MODIFICATIONS
 ## make modifications desired in your image and install packages by modifying the build.sh script
 ## the following RUN directive does all the things required to run "build.sh" as recommended.
+COPY --from=ghcr.io/ublue-os/akmods:main-42 /rpms/ /tmp/rpms
+RUN find /tmp/rpms
+# RUN rpm-ostree install /tmp/rpms/ublue-os/ublue-os-akmods*.rpm
+RUN rpm-ostree install /tmp/rpms/kmods/kmod-openrazer*.rpm
 
 RUN --mount=type=bind,from=ctx,source=/,target=/ctx \
     --mount=type=cache,dst=/var/cache \
     --mount=type=cache,dst=/var/log \
     --mount=type=tmpfs,dst=/tmp \
     /ctx/build.sh && \
-    ostree container commit
+    /ctx/build-initramfs && \
+    /ctx/finalize
 
-COPY --from=ghcr.io/ublue-os/akmods:main-42 /rpms/ /tmp/rpms
-RUN find /tmp/rpms
-# RUN rpm-ostree install /tmp/rpms/ublue-os/ublue-os-akmods*.rpm
-RUN rpm-ostree install /tmp/rpms/kmods/kmod-openrazer*.rpm
-
-RUN rm -rf /tmp/rpms/
 ### LINTING
 ## Verify final image and contents are correct.
 RUN bootc container lint

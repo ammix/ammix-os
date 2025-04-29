@@ -1,4 +1,3 @@
-# Append our default paths
 append_path '/usr/local/sbin'
 append_path '/usr/local/bin'
 append_path '/usr/bin'
@@ -6,14 +5,21 @@ append_path '/usr/bin'
 # Force PATH to be environment
 export PATH
 
+# Load profiles from /etc/profile.d
+if test -d /etc/profile.d/; then
+	for profile in /etc/profile.d/*.sh; do
+		test -r "$profile" && . "$profile"
+	done
+	unset profile
+fi
+
+unset -v GLOBSORT
+
 # Termcap is outdated, old, and crusty, kill it.
 unset TERMCAP
 
 # Man is much better than us at figuring this out
 unset MANPATH
-
-# Vulkan Video support
-export RADV_PERFTEST = video_decode,video_encode
 
 export EDITOR=hx
 export MANPAGER='nvim +Man!'
