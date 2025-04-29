@@ -10,11 +10,11 @@ COPY build_files /
 FROM scratch AS stage-files
 COPY ./files /files
 
-# Base Image
-FROM ghcr.io/ublue-os/${BASE_IMAGE}:${FEDORA_VERSION}
-
 # Stage for akmods RPMs
 FROM ghcr.io/ublue-os/akmods:main-${FEDORA_VERSION} AS akmods
+
+# Base Image
+FROM ghcr.io/ublue-os/${BASE_IMAGE}:${FEDORA_VERSION}
 
 # Copy files
 RUN --mount=type=bind,from=stage-files,src=/files,dst=/tmp/files \
