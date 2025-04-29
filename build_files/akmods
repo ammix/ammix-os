@@ -1,0 +1,12 @@
+#!/usr/bin/bash
+
+set -euox pipefail
+
+echo "::group::Executing install-akmods"
+trap 'echo "::endgroup::"' EXIT
+
+echo "Installing openrazer kmod..."
+dnf5 -y install /tmp/akmods-rpms/kmods/*openrazer*.rpm
+
+echo "Akmod installation script finished."
+

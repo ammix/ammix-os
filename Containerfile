@@ -13,21 +13,30 @@ COPY ./files /files
 # Base Image
 FROM ghcr.io/ublue-os/${BASE_IMAGE}:${FEDORA_VERSION}
 
+# Stage for akmods RPMs
+FROM ghcr.io/ublue-os/akmods:main-${FEDORA_VERSION} AS akmods
+
+# Copy files
 RUN --mount=type=bind,from=stage-files,src=/files,dst=/tmp/files \
     if [ -d /tmp/files/etc ]; then cp -a /tmp/files/etc/. /etc/; fi && \
     if [ -d /tmp/files/usr ]; then cp -a /tmp/files/usr/. /usr/; fi && \
     echo "File copy complete." && \
     ostree container commit
 
-### MODIFICATIONS
-## make modifications desired in your image and install packages by modifying the build.sh script
-## the following RUN directive does all the things required to run "build.sh" as recommended.
-ARG FEDORA_VERSION
+# Install akmods
+RUN --mount=type=cache,dst=/var/cache \
+    --mount=type=cache,dst=/var/log \
+    # Mount the akmods RPMs from the dedicated stage
+    --mount=type=bind,from=akmods,src=/rpms,dst=/tmp/akmods-rpms \
+    # Mount the build context containing our scripts
+    --mount=type=bind,from=ctx,source=/,target=/ctx \
+    # Use tmpfs for temporary files
+    --mount=type=tmpfs,dst=/tmp \
+    # Execute the akmod installation script
+    /ctx/akmods && \
+    /ctx/cleanup
 
-COPY --from=ghcr.io/ublue-os/akmods:main-${FEDORA_VERSION} /rpms/ /tmp/rpms
-RUN find /tmp/rpms
-RUN rpm-ostree install /tmp/rpms/kmods/*openrazer*.rpm
-
+# Install packages and finalize build
 RUN --mount=type=bind,from=ctx,source=/,target=/ctx \
     --mount=type=cache,dst=/var/cache \
     --mount=type=cache,dst=/var/log \
