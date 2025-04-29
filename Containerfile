@@ -26,13 +26,9 @@ RUN --mount=type=bind,from=stage-files,src=/files,dst=/tmp/files \
 # Install akmods
 RUN --mount=type=cache,dst=/var/cache \
     --mount=type=cache,dst=/var/log \
-    # Mount the akmods RPMs from the dedicated stage
     --mount=type=bind,from=akmods,src=/rpms,dst=/tmp/akmods-rpms \
-    # Mount the build context containing our scripts
     --mount=type=bind,from=ctx,source=/,target=/ctx \
-    # Use tmpfs for temporary files
     --mount=type=tmpfs,dst=/tmp \
-    # Execute the akmod installation script
     /ctx/akmods && \
     /ctx/cleanup
 
@@ -45,6 +41,5 @@ RUN --mount=type=bind,from=ctx,source=/,target=/ctx \
     /ctx/build-initramfs && \
     /ctx/finalize
 
-### LINTING
-## Verify final image and contents are correct.
+# Verify final image and contents are correct.
 RUN bootc container lint
