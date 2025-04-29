@@ -41,9 +41,6 @@ dnf5 -y copr disable atim/starship
 dnf5 -y copr disable kylegospo/webapp-manager
 dnf5 -y copr disable bieszczaders/kernel-cachyos-addons
 
-## Akmods
-dnf5 -y install /tmp/rpms/kmods/kmod-openrazer*.rpm
-
 dnf5 clean packages
 
 ## Fonts
