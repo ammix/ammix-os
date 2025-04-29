@@ -36,7 +36,10 @@ dnf5 install -y \
   rsms-inter-fonts \
   mozilla-fira-sans-fonts
 
-dnf5 remove -y firefox firefox-langpacks
+dnf5 remove -y \
+  firefox \
+  firefox-langpacks \
+  power-profiles-daemon
 
 dnf5 -y copr disable atim/starship
 dnf5 -y copr disable kylegospo/webapp-manager
@@ -49,7 +52,6 @@ dnf5 clean packages
 fc-cache -f -v
 
 # Systemd
-systemctl enable podman.socket
 systemctl enable syncthing@maxim.service
 systemctl enable scx_loader.service
 
