@@ -1,4 +1,9 @@
 # Allow build scripts to be referenced without being copied into the final image
+
+# Vars
+ARG BASE_IMAGE="${BASE_IMAGE:cosmic-atomic-main}"
+ARG FEDORA_VERSION="${FEDORA_VERSION:42}"
+
 FROM scratch AS ctx
 COPY build_files /
 
@@ -6,7 +11,7 @@ FROM scratch AS stage-files
 COPY ./files /files
 
 # Base Image
-FROM ghcr.io/ublue-os/cosmic-atomic-main:42
+FROM ghcr.io/ublue-os/${BASE_IMAGE}:${FEDORA_VERSION}
 
 RUN --mount=type=bind,from=stage-files,src=/files,dst=/tmp/files \
     if [ -d /tmp/files/etc ]; then cp -a /tmp/files/etc/. /etc/; fi && \
@@ -17,7 +22,9 @@ RUN --mount=type=bind,from=stage-files,src=/files,dst=/tmp/files \
 ### MODIFICATIONS
 ## make modifications desired in your image and install packages by modifying the build.sh script
 ## the following RUN directive does all the things required to run "build.sh" as recommended.
-COPY --from=ghcr.io/ublue-os/akmods:main-42 /rpms/ /tmp/rpms
+ARG FEDORA_VERSION
+
+COPY --from=ghcr.io/ublue-os/akmods:main-${FEDORA_VERSION} /rpms/ /tmp/rpms
 RUN find /tmp/rpms
 RUN rpm-ostree install /tmp/rpms/kmods/kmod-openrazer*.rpm
 
