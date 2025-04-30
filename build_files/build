@@ -5,6 +5,14 @@ set -ouex pipefail
 # Copy files
 rsync -rv /ctx/files/. /
 
+# Make root's home
+# mkdir -p /var/roothome
+
+# Install dnf5 if not installed
+if ! rpm -q dnf5 >/dev/null; then
+    rpm-ostree install dnf5 dnf5-plugins
+fi
+
 # Install packages
 dnf5 copr enable -y atim/starship
 dnf5 copr enable -y kylegospo/webapp-manager
