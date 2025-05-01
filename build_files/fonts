@@ -1,12 +1,7 @@
 #!/usr/bin/env bash
 
-# Exit immediately if a command exits with a non-zero status.
-# Exit on unset variables. Exit on pipeline errors.
 set -euo pipefail
 
-# --- Configuration ---
-# Define the fonts you want to install here directly in arrays.
-# Alternatively, read these from text files if you prefer.
 # NOTE: Nerd Font names must match the asset name on GitHub releases (e.g., FiraCode -> FiraCode.zip)
 # NOTE: Google Font names must match the name used by Google Fonts.
 NERD_FONTS_TO_INSTALL=(
@@ -18,14 +13,10 @@ GOOGLE_FONTS_TO_INSTALL=(
     "Victor Mono"
 )
 
-# --- Constants ---
 NERDFONTS_API_URL="https://api.github.com/repos/ryanoasis/nerd-fonts/releases/latest"
 GOOGLEFONTS_DOWNLOAD_URL="https://fonts.google.com/download?family="
 TMP_DIR="/tmp/font-downloads-$$" # Use PID for unique temp dir
 
-# --- Helper Functions ---
-
-# Fetches the download URL for a specific asset from the latest GitHub release
 get_latest_release_asset_url() {
     local repo="$1"
     local asset_name="$2"
@@ -33,10 +24,9 @@ get_latest_release_asset_url() {
     local download_url
 
     echo "INFO: Fetching latest release info for ${repo}..." >&2
-    # Fetch API data, handle potential rate limits gracefully (though unlikely for single builds)
     api_response=$(curl -sSL --fail -H "Accept: application/vnd.github.v3+json" "${api_url}") || {
         echo "ERROR: Failed to fetch release info from ${api_url}. Check network or API rate limits." >&2
-        return 1 # Use return code to signal failure
+        return 1
     }
 
     # Use jq to find the asset URL
@@ -44,18 +34,13 @@ get_latest_release_asset_url() {
 
     if [[ -z "$download_url" || "$download_url" == "null" ]]; then
         echo "ERROR: Could not find asset '${asset_name}' in the latest release of ${repo}." >&2
-        # Optional: List available assets for debugging
-        # echo "Available assets:" >&2
-        # echo "$api_response" | jq -r '.assets[].name' >&2
-        return 1 # Use return code to signal failure
+        return 1
     fi
-    echo "${download_url}" # Success, output the URL
+    echo "${download_url}"
     return 0
 }
 
-# URL-encodes a string (requires jq 1.6+ OR python3)
 url_encode() {
-    # Prefer jq 1.6+ @uri for bash-centric approach if available
     if command -v jq &>/dev/null && jq --version | grep -q 'jq-1\.6'; then
          jq -sRr @uri <<< "$1"
     elif command -v python3 &> /dev/null; then
@@ -66,7 +51,6 @@ url_encode() {
     fi
 }
 
-# --- Dependencies Check ---
 # (Ensure curl, unzip, jq, and python3 (if needed for url_encode) are installed by your build process)
 for cmd in curl unzip jq; do
     if ! command -v $cmd &> /dev/null; then
@@ -83,15 +67,12 @@ if [[ ${#GOOGLE_FONTS_TO_INSTALL[@]} -gt 0 ]]; then
 fi
 
 
-# --- Main Execution ---
 echo "Starting flexible font installation..."
 mkdir -p "${TMP_DIR}"
-# Ensure cleanup happens even on script exit/error
 trap 'echo "Cleaning up temp dir ${TMP_DIR}..."; cd / && rm -rf "${TMP_DIR}"' EXIT
 
 cd "${TMP_DIR}"
 
-# --- Install Nerd Fonts ---
 if [[ ${#NERD_FONTS_TO_INSTALL[@]} -gt 0 ]]; then
     echo "--- Installing Nerd Fonts ---"
     for font_name in "${NERD_FONTS_TO_INSTALL[@]}"; do
@@ -99,19 +80,16 @@ if [[ ${#NERD_FONTS_TO_INSTALL[@]} -gt 0 ]]; then
         asset_name="${font_name}.zip"
         target_dir="/usr/share/fonts/nerd-fonts/${font_name}"
 
-        # Get URL using helper function, check return code
         download_url=$(get_latest_release_asset_url "ryanoasis/nerd-fonts" "${asset_name}")
         if [[ $? -ne 0 ]]; then
              echo "WARN: Skipping Nerd Font ${font_name} due to error getting URL." >&2
-             continue # Skip to next font
+             continue
         fi
 
         echo "INFO: Downloading ${font_name} from ${download_url}"
         if curl -L -o "${font_name}.zip" --fail "${download_url}"; then
             echo "INFO: Extracting ${font_name}"
-            # Create target dir only after successful download
             mkdir -p "${target_dir}"
-            # Extract, find fonts, move, and clean up within this block
             if unzip -q "${font_name}.zip" -d "${font_name}_extracted"; then
                 find "${font_name}_extracted" -name '*.[ot]tf' -print0 | xargs -0 -I {} mv {} "${target_dir}/" || echo "WARN: No font files found or moved for ${font_name}." >&2
             else
@@ -121,7 +99,6 @@ if [[ ${#NERD_FONTS_TO_INSTALL[@]} -gt 0 ]]; then
         else
              echo "WARN: Failed to download ${font_name}.zip." >&2
         fi
-        # Clean zip file even if extraction failed
         rm -f "${font_name}.zip"
     done
 else
@@ -129,28 +106,21 @@ else
 fi
 
 
-# --- Install Google Fonts ---
 if [[ ${#GOOGLE_FONTS_TO_INSTALL[@]} -gt 0 ]]; then
     echo "--- Installing Google Fonts ---"
      for font_name in "${GOOGLE_FONTS_TO_INSTALL[@]}"; do
         echo "Processing Google Font: ${font_name}"
-        # Sanitize font name for directory creation (replace spaces with underscores)
         safe_dir_name=$(echo "${font_name}" | tr ' ' '_')
         target_dir="/usr/share/fonts/google-fonts/${safe_dir_name}"
 
-        # URL Encode the font name for the query parameter
         encoded_name=$(url_encode "${font_name}")
         download_url="${GOOGLEFONTS_DOWNLOAD_URL}${encoded_name}"
 
         echo "INFO: Downloading ${font_name} from ${download_url}"
-        # Google download URL can sometimes fail, use --fail
         if curl -L -o "${font_name}.zip" --fail "${download_url}"; then
              echo "INFO: Extracting ${font_name}"
-             # Create target dir only after successful download
              mkdir -p "${target_dir}"
-             # Google Fonts zips usually contain TTFs, often directly or in static/ subdir
              if unzip -q "${font_name}.zip" -d "${font_name}_extracted"; then
-                # Find TTFs (most common format from Google Fonts download)
                 find "${font_name}_extracted" -name '*.ttf' -print0 | xargs -0 -I {} mv {} "${target_dir}/" || echo "WARN: No TTF files found or moved for Google Font ${font_name}." >&2
              else
                 echo "WARN: Failed to extract ${font_name}.zip." >&2
@@ -166,11 +136,8 @@ else
 fi
 
 
-# --- Final Font Cache Update ---
 echo "Updating font cache..."
 fc-cache -fsv
-
-# Trap handles cleanup on EXIT
 
 echo "Font installation script finished."
 
