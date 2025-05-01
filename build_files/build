@@ -54,7 +54,6 @@ dnf5 install -y \
   jq \
   starship \
   flatpak-spawn \
-  pipewire-libs-extra \
   alsa-firmware \
   ffmpegthumbnailer \
   webapp-manager \
