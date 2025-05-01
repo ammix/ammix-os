@@ -48,6 +48,12 @@ dnf5 install -y \
   jq \
   starship \
   webapp-manager \
+  distrobox \
+  wireguard-tools \
+  openssl \
+  pam-u2f \
+  pamu2fcfg \
+  wl-clipboard \
   scx-scheds \
   syncthing \
   stow \
