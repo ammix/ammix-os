@@ -13,11 +13,22 @@ if ! rpm -q dnf5 >/dev/null; then
     rpm-ostree install dnf5 dnf5-plugins
 fi
 
+# RPM Fusion
+dnf5 -y install https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
+dnf5 -y config-manager setopt fedora-cisco-openh264.enabled=1
+dnf5 -y install rpmfusion-\*-appstream-data
+
 # Install packages
 dnf5 copr enable -y atim/starship
 dnf5 copr enable -y kylegospo/webapp-manager
 dnf5 copr enable -y bieszczaders/kernel-cachyos-addons
 dnf5 copr enable -y che/nerd-fonts
+
+dnf5 -y swap ffmpeg-free ffmpeg --allowerasing
+dnf5 -y update @multimedia --setopt="install_weak_deps=False" --exclude=PackageKit-gstreamer-plugin
+dnf5 -y swap mesa-va-drivers mesa-va-drivers-freeworld
+dnf5 -y install rpmfusion-nonfree-release-tainted
+dnf5 -y --repo=rpmfusion-nonfree-tainted install "*-firmware"
 
 dnf5 install -y \
   starship \
@@ -41,6 +52,8 @@ dnf5 install -y \
   rsms-inter-fonts \
   mozilla-fira-sans-fonts
 
+/ctx/github-release-install sigstore/cosign x86_64
+
 # Uninstall Packages
 dnf5 remove -y \
   firefox \
@@ -60,6 +73,13 @@ fc-cache -f -v
 # Systemd
 systemctl enable syncthing@maxim.service
 systemctl enable scx_loader.service
+systemctl enable rpm-ostreed-automatic.timer
+systemctl enable flatpak-system-update.timer
+systemctl --global enable flatpak-user-update.timer
+
+# Make sure /var/tmp is properly created
+mkdir -p /var/tmp
+chmod -R 1777 /var/tmp
 
 # Plymouth
 plymouth-set-default-theme catppuccin-mocha

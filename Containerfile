@@ -1,25 +1,13 @@
 # Vars
-ARG BASE_IMAGE=cosmic-atomic-main
+ARG BASE_IMAGE=quay.io/fedora-ostree-desktops/cosmic-atomic
 ARG FEDORA_VERSION=42
 
 FROM scratch AS ctx
 COPY build_files /
 COPY files /files/
 
-# Stage for akmods RPMs
-FROM ghcr.io/ublue-os/akmods:main-${FEDORA_VERSION} AS akmods
-
 # Base Image
-FROM ghcr.io/ublue-os/${BASE_IMAGE}:${FEDORA_VERSION}
-
-# Install akmods
-RUN --mount=type=cache,dst=/var/cache \
-    --mount=type=cache,dst=/var/log \
-    --mount=type=bind,from=akmods,src=/rpms,dst=/tmp/akmods-rpms \
-    --mount=type=bind,from=ctx,source=/,target=/ctx \
-    --mount=type=tmpfs,dst=/tmp \
-    /ctx/akmods && \
-    /ctx/cleanup
+FROM ${BASE_IMAGE}:${FEDORA_VERSION}
 
 # Install packages and finalize build
 RUN --mount=type=bind,from=ctx,source=/,target=/ctx \
