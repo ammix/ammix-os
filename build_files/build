@@ -14,7 +14,9 @@ if ! rpm -q dnf5 >/dev/null; then
 fi
 
 # RPM Fusion
-dnf5 -y install https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
+dnf5 -y install \
+  https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm \
+  https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
 dnf5 -y config-manager setopt fedora-cisco-openh264.enabled=1
 dnf5 -y install rpmfusion-\*-appstream-data
 
@@ -22,17 +24,26 @@ dnf5 -y install rpmfusion-\*-appstream-data
 dnf5 copr enable -y atim/starship
 dnf5 copr enable -y kylegospo/webapp-manager
 dnf5 copr enable -y bieszczaders/kernel-cachyos-addons
-dnf5 copr enable -y che/nerd-fonts
 
 dnf5 -y swap ffmpeg-free ffmpeg --allowerasing
-dnf5 -y update @multimedia --setopt="install_weak_deps=False" --exclude=PackageKit-gstreamer-plugin
+dnf5 -y install \
+  gstreamer1-plugins-bad-freeworld \
+  gstreamer1-plugins-ugly \
+  gstreamer1-libav \
+  lame\* \
+  --setopt="install_weak_deps=False" --exclude=PackageKit-gstreamer-plugin
+
+# Mesa
 dnf5 -y swap mesa-va-drivers mesa-va-drivers-freeworld
+dnf5 -y swap mesa-va-drivers mesa-va-drivers-freeworld
+
+# Firmware
 dnf5 -y install rpmfusion-nonfree-release-tainted
 dnf5 -y --repo=rpmfusion-nonfree-tainted install "*-firmware"
 
+# Packages
 dnf5 install -y \
   starship \
-  nerd-fonts \
   webapp-manager \
   scx-scheds \
   syncthing \
@@ -63,7 +74,6 @@ dnf5 remove -y \
 dnf5 -y copr disable atim/starship
 dnf5 -y copr disable kylegospo/webapp-manager
 dnf5 -y copr disable bieszczaders/kernel-cachyos-addons
-dnf5 -y copr disable che/nerd-fonts
 
 dnf5 clean packages
 
