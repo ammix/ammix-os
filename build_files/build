@@ -78,7 +78,8 @@ dnf5 -y copr disable bieszczaders/kernel-cachyos-addons
 dnf5 clean packages
 
 # Fonts
-fc-cache -f -v
+/ctx/fonts
+# fc-cache -f -v
 
 # Systemd
 systemctl enable syncthing@maxim.service
