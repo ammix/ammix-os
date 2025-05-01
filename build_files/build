@@ -6,7 +6,7 @@ set -ouex pipefail
 rsync -rv /ctx/files/. /
 
 # Make root's home
-# mkdir -p /var/roothome
+mkdir -p /var/roothome
 
 # Install dnf5 if not installed
 if ! rpm -q dnf5 >/dev/null; then
@@ -35,14 +35,17 @@ dnf5 -y install \
 
 # Mesa
 dnf5 -y swap mesa-va-drivers mesa-va-drivers-freeworld
-dnf5 -y swap mesa-vulkan-drivers mesa-vulkan-drivers-freeworld
+# dnf5 -y swap mesa-vulkan-drivers mesa-vulkan-drivers-freeworld
 
 # Firmware
 dnf5 -y install rpmfusion-nonfree-release-tainted
-dnf5 -y --repo=rpmfusion-nonfree-tainted install "*-firmware"
+dnf5 -y --repo=rpmfusion-nonfree-tainted install --skip-broken "*-firmware"
 
 # Packages
 dnf5 install -y \
+  fedora-repos-archive \
+  zstd \
+  jq \
   starship \
   webapp-manager \
   scx-scheds \
@@ -69,7 +72,6 @@ dnf5 install -y \
 dnf5 remove -y \
   firefox \
   firefox-langpacks \
-  power-profiles-daemon
 
 dnf5 -y copr disable atim/starship
 dnf5 -y copr disable kylegospo/webapp-manager
@@ -84,7 +86,7 @@ dnf5 clean packages
 # Systemd
 systemctl enable syncthing@maxim.service
 systemctl enable scx_loader.service
-systemctl enable rpm-ostreed-automatic.timer
+systemctl disable rpm-ostreed-automatic.timer
 
 # Make sure /var/tmp is properly created
 mkdir -p /var/tmp
