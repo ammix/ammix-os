@@ -35,7 +35,7 @@ dnf5 -y install \
 
 # Mesa
 dnf5 -y swap mesa-va-drivers mesa-va-drivers-freeworld
-dnf5 -y swap mesa-va-drivers mesa-va-drivers-freeworld
+dnf5 -y swap mesa-vulkan-drivers mesa-vulkan-drivers-freeworld
 
 # Firmware
 dnf5 -y install rpmfusion-nonfree-release-tainted
