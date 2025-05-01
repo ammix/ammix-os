@@ -53,6 +53,10 @@ dnf5 install -y \
   zstd \
   jq \
   starship \
+  flatpak-spawn \
+  pipewire-libs-extra \
+  alsa-firmware \
+  ffmpegthumbnailer \
   webapp-manager \
   distrobox \
   wireguard-tools \
