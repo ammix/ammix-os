@@ -3,6 +3,7 @@
 set -ouex pipefail
 
 # Copy files
+ mkdir -p /etc/pki/containers
 rsync -rv /ctx/files/. /
 
 # Make root's home
@@ -81,8 +82,6 @@ dnf5 install -y \
   rsms-inter-fonts \
   mozilla-fira-sans-fonts
 
-/ctx/github-release-install sigstore/cosign x86_64
-
 # Uninstall Packages
 dnf5 remove -y \
   firefox \
@@ -97,6 +96,10 @@ dnf5 clean packages
 # Fonts
 /ctx/fonts
 # fc-cache -f -v
+
+# Replace policy
+mv /usr/etc/containers/policy.json /etc/containers/policy.json
+cp /usr/etc/pki/containers/ammix-os.pub /etc/pki/containers/ammix-os.pub
 
 # Systemd
 systemctl enable syncthing@maxim.service

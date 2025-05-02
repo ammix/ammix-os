@@ -1,0 +1,36 @@
+{
+  "default": [
+    {
+      "type": "reject"
+    }
+  ],
+  "transports": {
+    "docker": {
+      "ghcr.io/ammix/ammix-os": [
+        {
+          "type": "sigstoreSigned",
+          "keyPath": "/etc/pki/containers/ammix-os.pub"
+        }
+      ],
+      "ghcr.io/ublue-os": [
+        {
+          "type": "sigstoreSigned",
+          "keyPath": "/usr/share/ublue-os/cosign.pub"
+        }
+      ],
+      "ghcr.io/blue-build": [
+        {
+          "type": "sigstoreSigned",
+          "keyPath": "/usr/share/ublue-os/cosign.pub"
+        }
+      ]
+    },
+    "docker-daemon": {
+      "": [
+        {
+          "type": "insecureAcceptAnything"
+        }
+      ]
+    }
+  }
+}
