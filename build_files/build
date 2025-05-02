@@ -97,8 +97,8 @@ dnf5 clean packages
 /ctx/fonts
 
 # Replace policy
-mv /usr/etc/containers/policy.json /etc/containers/policy.json
-cp /usr/etc/pki/containers/ammix-os.pub /etc/pki/containers/ammix-os.pub
+# mv /usr/etc/containers/policy.json /etc/containers/policy.json
+# cp /usr/etc/pki/containers/ammix-os.pub /etc/pki/containers/ammix-os.pub
 
 # Systemd
 systemctl enable syncthing@maxim.service
