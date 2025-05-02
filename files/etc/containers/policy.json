@@ -9,7 +9,7 @@
       "ghcr.io/ammix/ammix-os": [
         {
           "type": "sigstoreSigned",
-          "keyPath": "/etc/pki/containers/ammix-os.pub"
+          "keyPath": "/etc/pki/containers/cosign.pub"
         }
       ],
       "ghcr.io/ublue-os": [
