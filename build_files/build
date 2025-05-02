@@ -95,7 +95,6 @@ dnf5 clean packages
 
 # Fonts
 /ctx/fonts
-# fc-cache -f -v
 
 # Replace policy
 mv /usr/etc/containers/policy.json /etc/containers/policy.json
