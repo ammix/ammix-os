@@ -3,7 +3,6 @@
 set -ouex pipefail
 
 # Copy files
- mkdir -p /etc/pki/containers
 rsync -rv /ctx/files/. /
 
 # Make root's home
@@ -81,6 +80,10 @@ dnf5 install -y \
   google-roboto-fonts \
   rsms-inter-fonts \
   mozilla-fira-sans-fonts
+
+
+# Cosign
+/ctx/github-release-install sigstore/cosign x86_64
 
 # Uninstall Packages
 dnf5 remove -y \
