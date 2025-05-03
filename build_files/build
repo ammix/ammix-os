@@ -53,7 +53,8 @@ dnf5 install -y \
   zstd \
   jq \
   starship \
-  default-fonts-cjk \
+  heif-pixbuf-loader \
+  libheif \
   mpv \
   flatpak-spawn \
   alsa-firmware \
@@ -64,6 +65,8 @@ dnf5 install -y \
   openssl \
   pam-u2f \
   pamu2fcfg \
+  pam_yubico \
+  smartmontools \
   wl-clipboard \
   scx-scheds \
   syncthing \
@@ -79,6 +82,10 @@ dnf5 install -y \
   zathura-fish-completion \
   zathura-plugins-all \
   wqy-zenhei-fonts \
+  google-noto-sans-balinese-fonts \
+  google-noto-sans-cjk-fonts \
+  google-noto-sans-javanese-fonts \
+  google-noto-sans-sundanese-fonts \
   google-roboto-fonts \
   rsms-inter-fonts \
   mozilla-fira-sans-fonts
