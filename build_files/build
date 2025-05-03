@@ -53,7 +53,7 @@ dnf5 install -y \
   zstd \
   jq \
   starship \
-  google-noto-fonts \
+  default-fonts-cjk \
   mpv \
   flatpak-spawn \
   alsa-firmware \
