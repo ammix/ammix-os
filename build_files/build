@@ -117,6 +117,9 @@ systemctl enable syncthing@maxim.service
 systemctl enable scx_loader.service
 systemctl disable rpm-ostreed-automatic.timer
 
+# gsettings
+gsettings set org.gnome.desktop.interface cursor-theme "'Bibata-Modern-Ice'"
+
 # Make sure /var/tmp is properly created
 mkdir -p /var/tmp
 chmod -R 1777 /var/tmp
