@@ -108,17 +108,13 @@ dnf5 clean packages
 # Fonts
 /ctx/fonts
 
-# Replace policy
-# mv /usr/etc/containers/policy.json /etc/containers/policy.json
-# cp /usr/etc/pki/containers/ammix-os.pub /etc/pki/containers/ammix-os.pub
+# gsettings
+glib-compile-schemas /usr/share/glib-2.0/schemas/
 
 # Systemd
 systemctl enable syncthing@maxim.service
 systemctl enable scx_loader.service
 systemctl disable rpm-ostreed-automatic.timer
-
-# gsettings
-gsettings set org.gnome.desktop.interface cursor-theme "'Bibata-Modern-Ice'"
 
 # Make sure /var/tmp is properly created
 mkdir -p /var/tmp
