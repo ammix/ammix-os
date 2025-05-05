@@ -1,4 +1,3 @@
-# Force PATH to be environment
 export PATH
 
 # Load profiles from /etc/profile.d
