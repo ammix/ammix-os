@@ -20,3 +20,14 @@ unset MANPATH
 export EDITOR=hx
 export MANPAGER='nvim +Man!'
 export MAKEFLAGS="--jobs=$(nproc)"
+
+export RADV_PERFTEST=video_decode,video_encode
+
+export OZONE_PLATFORM=wayland
+export ELECTRON_OZONE_PLATFORM_HINT=auto
+export CLUTTER_BACKEND=wayland
+export MOZ_ENABLE_WAYLAND=1
+
+export XCURSOR_SIZE=24
+export XCURSOR_THEME=Bibata-Modern-Ice
+

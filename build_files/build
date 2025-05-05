@@ -3,7 +3,7 @@
 set -ouex pipefail
 
 # Copy files
-rsync -rv /ctx/files/. /
+rsync -rvlK /ctx/files/. /
 
 # Make root's home
 mkdir -p /var/roothome
