@@ -114,7 +114,7 @@ glib-compile-schemas /usr/share/glib-2.0/schemas/
 # Systemd
 systemctl enable syncthing@maxim.service
 systemctl enable scx_loader.service
-systemctl disable rpm-ostreed-automatic.timer
+systemctl enable rpm-ostreed-automatic.timer
 
 # Make sure /var/tmp is properly created
 mkdir -p /var/tmp
