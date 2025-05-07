@@ -54,6 +54,7 @@ dnf5 install -y \
   pam-u2f \
   pamu2fcfg \
   pam_yubico \
+  fido2-tools \
   smartmontools \
   wl-clipboard \
   scx-scheds \
