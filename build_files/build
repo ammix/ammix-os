@@ -63,7 +63,6 @@ dnf5 install -y \
   ugrep \
   fastfetch \
   kitty \
-  steam \
   steam-devices \
   gamemode \
   gum \
