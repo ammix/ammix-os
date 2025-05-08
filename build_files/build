@@ -41,6 +41,7 @@ dnf5 install -y \
   zstd \
   jq \
   starship \
+  nitrokey-app \
   heif-pixbuf-loader \
   libheif \
   mpv \
