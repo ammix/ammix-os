@@ -66,6 +66,7 @@ dnf5 install -y \
   fastfetch \
   kitty \
   steam-devices \
+  gamescope \
   gamemode \
   gum \
   zathura \
