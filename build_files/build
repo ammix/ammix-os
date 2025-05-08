@@ -26,11 +26,6 @@ dnf5 -y install \
 dnf5 -y config-manager setopt fedora-cisco-openh264.enabled=1
 dnf5 -y install rpmfusion-\*-appstream-data
 
-# Vivaldi
-curl -O https://repo.vivaldi.com/stable/vivaldi-fedora.repo
-dnf5 config-manager addrepo --from-repofile=vivaldi-fedora.repo
-rm vivaldi-fedora.repo
-
 ## Install packages
 dnf5 copr enable -y atim/starship
 dnf5 copr enable -y kylegospo/webapp-manager
@@ -47,7 +42,6 @@ dnf5 install -y \
   jq \
   starship \
   heif-pixbuf-loader \
-  vivaldi-stable \
   libheif \
   mpv \
   flatpak-spawn \
