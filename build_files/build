@@ -45,7 +45,6 @@ dnf5 install -y \
   usbutils \
   libXScrnSaver \
   GConf2 \
-  vivaldi-stable \
   jq \
   starship \
   nitrokey-app \
@@ -86,6 +85,8 @@ dnf5 install -y \
   google-roboto-fonts \
   rsms-inter-fonts \
   mozilla-fira-sans-fonts
+
+rpm-ostree install -y vivaldi-stable
 
 # Mesa
 dnf5 -y swap mesa-va-drivers mesa-va-drivers-freeworld
