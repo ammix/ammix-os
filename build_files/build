@@ -18,10 +18,6 @@ fi
 dnf5 -y swap --repo='fedora' \
     OpenCL-ICD-Loader ocl-icd
 
-# Vivaldi
-rpm --import https://repo.vivaldi.com/archive/linux_signing_key.pub
-dnf5 -y config-manager addrepo --from-repofile=https://repo.vivaldi.com/stable/vivaldi-fedora.repo
-
 # RPM Fusion
 dnf5 -y install \
   https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm \
@@ -86,7 +82,7 @@ dnf5 install -y \
   rsms-inter-fonts \
   mozilla-fira-sans-fonts
 
-rpm-ostree install -y vivaldi-stable
+rpm-ostree install -y https://downloads.vivaldi.com/stable/vivaldi-stable-x86_64.rpm
 
 # Mesa
 dnf5 -y swap mesa-va-drivers mesa-va-drivers-freeworld
