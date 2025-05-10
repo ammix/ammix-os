@@ -82,8 +82,6 @@ dnf5 install -y \
   rsms-inter-fonts \
   mozilla-fira-sans-fonts
 
-rpm-ostree install -y https://downloads.vivaldi.com/stable/vivaldi-stable-x86_64.rpm
-
 # Mesa
 dnf5 -y swap mesa-va-drivers mesa-va-drivers-freeworld
 dnf5 -y swap mesa-vulkan-drivers mesa-vulkan-drivers-freeworld
