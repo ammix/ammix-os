@@ -31,9 +31,6 @@ dnf5 copr enable -y atim/starship
 dnf5 copr enable -y kylegospo/webapp-manager
 dnf5 copr enable -y bieszczaders/kernel-cachyos-addons
 
-# Vivaldi
-dnf5 -y config-manager addrepo --from-repofile=https://repo.vivaldi.com/archive/vivaldi-fedora.repo
-
 # Firmware
 dnf5 -y install rpmfusion-nonfree-release-tainted
 dnf5 -y --repo=rpmfusion-nonfree-tainted install --skip-broken "*-firmware"
@@ -45,7 +42,6 @@ dnf5 install -y \
   jq \
   starship \
   nitrokey-app \
-  vivaldi-stable \
   heif-pixbuf-loader \
   libheif \
   mpv \
@@ -84,6 +80,7 @@ dnf5 install -y \
   rsms-inter-fonts \
   mozilla-fira-sans-fonts
 
+dnf5 -y install https://vivaldi.com/download/vivaldi-stable.x86_64.rpm
 
 # Mesa
 dnf5 -y swap mesa-va-drivers mesa-va-drivers-freeworld
