@@ -18,6 +18,9 @@ fi
 dnf5 -y swap --repo='fedora' \
     OpenCL-ICD-Loader ocl-icd
 
+# Vivaldi
+rpm --import https://repo.vivaldi.com/archive/linux_signing_key.pub
+dnf5 -y config-manager add-repo --from-repofile=https://repo.vivaldi.com/stable/vivaldi-fedora.repo
 
 # RPM Fusion
 dnf5 -y install \
@@ -39,6 +42,10 @@ dnf5 -y --repo=rpmfusion-nonfree-tainted install --skip-broken "*-firmware"
 dnf5 install -y \
   fedora-repos-archive \
   zstd \
+  usbutils \
+  libXScrnSaver \
+  GConf2 \
+  vivaldi-stable \
   jq \
   starship \
   nitrokey-app \
