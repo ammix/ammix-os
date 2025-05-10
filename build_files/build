@@ -20,7 +20,7 @@ dnf5 -y swap --repo='fedora' \
 
 # Vivaldi
 rpm --import https://repo.vivaldi.com/archive/linux_signing_key.pub
-dnf5 -y config-manager add-repo --from-repofile=https://repo.vivaldi.com/stable/vivaldi-fedora.repo
+dnf5 -y config-manager addrepo --from-repofile=https://repo.vivaldi.com/stable/vivaldi-fedora.repo
 
 # RPM Fusion
 dnf5 -y install \
