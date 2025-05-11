@@ -8,18 +8,23 @@ rsync -rvlK /ctx/files/. /
 # Make root's home
 mkdir -p /var/roothome
 
-
-# Vivaldi
-dnf5 -y config-manager addrepo --from-repofile=https://repo.vivaldi.com/archive/vivaldi-fedora.repo
-rpm --import https://repo.vivaldi.com/archive/linux_signing_key.pub
-rpm-ostree install vivaldi-stable
-
 # Install dnf5 if not installed
 if ! rpm -q dnf5 >/dev/null; then
     rpm-ostree install dnf5 dnf5-plugins
 fi
 
 dnf5 -y install dnf-plugins-core
+
+# Vivaldi
+VIVALDI_REPO_URL="https://repo.vivaldi.com/archive/vivaldi-fedora.repo"
+VIVALDI_REPO_FILE="/etc/yum.repos.d/vivaldi-fedora.repo"
+VIVALDI_GPG_KEY_URL="https://repo.vivaldi.com/archive/linux_signing_key.pub"
+
+mkdir -p "$(dirname "$VIVALDI_REPO_FILE")"
+curl -fsSL -o "$VIVALDI_REPO_FILE" "$VIVALDI_REPO_URL"
+rpm --import "$VIVALDI_GPG_KEY_URL"
+
+rpm-ostree install --verbose --idempotent vivaldi-stable
 
 # mitigate upstream packaging bug: https://bugzilla.redhat.com/show_bug.cgi?id=2332429
 # swap the incorrectly installed OpenCL-ICD-Loader for ocl-icd, the expected package
