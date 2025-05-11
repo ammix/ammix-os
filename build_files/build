@@ -13,6 +13,8 @@ if ! rpm -q dnf5 >/dev/null; then
     rpm-ostree install dnf5 dnf5-plugins
 fi
 
+dnf5 -y install dnf-plugins-core
+
 # mitigate upstream packaging bug: https://bugzilla.redhat.com/show_bug.cgi?id=2332429
 # swap the incorrectly installed OpenCL-ICD-Loader for ocl-icd, the expected package
 dnf5 -y swap --repo='fedora' \
@@ -30,6 +32,9 @@ dnf5 copr enable -y atim/starship
 dnf5 copr enable -y kylegospo/webapp-manager
 dnf5 copr enable -y bieszczaders/kernel-cachyos-addons
 
+dnf5 config-manager addrepo --from-repofile=https://repo.vivaldi.com/archive/vivaldi-fedora.repo
+rpm --import https://repo.vivaldi.com/archive/linux_signing_key.pub
+
 # Firmware
 dnf5 -y install rpmfusion-nonfree-release-tainted
 dnf5 -y --repo=rpmfusion-nonfree-tainted install --skip-broken "*-firmware"
@@ -38,6 +43,8 @@ dnf5 -y --repo=rpmfusion-nonfree-tainted install --skip-broken "*-firmware"
 dnf5 install -y \
   fedora-repos-archive \
   zstd \
+  wget \
+  curl \
   usbutils \
   jq \
   starship \
@@ -106,6 +113,8 @@ dnf5 -y copr disable kylegospo/webapp-manager
 dnf5 -y copr disable bieszczaders/kernel-cachyos-addons
 
 dnf5 clean packages
+
+rpm-ostree install vivaldi-stable
 
 # Fonts
 /ctx/fonts
