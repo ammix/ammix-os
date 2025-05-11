@@ -39,8 +39,6 @@ dnf5 install -y \
   fedora-repos-archive \
   zstd \
   usbutils \
-  libXScrnSaver \
-  GConf2 \
   jq \
   starship \
   nitrokey-app \
