@@ -13,17 +13,6 @@ if ! rpm -q dnf5 >/dev/null; then
     rpm-ostree install dnf5 dnf5-plugins
 fi
 
-# Vivaldi
-VIVALDI_REPO_URL="https://repo.vivaldi.com/archive/vivaldi-fedora.repo"
-VIVALDI_REPO_FILE="/etc/yum.repos.d/vivaldi-fedora.repo"
-VIVALDI_GPG_KEY_URL="https://repo.vivaldi.com/archive/linux_signing_key.pub"
-
-mkdir -p "$(dirname "$VIVALDI_REPO_FILE")"
-curl -fsSL -o "$VIVALDI_REPO_FILE" "$VIVALDI_REPO_URL"
-rpm --import "$VIVALDI_GPG_KEY_URL"
-
-rpm-ostree install --idempotent vivaldi-stable
-
 dnf5 -y install dnf-plugins-core
 
 # mitigate upstream packaging bug: https://bugzilla.redhat.com/show_bug.cgi?id=2332429
