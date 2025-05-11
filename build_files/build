@@ -74,6 +74,7 @@ dnf5 install -y \
   kitty \
   steam-devices \
   gamemode \
+  vivaldi-stable \
   gum \
   zathura \
   zathura-fish-completion \
@@ -99,7 +100,6 @@ dnf5 -y install \
   lame\* \
   --setopt="install_weak_deps=False" --exclude=PackageKit-gstreamer-plugin
 
-
 # Cosign
 /ctx/github-release-install sigstore/cosign x86_64
 
@@ -114,7 +114,6 @@ dnf5 -y copr disable bieszczaders/kernel-cachyos-addons
 
 dnf5 clean packages
 
-rpm-ostree install vivaldi-stable
 
 # Fonts
 /ctx/fonts
