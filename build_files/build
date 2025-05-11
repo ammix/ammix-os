@@ -8,6 +8,12 @@ rsync -rvlK /ctx/files/. /
 # Make root's home
 mkdir -p /var/roothome
 
+
+# Vivaldi
+dnf5 -y config-manager addrepo --from-repofile=https://repo.vivaldi.com/archive/vivaldi-fedora.repo
+rpm --import https://repo.vivaldi.com/archive/linux_signing_key.pub
+rpm-ostree install vivaldi-stable
+
 # Install dnf5 if not installed
 if ! rpm -q dnf5 >/dev/null; then
     rpm-ostree install dnf5 dnf5-plugins
@@ -32,8 +38,6 @@ dnf5 copr enable -y atim/starship
 dnf5 copr enable -y kylegospo/webapp-manager
 dnf5 copr enable -y bieszczaders/kernel-cachyos-addons
 
-dnf5 config-manager addrepo --from-repofile=https://repo.vivaldi.com/archive/vivaldi-fedora.repo
-rpm --import https://repo.vivaldi.com/archive/linux_signing_key.pub
 
 # Firmware
 dnf5 -y install rpmfusion-nonfree-release-tainted
@@ -74,7 +78,6 @@ dnf5 install -y \
   kitty \
   steam-devices \
   gamemode \
-  vivaldi-stable \
   gum \
   zathura \
   zathura-fish-completion \
