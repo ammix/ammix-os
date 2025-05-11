@@ -24,7 +24,7 @@ mkdir -p "$(dirname "$VIVALDI_REPO_FILE")"
 curl -fsSL -o "$VIVALDI_REPO_FILE" "$VIVALDI_REPO_URL"
 rpm --import "$VIVALDI_GPG_KEY_URL"
 
-rpm-ostree install --verbose --idempotent vivaldi-stable
+rpm-ostree install --idempotent vivaldi-stable
 
 # mitigate upstream packaging bug: https://bugzilla.redhat.com/show_bug.cgi?id=2332429
 # swap the incorrectly installed OpenCL-ICD-Loader for ocl-icd, the expected package
