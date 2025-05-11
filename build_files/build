@@ -43,7 +43,6 @@ dnf5 install -y \
   wget \
   curl \
   usbutils \
-  liberation-fonts-all \
   jq \
   starship \
   nitrokey-app \
@@ -83,6 +82,7 @@ dnf5 install -y \
   google-noto-sans-sundanese-fonts \
   google-roboto-fonts \
   rsms-inter-fonts \
+  liberation-fonts-all \
   mozilla-fira-sans-fonts
 
 # Mesa
@@ -110,8 +110,6 @@ dnf5 -y copr disable kylegospo/webapp-manager
 dnf5 -y copr disable bieszczaders/kernel-cachyos-addons
 
 dnf5 clean packages
-
-rpm-ostree install -y --allow-inactive --idempotent --enablerepo=vivaldi vivaldi-stable
 
 # Fonts
 /ctx/fonts
