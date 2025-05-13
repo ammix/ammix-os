@@ -41,9 +41,13 @@ dnf5 install -y \
   fedora-repos-archive \
   zstd \
   wget \
+  libFAudio \
   curl \
   usbutils \
   jq \
+  podman-docker \
+  podman \
+  docker-compose \
   starship \
   nitrokey-app \
   heif-pixbuf-loader \
