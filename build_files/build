@@ -43,7 +43,6 @@ dnf5 install -y \
   wget \
   curl \
   usbutils \
-  corectrl \
   jq \
   starship \
   nitrokey-app \
