@@ -13,29 +13,48 @@ if ! rpm -q dnf5 >/dev/null; then
     rpm-ostree install dnf5 dnf5-plugins
 fi
 
+# Fix /opt directory for applications that install there (Vivaldi, Filen)
+# In ostree/bootc systems, applications install to /usr/lib/opt but need to be
+# symlinked to /var/opt so they appear in /opt (which is a symlink to /var/opt)
+echo "Setting up /opt directory structure..."
+mkdir -p /var/opt
+mkdir -p /usr/lib/opt
+
+# Create symlink from /opt to /var/opt if it doesn't exist
+if [[ ! -L /opt ]]; then
+    rm -rf /opt
+    ln -s /var/opt /opt
+fi
+
 # mitigate upstream packaging bug: https://bugzilla.redhat.com/show_bug.cgi?id=2332429
 # swap the incorrectly installed OpenCL-ICD-Loader for ocl-icd, the expected package
 dnf5 -y swap --repo='fedora' \
     OpenCL-ICD-Loader ocl-icd
 
 # RPM Fusion
+echo "Installing RPM Fusion repositories..."
 dnf5 -y install \
   https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm \
   https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
 dnf5 -y config-manager setopt fedora-cisco-openh264.enabled=1
 dnf5 -y install rpmfusion-\*-appstream-data
+
+# Add Vivaldi repo
+echo "Adding Vivaldi repository..."
 dnf5 -y config-manager addrepo --from-repofile=https://repo.vivaldi.com/archive/vivaldi-fedora.repo
 
-## Install packages
+# Add COPR repos
+echo "Enabling COPR repositories..."
 dnf5 copr enable -y bieszczaders/kernel-cachyos-addons
+dnf5 copr enable -y ilyaz/LACT
 
-
+# Install Terra
+echo "Installing Terra repositories..."
 dnf5 -y install rpmfusion-nonfree-release-tainted
 dnf5 -y install terra-release terra-release-extras
 
-
+# Configure repository priorities
 echo "Setting repository configurations..."
-
 dnf5 -y config-manager setopt "*terra*".priority=1
 dnf5 -y config-manager setopt "terra-mesa".enabled=true
 dnf5 -y config-manager setopt "terra-nvidia".enabled=false
@@ -47,13 +66,15 @@ dnf5 makecache
 echo "Successfully configured repositories."
 
 # Firmware
+echo "Installing firmware packages..."
 dnf5 -y --repo=rpmfusion-nonfree-tainted install --skip-broken "*-firmware"
 
-# Packages
-dnf5 install -y \
-  fedora-repos-archive \
-
+# Swap ffmpeg-free for full ffmpeg
+echo "Swapping ffmpeg-free for full ffmpeg..."
 dnf5 -y swap ffmpeg-free ffmpeg --allowerasing
+
+# Install multimedia codecs
+echo "Installing multimedia codecs..."
 dnf5 -y install \
   gstreamer1-plugins-bad-freeworld \
   gstreamer1-plugins-ugly \
@@ -61,23 +82,112 @@ dnf5 -y install \
   lame\* \
   --setopt="install_weak_deps=False" --exclude=PackageKit-gstreamer-plugin
 
-# Cosign
+# Install fedora-repos-archive
+dnf5 install -y fedora-repos-archive
+
+# Source package lists
+echo "Loading package lists..."
+source /ctx/packages.list
+
+# Install packages by category
+echo "Installing system packages..."
+dnf5 install -y "${SYSTEM_PACKAGES[@]}"
+
+echo "Installing firmware packages..."
+dnf5 install -y "${FIRMWARE_PACKAGES[@]}"
+
+echo "Installing development packages..."
+dnf5 install -y "${DEVEL_PACKAGES[@]}"
+
+echo "Installing container & virtualization packages..."
+dnf5 install -y "${CONTAINER_PACKAGES[@]}"
+
+echo "Installing media & graphics packages..."
+dnf5 install -y "${MEDIA_PACKAGES[@]}"
+
+echo "Installing terminal & browser packages..."
+dnf5 install -y "${TERMINAL_BROWSER_PACKAGES[@]}"
+
+echo "Installing desktop packages..."
+dnf5 install -y "${DESKTOP_PACKAGES[@]}"
+
+echo "Installing input method packages..."
+dnf5 install -y "${INPUT_PACKAGES[@]}"
+
+echo "Installing security packages..."
+dnf5 install -y "${SECURITY_PACKAGES[@]}"
+
+echo "Installing storage packages..."
+dnf5 install -y "${STORAGE_PACKAGES[@]}"
+
+echo "Installing font packages..."
+dnf5 install -y "${FONT_PACKAGES[@]}"
+
+echo "Installing packages from special repos..."
+dnf5 install -y "${CIDER_PACKAGES[@]}"
+dnf5 install -y "${LACT_PACKAGES[@]}"
+
+# Install external RPMs
+echo "Installing external RPMs..."
+for rpm_url in "${EXTERNAL_RPMS[@]}"; do
+    echo "Installing from: ${rpm_url}"
+    dnf5 install -y "${rpm_url}"
+done
+
+# Apply opt fix for applications that installed to /usr/lib/opt
+# This creates symlinks from /usr/lib/opt/* to /var/opt/* so they appear in /opt
+echo "Applying /opt directory fix for installed applications..."
+SOURCE_DIR="/usr/lib/opt"
+TARGET_DIR="/var/opt"
+
+if [ -d "$SOURCE_DIR" ]; then
+    for dir in "$SOURCE_DIR/"*/; do
+        if [ -d "$dir" ]; then
+            dir_name=$(basename "$dir")
+            
+            # Check if the symlink already exists in the target directory
+            if [ -L "$TARGET_DIR/$dir_name" ]; then
+                echo "Symlink already exists for $dir_name, skipping."
+                continue
+            fi
+            
+            # Create the symlink
+            ln -s "$dir" "$TARGET_DIR/$dir_name"
+            echo "Created symlink for $dir_name"
+        fi
+    done
+else
+    echo "No /usr/lib/opt directory found, skipping opt fix."
+fi
+
+# Install group packages
+echo "Installing package groups..."
+for group in "${DNF_GROUPS[@]}"; do
+    echo "Installing group: ${group}"
+    dnf5 group install -y --skip-unavailable "${group}"
+done
+
+# Install additional tools
+echo "Installing cosign..."
 /ctx/github-release-install sigstore/cosign x86_64
 
-# Uninstall Packages
-dnf5 remove -y \
-  firefox \
-  firefox-langpacks \
+# Remove unwanted packages
+echo "Removing unwanted packages..."
+dnf5 remove -y "${REMOVE_PACKAGES[@]}"
 
+# Clean up
 dnf5 clean packages
 
-# Fonts
+# Install fonts (custom script)
+echo "Installing custom fonts..."
 /ctx/fonts
 
-# gsettings
+# Compile gsettings schemas
+echo "Compiling gschema..."
 glib-compile-schemas /usr/share/glib-2.0/schemas/
 
-# Systemd
+# Enable systemd services
+echo "Enabling systemd services..."
 systemctl enable scx_loader.service
 systemctl enable libvirtd.service
 systemctl enable lactd.service
@@ -85,6 +195,8 @@ systemctl enable ammix-bootc-update.timer
 systemctl enable flatpak-update.timer
 systemctl enable podman.socket
 
+# Mask unwanted services
+echo "Masking systemd services..."
 systemctl mask grub-boot-success.timer
 systemctl mask systemd-remount-fs.service
 systemctl mask akmods-keygen@akmods-keygen.service
@@ -95,5 +207,6 @@ systemctl mask rpm-ostreed-automatic.timer
 mkdir -p /var/tmp
 chmod -R 1777 /var/tmp
 
-# Plymouth
+# Plymouth theme
+echo "Setting Plymouth theme..."
 plymouth-set-default-theme catppuccin-mocha

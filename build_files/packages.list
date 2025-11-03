@@ -1,0 +1,165 @@
+#!/usr/bin/bash
+# Package definitions organized by category
+# This file is sourced by the build script
+
+# System & CLI Tools
+SYSTEM_PACKAGES=(
+    fish
+    vim
+    sudo-rs
+    stow
+    just
+    luarocks
+    zstd
+    xz
+    flatpak-spawn
+    distrobox
+    wl-clipboard
+    wireguard-tools
+    openssl
+)
+
+# Hardware & Firmware
+# Note: Generic firmware is installed with: dnf5 -y --repo=rpmfusion-nonfree-tainted install --skip-broken "*-firmware"
+# These are additional specific firmware packages
+FIRMWARE_PACKAGES=(
+    steam-devices
+    alsa-firmware
+    realtek-firmware
+    broadcom-bt-firmware
+    intel-audio-firmware
+    amd-ucode-firmware
+    amd-gpu-firmware
+    mediatek-firmware
+    gnome-firmware
+)
+
+# Development Tools
+DEVEL_PACKAGES=(
+    akmods
+    kernel-devel
+    kernel-headers
+    elfutils-libelf-devel
+    bcc
+    bpftop
+    bpftrace
+    nicstat
+    numactl
+    tiptop
+    libgtop2-devel
+    sysprof
+    lm_sensors
+)
+
+# Containers & Virtualization
+CONTAINER_PACKAGES=(
+    VirtualBox
+    podman
+    podman-docker
+    podman-compose
+    podman-machine
+    podman-tui
+)
+
+# Media & Graphics
+MEDIA_PACKAGES=(
+    mpv
+    ffmpegthumbnailer
+    pipewire-plugin-libcamera
+    vulkan-tools
+    libva-utils
+    heif-pixbuf-loader
+    libheif
+    libheif-freeworld
+    gamemode
+    scx-scheds
+)
+
+# Terminals & Browsers
+TERMINAL_BROWSER_PACKAGES=(
+    ghostty
+    kitty
+    vivaldi-stable
+    qutebrowser
+)
+
+# Desktop & GNOME
+DESKTOP_PACKAGES=(
+    gnome-shell-extension-gsconnect
+    nautilus-python
+    nautilus-gsconnect
+    adw-gtk3-theme
+    gvfs-nfs
+    firewall-config
+)
+
+# Input Methods
+INPUT_PACKAGES=(
+    ibus-unikey
+    ibus-mozc
+)
+
+# Security & Authentication
+SECURITY_PACKAGES=(
+    pam-u2f
+    pamu2fcfg
+    pam_yubico
+    yubikey-manager
+    yubico-piv-tool
+    fido2-tools
+    pcsc-tools
+)
+
+# Storage & Backup
+STORAGE_PACKAGES=(
+    restic
+    rclone
+    smartmontools
+    usbutils
+    usbmuxd
+    ifuse
+)
+
+# Fonts
+FONT_PACKAGES=(
+    bibata-cursor-theme
+    google-noto-sans-fonts
+    google-noto-serif-fonts
+    google-noto-emoji-fonts
+    google-noto-sans-cjk-fonts
+    google-noto-serif-cjk-fonts
+    liberation-fonts
+    rsms-inter-fonts
+    fira-code-fonts
+    nerdfontssymbolsonly-nerd-fonts
+    wqy-zenhei-fonts
+)
+
+# External RPM URLs
+EXTERNAL_RPMS=(
+    "https://cdn.filen.io/@filen/desktop/release/latest/Filen_linux_x86_64.rpm"
+)
+
+# Packages from special repos
+CIDER_PACKAGES=(
+    Cider
+)
+
+LACT_PACKAGES=(
+    lact
+)
+
+# Group installs (using dnf5 group install syntax)
+DNF_GROUPS=(
+    "Multimedia"
+    "Virtualization"
+    "Development Tools"
+    "Development Libraries"
+    "C Development"
+)
+
+# Packages to remove
+REMOVE_PACKAGES=(
+    firefox
+    firefox-langpacks
+)
