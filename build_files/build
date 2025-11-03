@@ -39,7 +39,7 @@ dnf5 -y install \
 dnf5 -y config-manager setopt fedora-cisco-openh264.enabled=1
 dnf5 -y install rpmfusion-\*-appstream-data
 
-dnf install --nogpgcheck --repofrompath 'terra,https://repos.fyralabs.com/terra$releasever' terra-release
+dnf5 -y install --nogpgcheck --repofrompath 'terra,https://repos.fyralabs.com/terra$releasever' terra-release
 
 # Add Vivaldi repo
 echo "Adding Vivaldi repository..."
@@ -47,7 +47,6 @@ dnf5 -y config-manager addrepo --from-repofile=https://repo.vivaldi.com/archive/
 
 # Add COPR repos
 echo "Enabling COPR repositories..."
-dnf5 copr enable -y bieszczaders/kernel-cachyos-addons
 dnf5 copr enable -y ilyaz/LACT
 
 # Install Terra
