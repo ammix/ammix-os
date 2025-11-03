@@ -145,6 +145,7 @@ glib-compile-schemas /usr/share/glib-2.0/schemas/
 echo "Enabling systemd services..."
 systemctl enable scx_loader.service
 systemctl enable lactd.service
+systemctl enable libvirtd.service
 systemctl enable ammix-bootc-update.timer
 systemctl enable flatpak-update.timer
 systemctl enable podman.socket

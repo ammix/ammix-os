@@ -130,11 +130,11 @@ EXTERNAL_RPMS=(
 
 # DNF Group Installs
 DNF_GROUPS=(
-    "Multimedia"
-    "Virtualization"
-    "Development Tools"
-    "Development Libraries"
-    "C Development"
+    "multimedia"
+    "virtualization"
+    "development-tools"
+    "development-libs"
+    "c-development"
 )
 
 # Packages to Remove
