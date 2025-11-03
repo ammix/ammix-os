@@ -1,68 +1,32 @@
-# My Personal Cosmic Image
+# My Personal Image based on Silverblue
 
-# How to Use
-
-> [!WARNING]  
-> [This is an experimental feature](https://www.fedoraproject.org/wiki/Changes/OstreeNativeContainerStable), try at your own discretion.
+## Installation
 
 To rebase an existing atomic Fedora installation to the latest build:
 
-- First rebase to the unsigned image, to get the proper signing keys and policies installed:
+- First rebase to the unsigned image:
+
+  ```bash
+  sudo bootc switch ghcr.io/ammix/ammix-os:latest
   ```
-  rpm-ostree rebase ostree-unverified-registry:ghcr.io/ammix/ammix-os:latest
-  ```
+
 - Reboot to complete the rebase:
-  ```
+
+  ```bash
   systemctl reboot
   ```
+
 - Then rebase to the signed image, like so:
+
+  ```bash
+  sudo bootc switch --enforce-container-sigpolicy ghcr.io/ammix/ammix-os:latest
   ```
-  rpm-ostree rebase ostree-image-signed:docker://ghcr.io/ammix/ammix-os:latest
-  ```
+
 - Reboot again to complete the installation
-  ```
+
+  ```bash
   systemctl reboot
   ```
-
-## Building an ISO
-
-This template provides an out of the box workflow for getting an ISO image for your custom OCI image which can be used to directly install onto your machines.
-
-This template provides a way to upload the ISO that is generated from the workflow to a S3 bucket or it will be available as an artifact from the job. To upload to S3 we use a tool called [rclone](https://rclone.org/) which is able to use [many S3 providers](https://rclone.org/s3/). For more details on how to configure this see the details [below](#build-isoyml).
-
-## Workflows
-
-### build.yml
-
-This workflow creates your custom OCI image and publishes it to the Github Container Registry (GHCR). By default, the image name will match the Github repository name.
-
-### build-iso.yml
-
-This workflow creates an ISO from your OCI image by utilizing the [bootc-image-builder](https://osbuild.org/docs/bootc/) to generate an ISO. In order to use this workflow you must complete the following steps:
-
-- Modify `iso.toml` to point to your custom image before generating an ISO.
-- If you changed your image name from the default in `build.yml` then in the `build-iso.yml` file edit the `IMAGE_REGISTRY` and `DEFAULT_TAG` environment variables with the correct values. If you did not make changes, skip this step.
-- Finally, if you want to upload your ISOs to S3 then you will need to add your S3 configuration to the repository's Action secrets. This can be found by going to your repository settings, under `Secrets and Variables` -> `Actions`. You will need to add the following
-  - `S3_PROVIDER` - Must match one of the values from the [supported list](https://rclone.org/s3/)
-  - `S3_BUCKET_NAME` - Your unique bucket name
-  - `S3_ACCESS_KEY_ID` - It is recommended that you make a separate key just for this workflow
-  - `S3_SECRET_ACCESS_KEY` - See above.
-  - `S3_REGION` - The region your bucket lives in. If you do not know then set this value to `auto`.
-  - `S3_ENDPOINT` - This value will be specific to the bucket as well.
-
-Once the workflow is done, you'll find it either in your S3 bucket or as part of the summary under `Artifacts` after the workflow is completed.
-
-
-## Artifacthub
-
-This template comes with the necessary tooling to index your image on [artifacthub.io](https://artifacthub.io), use the `artifacthub-repo.yml` file at the root to verify yourself as the publisher. This is important to you for a few reasons:
-
-- The value of artifacthub is it's one place for people to index their custom images, and since we depend on each other to learn, it helps grow the community. 
-- You get to see your pet project listed with the other cool projects in Cloud Native.
-- Since the site puts your README front and center, it's a good way to learn how to write a good README, learn some marketing, finding your audience, etc. 
-
-[Discussion thread](https://universal-blue.discourse.group/t/listing-your-custom-image-on-artifacthub/6446)
-
 
 ### Justfile Documentation
 
