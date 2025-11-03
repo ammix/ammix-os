@@ -1,0 +1,11 @@
+[Unit]
+Description=Ammix Custom: Run bootc-update daily
+
+[Timer]
+OnCalendar=08:00
+UTC=true
+RandomizedDelaySec=1h
+Persistent=true
+
+[Install]
+WantedBy=timers.target

@@ -3,7 +3,7 @@
 set -ouex pipefail
 
 # Copy files
-rsync -rvlK /ctx/files/. /
+rsync -rvlK /ctx/files/ /
 
 # Make root's home
 mkdir -p /var/roothome
@@ -27,71 +27,31 @@ dnf5 -y install rpmfusion-\*-appstream-data
 dnf5 -y config-manager addrepo --from-repofile=https://repo.vivaldi.com/archive/vivaldi-fedora.repo
 
 ## Install packages
-dnf5 copr enable -y atim/starship
-dnf5 copr enable -y kylegospo/webapp-manager
 dnf5 copr enable -y bieszczaders/kernel-cachyos-addons
 
 
-# Firmware
 dnf5 -y install rpmfusion-nonfree-release-tainted
+dnf5 -y install terra-release terra-release-extras
+
+
+echo "Setting repository configurations..."
+
+dnf5 -y config-manager setopt "*terra*".priority=1
+dnf5 -y config-manager setopt "terra-mesa".enabled=true
+dnf5 -y config-manager setopt "terra-nvidia".enabled=false
+dnf5 -y config-manager setopt "*terra*".exclude="gstreamer* *firmware* ffmpeg*"
+dnf5 -y config-manager setopt "*rpmfusion*".priority=1 "*rpmfusion*".exclude="mesa-*"
+dnf5 -y config-manager setopt "*fedora*".exclude="mesa-*"
+
+dnf5 makecache
+echo "Successfully configured repositories."
+
+# Firmware
 dnf5 -y --repo=rpmfusion-nonfree-tainted install --skip-broken "*-firmware"
 
 # Packages
 dnf5 install -y \
   fedora-repos-archive \
-  zstd \
-  wget \
-  libFAudio \
-  curl \
-  usbutils \
-  jq \
-  podman-docker \
-  podman \
-  docker-compose \
-  starship \
-  nitrokey-app \
-  heif-pixbuf-loader \
-  libheif \
-  mpv \
-  flatpak-spawn \
-  alsa-firmware \
-  ffmpegthumbnailer \
-  webapp-manager \
-  distrobox \
-  wireguard-tools \
-  openssl \
-  pam-u2f \
-  pamu2fcfg \
-  pam_yubico \
-  fido2-tools \
-  smartmontools \
-  wl-clipboard \
-  scx-scheds \
-  syncthing \
-  stow \
-  fzf \
-  ugrep \
-  fastfetch \
-  kitty \
-  steam-devices \
-  gamemode \
-  gum \
-  zathura \
-  zathura-fish-completion \
-  zathura-plugins-all \
-  wqy-zenhei-fonts \
-  google-noto-sans-balinese-fonts \
-  google-noto-sans-cjk-fonts \
-  google-noto-sans-javanese-fonts \
-  google-noto-sans-sundanese-fonts \
-  google-roboto-fonts \
-  rsms-inter-fonts \
-  liberation-fonts-all \
-  mozilla-fira-sans-fonts
-
-# Mesa
-dnf5 -y swap mesa-va-drivers mesa-va-drivers-freeworld
-dnf5 -y swap mesa-vulkan-drivers mesa-vulkan-drivers-freeworld
 
 dnf5 -y swap ffmpeg-free ffmpeg --allowerasing
 dnf5 -y install \
@@ -109,10 +69,6 @@ dnf5 remove -y \
   firefox \
   firefox-langpacks \
 
-dnf5 -y copr disable atim/starship
-dnf5 -y copr disable kylegospo/webapp-manager
-dnf5 -y copr disable bieszczaders/kernel-cachyos-addons
-
 dnf5 clean packages
 
 # Fonts
@@ -122,10 +78,18 @@ dnf5 clean packages
 glib-compile-schemas /usr/share/glib-2.0/schemas/
 
 # Systemd
-systemctl enable syncthing@maxim.service
 systemctl enable scx_loader.service
-systemctl enable rpm-ostreed-automatic.timer
-systemctl disable power-profiles-daemon.service
+systemctl enable libvirtd.service
+systemctl enable lactd.service
+systemctl enable ammix-bootc-update.timer
+systemctl enable flatpak-update.timer
+systemctl enable podman.socket
+
+systemctl mask grub-boot-success.timer
+systemctl mask systemd-remount-fs.service
+systemctl mask akmods-keygen@akmods-keygen.service
+systemctl mask rpm-ostreed-automatic.service
+systemctl mask rpm-ostreed-automatic.timer
 
 # Make sure /var/tmp is properly created
 mkdir -p /var/tmp

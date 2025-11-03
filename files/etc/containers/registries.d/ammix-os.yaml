@@ -1,3 +1,0 @@
-docker:
-  ghcr.io/ammix:
-    use-sigstore-attachments: true

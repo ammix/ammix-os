@@ -5,7 +5,6 @@ set -euo pipefail
 # NOTE: Nerd Font names must match the asset name on GitHub releases (e.g., FiraCode -> FiraCode.zip)
 # NOTE: Google Font names must match the name used by Google Fonts.
 NERD_FONTS_TO_INSTALL=(
-    "FiraCode"
     "JetBrainsMono"
 )
 
