@@ -2,17 +2,11 @@
 
 set -euo pipefail
 
-# NOTE: Nerd Font names must match the asset name on GitHub releases (e.g., FiraCode -> FiraCode.zip)
 # NOTE: Google Font names must match the name used by Google Fonts.
-NERD_FONTS_TO_INSTALL=(
-    "JetBrainsMono"
-)
-
 GOOGLE_FONTS_TO_INSTALL=(
     "Victor Mono"
 )
 
-NERDFONTS_API_URL="https://api.github.com/repos/ryanoasis/nerd-fonts/releases/latest"
 GOOGLEFONTS_DOWNLOAD_URL="https://fonts.google.com/download?family="
 TMP_DIR="/tmp/font-downloads-$$" # Use PID for unique temp dir
 
@@ -71,39 +65,6 @@ mkdir -p "${TMP_DIR}"
 trap 'echo "Cleaning up temp dir ${TMP_DIR}..."; cd / && rm -rf "${TMP_DIR}"' EXIT
 
 cd "${TMP_DIR}"
-
-if [[ ${#NERD_FONTS_TO_INSTALL[@]} -gt 0 ]]; then
-    echo "--- Installing Nerd Fonts ---"
-    for font_name in "${NERD_FONTS_TO_INSTALL[@]}"; do
-        echo "Processing Nerd Font: ${font_name}"
-        asset_name="${font_name}.zip"
-        target_dir="/usr/share/fonts/nerd-fonts/${font_name}"
-
-        download_url=$(get_latest_release_asset_url "ryanoasis/nerd-fonts" "${asset_name}")
-        if [[ $? -ne 0 ]]; then
-             echo "WARN: Skipping Nerd Font ${font_name} due to error getting URL." >&2
-             continue
-        fi
-
-        echo "INFO: Downloading ${font_name} from ${download_url}"
-        if curl -L -o "${font_name}.zip" --fail "${download_url}"; then
-            echo "INFO: Extracting ${font_name}"
-            mkdir -p "${target_dir}"
-            if unzip -q "${font_name}.zip" -d "${font_name}_extracted"; then
-                find "${font_name}_extracted" -name '*.[ot]tf' -print0 | xargs -0 -I {} mv {} "${target_dir}/" || echo "WARN: No font files found or moved for ${font_name}." >&2
-            else
-                echo "WARN: Failed to extract ${font_name}.zip." >&2
-            fi
-            rm -rf "${font_name}_extracted" # Clean extracted dir regardless of find success
-        else
-             echo "WARN: Failed to download ${font_name}.zip." >&2
-        fi
-        rm -f "${font_name}.zip"
-    done
-else
-    echo "INFO: No Nerd Fonts specified for installation."
-fi
-
 
 if [[ ${#GOOGLE_FONTS_TO_INSTALL[@]} -gt 0 ]]; then
     echo "--- Installing Google Fonts ---"
