@@ -13,19 +13,6 @@ if ! rpm -q dnf5 >/dev/null; then
     rpm-ostree install dnf5 dnf5-plugins
 fi
 
-# Fix /opt directory for applications that install there (Vivaldi, Filen)
-# In ostree/bootc systems, applications install to /usr/lib/opt but need to be
-# symlinked to /var/opt so they appear in /opt (which is a symlink to /var/opt)
-echo "Setting up /opt directory structure..."
-mkdir -p /var/opt
-mkdir -p /usr/lib/opt
-
-# Create symlink from /opt to /var/opt if it doesn't exist
-if [[ ! -L /opt ]]; then
-    rm -rf /opt
-    ln -s /var/opt /opt
-fi
-
 # mitigate upstream packaging bug: https://bugzilla.redhat.com/show_bug.cgi?id=2332429
 # swap the incorrectly installed OpenCL-ICD-Loader for ocl-icd, the expected package
 dnf5 -y swap --repo='fedora' \
@@ -127,32 +114,6 @@ for rpm_url in "${EXTERNAL_RPMS[@]}"; do
     echo "Installing from: ${rpm_url}"
     dnf5 install -y --allowerasing "${rpm_url}"
 done
-
-# Apply opt fix for applications that installed to /usr/lib/opt
-# This creates symlinks from /usr/lib/opt/* to /var/opt/* so they appear in /opt
-echo "Applying /opt directory fix for installed applications..."
-SOURCE_DIR="/usr/lib/opt"
-TARGET_DIR="/var/opt"
-
-if [ -d "$SOURCE_DIR" ]; then
-    for dir in "$SOURCE_DIR/"*/; do
-        if [ -d "$dir" ]; then
-            dir_name=$(basename "$dir")
-            
-            # Check if the symlink already exists in the target directory
-            if [ -L "$TARGET_DIR/$dir_name" ]; then
-                echo "Symlink already exists for $dir_name, skipping."
-                continue
-            fi
-            
-            # Create the symlink
-            ln -s "$dir" "$TARGET_DIR/$dir_name"
-            echo "Created symlink for $dir_name"
-        fi
-    done
-else
-    echo "No /usr/lib/opt directory found, skipping opt fix."
-fi
 
 # Install group packages
 echo "Installing package groups..."
