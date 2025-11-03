@@ -2,8 +2,8 @@
 # Package definitions organized by category
 # This file is sourced by the build script
 
-# System & CLI Tools
-SYSTEM_PACKAGES=(
+# CLI & System Utilities
+CLI_PACKAGES=(
     fish
     vim
     sudo-rs
@@ -20,22 +20,12 @@ SYSTEM_PACKAGES=(
 )
 
 # Hardware & Firmware
-# Note: Generic firmware is installed with: dnf5 -y --repo=rpmfusion-nonfree-tainted install --skip-broken "*-firmware"
-# These are additional specific firmware packages
-FIRMWARE_PACKAGES=(
-    steam-devices
-    alsa-firmware
-    realtek-firmware
-    broadcom-bt-firmware
-    intel-audio-firmware
-    amd-ucode-firmware
-    amd-gpu-firmware
-    mediatek-firmware
-    gnome-firmware
-)
+# Note: All firmware packages are installed with a generic wildcard in the build script:
+#       dnf5 -y --repo=rpmfusion-nonfree-tainted install --skip-broken "*-firmware"
+# This ensures all available firmware is installed automatically
 
-# Development Tools
-DEVEL_PACKAGES=(
+# Development & System Tools
+DEVELOPMENT_PACKAGES=(
     akmods
     kernel-devel
     kernel-headers
@@ -51,8 +41,8 @@ DEVEL_PACKAGES=(
     lm_sensors
 )
 
-# Containers & Virtualization
-CONTAINER_PACKAGES=(
+# Virtualization & Containers
+VIRTUALIZATION_PACKAGES=(
     VirtualBox
     podman
     podman-docker
@@ -61,7 +51,7 @@ CONTAINER_PACKAGES=(
     podman-tui
 )
 
-# Media & Graphics
+# Media, Graphics & Gaming
 MEDIA_PACKAGES=(
     mpv
     ffmpegthumbnailer
@@ -75,15 +65,17 @@ MEDIA_PACKAGES=(
     scx-scheds
 )
 
-# Terminals & Browsers
-TERMINAL_BROWSER_PACKAGES=(
+# Graphical Applications (Browsers, Terminals, Apps)
+GRAPHICAL_APPS=(
     ghostty
     kitty
     vivaldi-stable
     qutebrowser
+    Cider
+    lact
 )
 
-# Desktop & GNOME
+# Desktop Environment & Theming
 DESKTOP_PACKAGES=(
     gnome-shell-extension-gsconnect
     nautilus-python
@@ -91,10 +83,6 @@ DESKTOP_PACKAGES=(
     adw-gtk3-theme
     gvfs-nfs
     firewall-config
-)
-
-# Input Methods
-INPUT_PACKAGES=(
     ibus-unikey
     ibus-mozc
 )
@@ -110,7 +98,7 @@ SECURITY_PACKAGES=(
     pcsc-tools
 )
 
-# Storage & Backup
+# Storage, Backup & USB Tools
 STORAGE_PACKAGES=(
     restic
     rclone
@@ -120,7 +108,7 @@ STORAGE_PACKAGES=(
     ifuse
 )
 
-# Fonts
+# Fonts & Themes
 FONT_PACKAGES=(
     bibata-cursor-theme
     google-noto-sans-fonts
@@ -140,16 +128,7 @@ EXTERNAL_RPMS=(
     "https://cdn.filen.io/@filen/desktop/release/latest/Filen_linux_x86_64.rpm"
 )
 
-# Packages from special repos
-CIDER_PACKAGES=(
-    Cider
-)
-
-LACT_PACKAGES=(
-    lact
-)
-
-# Group installs (using dnf5 group install syntax)
+# DNF Group Installs
 DNF_GROUPS=(
     "Multimedia"
     "Virtualization"
@@ -158,7 +137,7 @@ DNF_GROUPS=(
     "C Development"
 )
 
-# Packages to remove
+# Packages to Remove
 REMOVE_PACKAGES=(
     firefox
     firefox-langpacks

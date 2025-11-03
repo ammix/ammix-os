@@ -91,48 +91,41 @@ echo "Loading package lists..."
 source /ctx/packages.list
 
 # Install packages by category
-echo "Installing system packages..."
-dnf5 install -y "${SYSTEM_PACKAGES[@]}"
+echo "Installing CLI & system utilities..."
+dnf5 install -y --allowerasing "${CLI_PACKAGES[@]}"
 
-echo "Installing firmware packages..."
-dnf5 install -y "${FIRMWARE_PACKAGES[@]}"
+echo "Installing additional firmware packages..."
+dnf5 install -y --allowerasing steam-devices
 
-echo "Installing development packages..."
-dnf5 install -y "${DEVEL_PACKAGES[@]}"
+echo "Installing development & system tools..."
+dnf5 install -y --allowerasing "${DEVELOPMENT_PACKAGES[@]}"
 
-echo "Installing container & virtualization packages..."
-dnf5 install -y "${CONTAINER_PACKAGES[@]}"
+echo "Installing virtualization & container packages..."
+dnf5 install -y --allowerasing "${VIRTUALIZATION_PACKAGES[@]}"
 
-echo "Installing media & graphics packages..."
-dnf5 install -y "${MEDIA_PACKAGES[@]}"
+echo "Installing media, graphics & gaming packages..."
+dnf5 install -y --allowerasing "${MEDIA_PACKAGES[@]}"
 
-echo "Installing terminal & browser packages..."
-dnf5 install -y "${TERMINAL_BROWSER_PACKAGES[@]}"
+echo "Installing graphical applications..."
+dnf5 install -y --allowerasing "${GRAPHICAL_APPS[@]}"
 
-echo "Installing desktop packages..."
-dnf5 install -y "${DESKTOP_PACKAGES[@]}"
+echo "Installing desktop environment & theming packages..."
+dnf5 install -y --allowerasing "${DESKTOP_PACKAGES[@]}"
 
-echo "Installing input method packages..."
-dnf5 install -y "${INPUT_PACKAGES[@]}"
+echo "Installing security & authentication packages..."
+dnf5 install -y --allowerasing "${SECURITY_PACKAGES[@]}"
 
-echo "Installing security packages..."
-dnf5 install -y "${SECURITY_PACKAGES[@]}"
+echo "Installing storage, backup & USB tools..."
+dnf5 install -y --allowerasing "${STORAGE_PACKAGES[@]}"
 
-echo "Installing storage packages..."
-dnf5 install -y "${STORAGE_PACKAGES[@]}"
-
-echo "Installing font packages..."
-dnf5 install -y "${FONT_PACKAGES[@]}"
-
-echo "Installing packages from special repos..."
-dnf5 install -y "${CIDER_PACKAGES[@]}"
-dnf5 install -y "${LACT_PACKAGES[@]}"
+echo "Installing fonts & themes..."
+dnf5 install -y --allowerasing "${FONT_PACKAGES[@]}"
 
 # Install external RPMs
 echo "Installing external RPMs..."
 for rpm_url in "${EXTERNAL_RPMS[@]}"; do
     echo "Installing from: ${rpm_url}"
-    dnf5 install -y "${rpm_url}"
+    dnf5 install -y --allowerasing "${rpm_url}"
 done
 
 # Apply opt fix for applications that installed to /usr/lib/opt
