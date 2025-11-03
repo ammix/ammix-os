@@ -59,7 +59,7 @@ dnf5 -y --repo=rpmfusion-nonfree-tainted install --skip-broken "*-firmware"
 
 # Swap ffmpeg-free for full ffmpeg from RPM Fusion
 echo "Swapping ffmpeg-free for full ffmpeg..."
-dnf5 -y swap ffmpeg-free ffmpeg --allowerasing --setopt=install_from_repo=rpmfusion-free
+dnf5 -y --repo=rpmfusion-free swap ffmpeg-free ffmpeg --allowerasing
 
 # Install multimedia codecs
 echo "Installing multimedia codecs..."
