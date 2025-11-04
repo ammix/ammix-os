@@ -1,30 +1,53 @@
 #!/usr/bin/env bash
 
 # build-vbox-kmod.sh
-# Exit on any error, print commands, treat unset vars as error
 set -eoux pipefail
 
 # Get the exact kernel version that was installed in the build container
 KERNEL_VERSION="$(rpm -q --queryformat '%{VERSION}-%{RELEASE}.%{ARCH}' kernel)"
-
 echo "Building VirtualBox kmod for Kernel: ${KERNEL_VERSION}"
 
-# --- Ensure there's a non-root user to run the akmods build ---
-# Create 'builder' if it doesn't already exist, give it a login shell
+# Create mailbox dir if missing to avoid useradd mailbox warnings
+if [ ! -d /var/mail ] && [ ! -d /var/spool/mail ]; then
+  mkdir -p /var/mail
+  chmod 755 /var/mail
+fi
+
+# Create builder user if it doesn't exist
 if ! id -u builder >/dev/null 2>&1; then
   useradd -m -s /bin/bash builder
 fi
 
-# Ensure akmods build directories exist and are writable by the builder user
+# Ensure builder has a mailbox file to silence useradd messages (best-effort)
+if [ -d /var/mail ]; then
+  touch /var/mail/builder || true
+  chown builder:builder /var/mail/builder || true
+elif [ -d /var/spool/mail ]; then
+  touch /var/spool/mail/builder || true
+  chown builder:builder /var/spool/mail/builder || true
+fi
+
+# Ensure akmods build/cache dirs exist and are owned by builder
 mkdir -p /usr/src/akmods /var/cache/akmods
 chown -R builder:builder /usr/src/akmods /var/cache/akmods || true
 
-# Prefer akmodsbuild if available, otherwise fall back to akmods.
-# Run the chosen command as the 'builder' user.
-if command -v akmodsbuild >/dev/null 2>&1; then
-  su - builder -c "akmodsbuild --kernels '${KERNEL_VERSION}'"
-else
-  su - builder -c "akmods --force --kernels '${KERNEL_VERSION}'"
-fi
+# Helper to run a command as the builder user (prefer runuser, fallback to su)
+run_as_builder() {
+  local cmd="$*"
+  if command -v runuser >/dev/null 2>&1; then
+    runuser -l builder -c "${cmd}"
+  else
+    su - builder -c "${cmd}"
+  fi
+}
 
-echo "Successfully built and installed VirtualBox kmod."
+# Run akmods --force as the non-root builder user
+if command -v akmods >/dev/null 2>&1; then
+  echo "Running 'akmods --force' as user 'builder'..."
+  run_as_builder "akmods --force --kernels '${KERNEL_VERSION}'"
+  echo "akmods run completed."
+  exit 0
+else
+  echo "ERROR: 'akmods' not found in PATH. Cannot build VirtualBox kmod."
+  exit 1
+fi
