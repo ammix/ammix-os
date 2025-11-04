@@ -55,7 +55,14 @@ echo "Successfully configured repositories."
 
 # Firmware
 echo "Installing firmware packages..."
-dnf5 -y install --skip-broken "*-firmware"
+dnf5 -y install --repo=rpmfusion-nonfree-tainted "*-firmware"
+dnf5 -y install  alsa-firmware \
+  alsa-tools-firmware \
+  amd-gpu-firmware \
+  realtek-firmware \
+  mediatek-firmware \
+  broadcom-bt-firmware \
+  gnome-firmware
 
 # Swap ffmpeg-free for full ffmpeg from RPM Fusion
 echo "Swapping ffmpeg-free for full ffmpeg..."
