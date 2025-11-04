@@ -9,23 +9,11 @@ CLI_PACKAGES=(
     sudo-rs
     stow
     just
-    luarocks
-    zstd
-    xz
-    flatpak-spawn
     distrobox
-    wl-clipboard
-    wireguard-tools
-    openssl
 )
 
-# Hardware & Firmware
-# Note: All firmware packages are installed with a generic wildcard in the build script:
-#       dnf5 -y --repo=rpmfusion-nonfree-tainted install --skip-broken "*-firmware"
-# This ensures all available firmware is installed automatically
-
 # Development & System Tools
-DEVELOPMENT_PACKAGES=(
+CORE_PACKAGES=(
     akmods
     kernel-devel
     kernel-headers
@@ -37,13 +25,29 @@ DEVELOPMENT_PACKAGES=(
     numactl
     tiptop
     libgtop2-devel
+    wl-clipboard
+    wireguard-tools
+    openssl
     sysprof
     lm_sensors
-)
-
-# Virtualization & Containers
-VIRTUALIZATION_PACKAGES=(
-    VirtualBox
+    flatpak-spawn
+    zstd
+    xz
+    pam-u2f
+    pamu2fcfg
+    pam_yubico
+    yubikey-manager
+    yubico-piv-tool
+    fido2-tools
+    pcsc-tools
+    restic
+    rclone
+    smartmontools
+    usbutils
+    usbmuxd
+    ifuse
+    lact
+    scx-scheds
     podman
     podman-docker
     podman-compose
@@ -64,7 +68,6 @@ MEDIA_PACKAGES=(
     libheif
     libheif-freeworld
     gamemode
-    scx-scheds
 )
 
 # Graphical Applications (Browsers, Terminals, Apps)
@@ -74,7 +77,7 @@ GRAPHICAL_APPS=(
     vivaldi-stable
     qutebrowser
     Cider
-    lact
+    VirtualBox
 )
 
 # Desktop Environment & Theming
@@ -87,27 +90,6 @@ DESKTOP_PACKAGES=(
     firewall-config
     ibus-unikey
     ibus-mozc
-)
-
-# Security & Authentication
-SECURITY_PACKAGES=(
-    pam-u2f
-    pamu2fcfg
-    pam_yubico
-    yubikey-manager
-    yubico-piv-tool
-    fido2-tools
-    pcsc-tools
-)
-
-# Storage, Backup & USB Tools
-STORAGE_PACKAGES=(
-    restic
-    rclone
-    smartmontools
-    usbutils
-    usbmuxd
-    ifuse
 )
 
 # Fonts & Themes

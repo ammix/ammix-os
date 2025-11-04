@@ -62,7 +62,8 @@ dnf5 -y install  alsa-firmware \
   realtek-firmware \
   mediatek-firmware \
   broadcom-bt-firmware \
-  gnome-firmware
+  gnome-firmware \
+  steam-devices
 
 # Swap ffmpeg-free for full ffmpeg from RPM Fusion
 echo "Swapping ffmpeg-free for full ffmpeg..."
@@ -86,40 +87,28 @@ source /ctx/packages.list
 
 # Install packages by category
 echo "Installing CLI & system utilities..."
-dnf5 install -y --allowerasing "${CLI_PACKAGES[@]}"
-
-echo "Installing additional firmware packages..."
-dnf5 install -y --allowerasing steam-devices
+dnf5 install -y "${CLI_PACKAGES[@]}"
 
 echo "Installing development & system tools..."
-dnf5 install -y --allowerasing "${DEVELOPMENT_PACKAGES[@]}"
-
-echo "Installing virtualization & container packages..."
-dnf5 install -y --allowerasing "${VIRTUALIZATION_PACKAGES[@]}"
+dnf5 install -y --allowerasing "${CORE_PACKAGES[@]}"
 
 echo "Installing media, graphics & gaming packages..."
 dnf5 install -y --allowerasing "${MEDIA_PACKAGES[@]}"
 
 echo "Installing graphical applications..."
-dnf5 install -y --allowerasing "${GRAPHICAL_APPS[@]}"
+dnf5 install -y "${GRAPHICAL_APPS[@]}"
 
 echo "Installing desktop environment & theming packages..."
-dnf5 install -y --allowerasing "${DESKTOP_PACKAGES[@]}"
-
-echo "Installing security & authentication packages..."
-dnf5 install -y --allowerasing "${SECURITY_PACKAGES[@]}"
-
-echo "Installing storage, backup & USB tools..."
-dnf5 install -y --allowerasing "${STORAGE_PACKAGES[@]}"
+dnf5 install -y "${DESKTOP_PACKAGES[@]}"
 
 echo "Installing fonts & themes..."
-dnf5 install -y --allowerasing "${FONT_PACKAGES[@]}"
+dnf5 install -y "${FONT_PACKAGES[@]}"
 
 # Install external RPMs
 echo "Installing external RPMs..."
 for rpm_url in "${EXTERNAL_RPMS[@]}"; do
     echo "Installing from: ${rpm_url}"
-    dnf5 install -y --allowerasing "${rpm_url}"
+    dnf5 install -y "${rpm_url}"
 done
 
 # Install group packages
