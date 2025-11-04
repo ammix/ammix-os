@@ -1,8 +1,7 @@
 #!/usr/bin/env bash
 
 # build-vbox-kmod.sh
-
-# Tell script to exit on any error
+# Exit on any error, print commands, treat unset vars as error
 set -eoux pipefail
 
 # Get the exact kernel version that was installed in the build container
@@ -10,8 +9,22 @@ KERNEL_VERSION="$(rpm -q --queryformat '%{VERSION}-%{RELEASE}.%{ARCH}' kernel)"
 
 echo "Building VirtualBox kmod for Kernel: ${KERNEL_VERSION}"
 
-# Force akmods to build and install the kmod for the target kernel
-# This command builds the module and installs it into /usr/lib/modules/
-akmods --force --kernels "${KERNEL_VERSION}"
+# --- Ensure there's a non-root user to run the akmods build ---
+# Create 'builder' if it doesn't already exist, give it a login shell
+if ! id -u builder >/dev/null 2>&1; then
+  useradd -m -s /bin/bash builder
+fi
+
+# Ensure akmods build directories exist and are writable by the builder user
+mkdir -p /usr/src/akmods /var/cache/akmods
+chown -R builder:builder /usr/src/akmods /var/cache/akmods || true
+
+# Prefer akmodsbuild if available, otherwise fall back to akmods.
+# Run the chosen command as the 'builder' user.
+if command -v akmodsbuild >/dev/null 2>&1; then
+  su - builder -c "akmodsbuild --kernels '${KERNEL_VERSION}'"
+else
+  su - builder -c "akmods --force --kernels '${KERNEL_VERSION}'"
+fi
 
 echo "Successfully built and installed VirtualBox kmod."
