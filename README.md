@@ -1,6 +1,6 @@
-# My Personal Image based on Silverblue
-
 # ammix-os &nbsp; [![CI build](https://github.com/ammix/ammix-os/actions/workflows/build.yml/badge.svg?branch=main)](https://github.com/ammix/ammix-os/actions/workflows/build.yml)
+
+My Personal Image based on Silverblue
 
 ## Installation
 
