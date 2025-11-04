@@ -58,6 +58,8 @@ MEDIA_PACKAGES=(
     pipewire-plugin-libcamera
     vulkan-tools
     libva-utils
+    libavcodec-freeworld
+    vvenc-libs
     heif-pixbuf-loader
     libheif
     libheif-freeworld
