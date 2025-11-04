@@ -1,5 +1,5 @@
 ---
-name: Build container image
+name: CI build
 on:
   pull_request:
     branches:
