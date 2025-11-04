@@ -77,6 +77,7 @@ GRAPHICAL_APPS=(
     vivaldi-stable
     qutebrowser
     VirtualBox
+    kmod-VirtualBox
     Cider
 )
 
