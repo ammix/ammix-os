@@ -26,6 +26,7 @@ RUN --mount=type=bind,from=ctx,source=/,target=/ctx \
     /ctx/build && \
     /ctx/akmods && \
     /ctx/build-initramfs && \
+    /ctx/kargs && \
     /ctx/finalize
 
 # Verify final image and contents are correct.
