@@ -105,11 +105,11 @@ echo "Installing fonts & themes..."
 dnf5 install -y "${FONT_PACKAGES[@]}"
 
 # Install external RPMs
-# echo "Installing external RPMs..."
-# for rpm_url in "${EXTERNAL_RPMS[@]}"; do
-#     echo "Installing from: ${rpm_url}"
-#     dnf5 install -y "${rpm_url}"
-# done
+echo "Installing external RPMs..."
+for rpm_url in "${EXTERNAL_RPMS[@]}"; do
+    echo "Installing from: ${rpm_url}"
+    dnf5 install -y "${rpm_url}"
+done
 
 # Install group packages
 echo "Installing package groups..."
