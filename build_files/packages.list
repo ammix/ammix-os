@@ -6,6 +6,8 @@
 CLI_PACKAGES=(
     fish
     vim
+    jq
+    unzip
     sudo-rs
     stow
     just
@@ -53,6 +55,7 @@ CORE_PACKAGES=(
     podman-compose
     podman-machine
     podman-tui
+    firewall-config
 )
 
 # Media, Graphics & Gaming
@@ -88,8 +91,6 @@ DESKTOP_PACKAGES=(
     nautilus-gsconnect
     adw-gtk3-theme
     gvfs-nfs
-    firewall-config
-    ibus-unikey
     ibus-mozc
 )
 
