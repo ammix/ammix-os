@@ -16,9 +16,6 @@ CLI_PACKAGES=(
 
 # Development & System Tools
 CORE_PACKAGES=(
-    akmods
-    kernel-devel
-    kernel-headers
     elfutils-libelf-devel
     bcc
     bpftop
@@ -79,7 +76,6 @@ GRAPHICAL_APPS=(
     kitty
     vivaldi-stable
     qutebrowser
-    VirtualBox
     Cider
 )
 
