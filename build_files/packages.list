@@ -8,6 +8,7 @@ CLI_PACKAGES=(
     vim
     jq
     unzip
+    7zip
     sudo-rs
     stow
     just
