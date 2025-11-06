@@ -139,6 +139,9 @@ echo "Installing custom fonts..."
 echo "Compiling gschema..."
 glib-compile-schemas /usr/share/glib-2.0/schemas/
 
+# Installing GNOME Extensions
+/ctx/gnome-exts
+
 # Enable systemd services
 echo "Enabling systemd services..."
 systemctl enable scx_loader.service

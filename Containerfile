@@ -25,7 +25,6 @@ RUN --mount=type=bind,from=ctx,source=/,target=/ctx \
     --mount=type=tmpfs,dst=/tmp \
     /ctx/build && \
     # /ctx/akmods && \
-    /ctx/gnome-exts && \
     /ctx/kargs && \
     /ctx/build-initramfs && \
     /ctx/finalize
