@@ -1,6 +1,6 @@
 # Vars
 ARG BASE_IMAGE=quay.io/fedora-ostree-desktops/silverblue
-ARG FEDORA_VERSION=43
+ARG FEDORA_VERSION=42
 
 FROM scratch AS ctx
 COPY build_files /
@@ -24,7 +24,6 @@ RUN --mount=type=bind,from=ctx,source=/,target=/ctx \
     --mount=type=cache,dst=/var/log \
     --mount=type=tmpfs,dst=/tmp \
     /ctx/build && \
-    # /ctx/akmods && \
     /ctx/kargs && \
     /ctx/build-initramfs && \
     /ctx/finalize
