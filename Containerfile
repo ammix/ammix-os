@@ -1,6 +1,6 @@
 # Vars
 ARG BASE_IMAGE=quay.io/fedora-ostree-desktops/silverblue
-ARG FEDORA_VERSION=42
+ARG FEDORA_VERSION=43
 
 FROM scratch AS ctx
 COPY build_files /
