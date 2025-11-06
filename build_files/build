@@ -2,6 +2,11 @@
 
 set -ouex pipefail
 
+# Prevent kernel scriptlets from running dracut during installation
+# This avoids "Invalid cross-device link" errors with tmpfs mounts
+# We'll rebuild initramfs manually later with build-initramfs
+export KERNEL_INSTALL_BYPASS=1
+
 # Copy files
 rsync -rvlK /ctx/files/ /
 
