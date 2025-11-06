@@ -16,9 +16,7 @@ CLI_PACKAGES=(
 
 # Development & System Tools
 CORE_PACKAGES=(
-    # akmods
-    # kernel-devel
-    # kernel-headers
+    akmods
     elfutils-libelf-devel
     bcc
     bpftop
