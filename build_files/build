@@ -92,10 +92,10 @@ echo "Installing CLI & system utilities..."
 dnf5 install -y "${CLI_PACKAGES[@]}"
 
 echo "Installing development & system tools..."
-dnf5 install -y --allowerasing "${CORE_PACKAGES[@]}"
+dnf5 install -y "${CORE_PACKAGES[@]}"
 
 echo "Installing media, graphics & gaming packages..."
-dnf5 install -y --allowerasing "${MEDIA_PACKAGES[@]}"
+dnf5 install -y "${MEDIA_PACKAGES[@]}"
 
 echo "Installing graphical applications..."
 dnf5 install -y "${GRAPHICAL_APPS[@]}"
