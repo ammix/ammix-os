@@ -85,7 +85,6 @@ DESKTOP_PACKAGES=(
     gnome-shell-extension-gsconnect
     nautilus-python
     nautilus-gsconnect
-    adw-gtk3-theme
     gvfs-nfs
     ibus-mozc
 )
