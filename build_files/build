@@ -25,8 +25,8 @@ dnf5 -y install \
   https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
 dnf5 -y config-manager setopt fedora-cisco-openh264.enabled=1
 dnf5 -y install rpmfusion-\*-appstream-data
+dnf5 -y install rpmfusion-nonfree-release-tainted
 
-dnf5 -y install --nogpgcheck --repofrompath 'terra,https://repos.fyralabs.com/terra$releasever' terra-release
 
 # Add Vivaldi repo
 echo "Adding Vivaldi repository..."
@@ -38,17 +38,12 @@ dnf5 copr enable -y ilyaz/LACT
 
 # Install Terra
 echo "Installing Terra repositories..."
-dnf5 -y install rpmfusion-nonfree-release-tainted
-dnf5 -y install terra-release terra-release-extras
+dnf5 -y install --nogpgcheck --repofrompath 'terra,https://repos.fyralabs.com/terra$releasever' terra-release
+dnf5 -y install terra-release
 
 # Configure repository priorities
 echo "Setting repository configurations..."
-dnf5 -y config-manager setopt "*terra*".priority=1
-dnf5 -y config-manager setopt "terra-mesa".enabled=true
-dnf5 -y config-manager setopt "terra-nvidia".enabled=false
-dnf5 -y config-manager setopt "*terra*".exclude="gstreamer* *firmware* ffmpeg*"
-dnf5 -y config-manager setopt "*rpmfusion*".priority=1 "*rpmfusion*".exclude="mesa-*"
-dnf5 -y config-manager setopt "*fedora*".exclude="mesa-*"
+dnf5 -y config-manager setopt "*rpmfusion*".priority=1
 
 rpm --import https://repo.cider.sh/RPM-GPG-KEY
 
@@ -70,6 +65,10 @@ dnf5 -y install  alsa-firmware \
 # Swap ffmpeg-free for full ffmpeg from RPM Fusion
 echo "Swapping ffmpeg-free for full ffmpeg..."
 dnf5 -y --repo=rpmfusion-free swap ffmpeg-free ffmpeg --allowerasing
+
+# Swapping mesa for rpmfusion
+dnf5 swap mesa-va-drivers mesa-va-drivers-freeworld
+dnf5 swap mesa-vulkan-drivers mesa-vulkan-drivers-freeworld
 
 # Install multimedia codecs
 echo "Installing multimedia codecs..."
