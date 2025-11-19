@@ -4,6 +4,7 @@ set -euo pipefail
 GNOME_EXTENSIONS=(
   "Blur my Shell"
   "Fullscreen Avoider"
+  "RunCat"
 )
 # -----------------------------------------------
 
