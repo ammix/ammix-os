@@ -77,7 +77,6 @@ GRAPHICAL_APPS=(
     ghostty
     kitty
     vivaldi-stable
-    brave-browser
     qutebrowser
     Cider
 )
