@@ -18,7 +18,7 @@ To rebase an existing atomic Fedora installation to the latest build:
   systemctl reboot
   ```
 
-- Then rebase to the signed image, like so:
+- Then rebase to the signed image (currently not implemented), like so:
 
   ```bash
   sudo bootc switch --enforce-container-sigpolicy ghcr.io/ammix/ammix-os:latest
