@@ -1,6 +1,4 @@
 #!/usr/bin/bash
-# Package definitions organized by category
-# This file is sourced by the build script
 
 # CLI & System Utilities
 CLI_PACKAGES=(
@@ -8,6 +6,7 @@ CLI_PACKAGES=(
     vim
     jq
     unzip
+    unrar
     7zip
     wcurl
     sudo-rs

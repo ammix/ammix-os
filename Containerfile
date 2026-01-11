@@ -17,6 +17,8 @@ FROM ${BASE_IMAGE}:${FEDORA_VERSION}
 ##
 ## This makes /opt immutable and be able to be used by the package manager.
 RUN rm /opt && mkdir /opt
+## Ready up nix for the installer
+RUN mkdir -p /nix
 
 # Install packages and finalize build
 RUN --mount=type=bind,from=ctx,source=/,target=/ctx \
