@@ -23,8 +23,6 @@ EXCLUDES=(
     "abrt-cli"
     "abrt-desktop"
     "abrt-java-connector"
-    # git pulls in Perl, use git-core if needed
-    "git"
     # Printing - cups-pk-helper uses PackageKit
     "cups-pk-helper"
     # COSMIC specific - cosmic-store pulls PackageKit
@@ -38,17 +36,10 @@ done
 
 dnf5 -y install "${EXCLUDE_ARGS[@]}" \
     @cosmic-desktop-environment \
-    flatpak \
     xdg-desktop-portal-gtk \
-    seahorse \
-    gnome-keyring \
-    libsecret \
-    gvfs \
     gvfs-afc \
     gvfs-gphoto2 \
     gvfs-mtp \
-    gvfs-smb \
-    gvfs-fuse \
     NetworkManager-adsl \
     NetworkManager-wifi \
     cups \
@@ -58,6 +49,5 @@ dnf5 -y install "${EXCLUDE_ARGS[@]}" \
     wireplumber \
     alsa-utils \
     kernel-modules-extra \
-    gvfs-nfs \
     ibus-mozc \
     zenity
