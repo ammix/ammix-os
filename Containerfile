@@ -15,7 +15,7 @@ FROM ${BASE_IMAGE}:${FEDORA_VERSION}
 ## some packages. Eg, google-chrome, docker-desktop, vivaldi, filen.
 ##
 ## This makes /opt immutable and be able to be used by the package manager.
-RUN rm /opt && mkdir /opt
+RUN if [ -L /opt ]; then rm /opt && mkdir /opt; fi
 
 ## Ready up nix mountpoint
 RUN mkdir -p /nix
