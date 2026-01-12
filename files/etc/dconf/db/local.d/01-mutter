@@ -1,2 +1,0 @@
-[org/gnome/mutter]
-experimental-features=['xwayland-native-scaling', 'variable-refresh-rate']
