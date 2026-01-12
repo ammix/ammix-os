@@ -7,7 +7,7 @@ if ! rpm -q dnf5 >/dev/null; then
     rpm-ostree install dnf5 dnf5-plugins
 fi
 
-dnf5 -y install rsync
+dnf5 -y install rsync bash sh
 
 # Copy files
 rsync -rvlK /ctx/files/ /
@@ -148,7 +148,6 @@ glib-compile-schemas /usr/share/glib-2.0/schemas/
 echo "Enabling systemd services..."
 
 # Desktop
-systemctl set-default graphical.target
 systemctl enable cosmic-greeter.service
 systemctl enable NetworkManager.service
 systemctl enable firewalld.service
