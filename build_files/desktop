@@ -5,16 +5,12 @@
 EXCLUDES=(
     # PackageKit - incompatible with bootc
     "PackageKit*"
-    "yum"
-    "deltarpm"
     # ABRT - incompatible with ostree
     "abrt-cli"
     "abrt-desktop"
     "abrt-java-connector"
     # Printing - cups-pk-helper uses PackageKit
     "cups-pk-helper"
-    # COSMIC specific - cosmic-store pulls PackageKit
-    "cosmic-store"
 )
 
 EXCLUDE_ARGS=()
