@@ -105,9 +105,6 @@ dnf5 install -y "${MEDIA_PACKAGES[@]}"
 echo "Installing graphical applications..."
 dnf5 install -y "${GRAPHICAL_APPS[@]}"
 
-echo "Installing desktop environment & theming packages..."
-dnf5 install -y "${DESKTOP_PACKAGES[@]}"
-
 echo "Installing fonts & themes..."
 dnf5 install -y "${FONT_PACKAGES[@]}"
 
@@ -153,7 +150,6 @@ echo "Enabling systemd services..."
 # Desktop
 systemctl set-default graphical.target
 systemctl enable cosmic-greeter.service
-
 systemctl enable NetworkManager.service
 systemctl enable firewalld.service
 systemctl enable bluetooth.service

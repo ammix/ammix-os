@@ -1,8 +1,44 @@
 #!/usr/bin/bash
 
-dnf5 -y install \
+# Exclude packages incompatible with bootc/ostree
+# Based on: https://pagure.io/workstation-ostree-config/blob/main/f/fedora-common-ostree-pkgs.yaml
+EXCLUDES=(
+    # PackageKit - incompatible with bootc
+    "PackageKit*"
+    # dnf4/yum - we use dnf5 only
+    "dnf"
+    "dnf-plugins-core"
+    "yum"
+    "deltarpm"
+    "python3-dnf-plugin-system-upgrade"
+    "python3-dnf-plugins-core"
+    # Legacy/unnecessary
+    "dracut-config-rescue"
+    "grubby"
+    "grubby-deprecated"
+    "setuptool"
+    "ppp"
+    "crontabs"
+    "at"
+    # ABRT - incompatible with ostree
+    "abrt-cli"
+    "abrt-desktop"
+    "abrt-java-connector"
+    # git pulls in Perl, use git-core if needed
+    "git"
+    # Printing - cups-pk-helper uses PackageKit
+    "cups-pk-helper"
+    # COSMIC specific - cosmic-store pulls PackageKit
+    "cosmic-store"
+)
+
+EXCLUDE_ARGS=()
+for pkg in "${EXCLUDES[@]}"; do
+    EXCLUDE_ARGS+=(--exclude="$pkg")
+done
+
+dnf5 -y install "${EXCLUDE_ARGS[@]}" \
     @cosmic-desktop-environment \
-    plymouth \
     flatpak \
     seahorse \
     gnome-keyring \
@@ -22,4 +58,6 @@ dnf5 -y install \
     wireplumber \
     alsa-utils \
     kernel-modules-extra \
-
+    gvfs-nfs \
+    ibus-mozc \
+    zenity

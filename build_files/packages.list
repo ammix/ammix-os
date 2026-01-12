@@ -80,13 +80,6 @@ GRAPHICAL_APPS=(
     Cider
 )
 
-# Desktop Environment & Theming
-DESKTOP_PACKAGES=(
-    gvfs-nfs
-    ibus-mozc
-    zenity
-)
-
 # Fonts & Themes
 FONT_PACKAGES=(
     bibata-cursor-theme
@@ -120,5 +113,4 @@ DNF_GROUPS=(
 REMOVE_PACKAGES=(
     firefox
     firefox-langpacks
-    PackageKit
 )
