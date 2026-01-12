@@ -5,20 +5,8 @@
 EXCLUDES=(
     # PackageKit - incompatible with bootc
     "PackageKit*"
-    # dnf4/yum - we use dnf5 only
-    "dnf"
-    "dnf-plugins-core"
     "yum"
     "deltarpm"
-    "python3-dnf-plugin-system-upgrade"
-    "python3-dnf-plugins-core"
-    # Legacy/unnecessary
-    "dracut-config-rescue"
-    "grubby"
-    "grubby-deprecated"
-    "setuptool"
-    "crontabs"
-    "at"
     # ABRT - incompatible with ostree
     "abrt-cli"
     "abrt-desktop"
@@ -49,5 +37,3 @@ dnf5 -y install "${EXCLUDE_ARGS[@]}" \
     wireplumber \
     alsa-utils \
     kernel-modules-extra \
-    ibus-mozc \
-    zenity
