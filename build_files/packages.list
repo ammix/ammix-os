@@ -123,4 +123,5 @@ DNF_GROUPS=(
 REMOVE_PACKAGES=(
     firefox
     firefox-langpacks
+    PackageKit
 )

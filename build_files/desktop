@@ -2,6 +2,7 @@
 
 dnf5 -y install \
     @cosmic-desktop-environment \
+    plymouth \
     flatpak \
     seahorse \
     gnome-keyring \
@@ -17,21 +18,8 @@ dnf5 -y install \
     cups \
     cups-filters \
     pipewire-alsa \
-    pipewire-jack \
     pipewire-pulseaudio \
     wireplumber \
     alsa-utils \
     kernel-modules-extra \
 
-dnf5 -y remove \
-    dnf-makecache.timer \
-    PackageKit \
-    libreoffice-* \
-
-systemctl set-default graphical.target
-systemctl enable cosmic-greeter.service
-
-systemctl enable NetworkManager.service
-systemctl enable firewalld.service
-systemctl enable bluetooth.service
-systemctl enable cups.service
