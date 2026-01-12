@@ -1,5 +1,4 @@
-# Vars
-ARG BASE_IMAGE=quay.io/fedora-ostree-desktops/silverblue
+ARG BASE_IMAGE=quay.io/fedora/fedora-bootc
 ARG FEDORA_VERSION=43
 
 FROM scratch AS ctx
@@ -17,7 +16,8 @@ FROM ${BASE_IMAGE}:${FEDORA_VERSION}
 ##
 ## This makes /opt immutable and be able to be used by the package manager.
 RUN rm /opt && mkdir /opt
-## Ready up nix for the installer
+
+## Ready up nix mountpoint
 RUN mkdir -p /nix
 
 # Install packages and finalize build

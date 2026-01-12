@@ -1,0 +1,31 @@
+#!/usr/bin/bash
+
+dnf5 -y install \
+    @cosmic-desktop-environment \
+    flatpak \
+    seahorse \
+    gnome-keyring \
+    libsecret \
+    gvfs \
+    gvfs-mtp \
+    gvfs-smb \
+    gvfs-fuse \
+    NetworkManager-adsl \
+    pipewire-alsa \
+    pipewire-jack \
+    pipewire-pulseaudio \
+    wireplumber \
+    alsa-utils \
+    kernel-modules-extra \
+
+dnf5 -y remove \
+    dnf-makecache.timer \
+    PackageKit \
+    libreoffice-* \
+
+systemctl set-default graphical.target
+systemctl enable cosmic-greeter.service
+
+systemctl enable NetworkManager.service
+systemctl enable firewalld.service
+systemctl enable bluetooth.service
