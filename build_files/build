@@ -21,9 +21,6 @@ mkdir -p /var/roothome
 dnf5 -y swap --repo='fedora' \
     OpenCL-ICD-Loader ocl-icd
 
-# Install the Desktop environment
-/ctx/desktop
-
 # RPM Fusion
 echo "Installing RPM Fusion repositories..."
 dnf5 -y install \
@@ -139,13 +136,6 @@ echo "Installing custom fonts..."
 
 # Enable systemd services
 echo "Enabling systemd services..."
-
-# Desktop
-systemctl enable cosmic-greeter.service
-systemctl enable firewalld.service
-systemctl enable bluetooth.service
-systemctl enable cups.service
-
 systemctl enable scx_loader.service
 systemctl enable lactd.service
 systemctl enable libvirtd.service
