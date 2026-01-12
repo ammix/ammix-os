@@ -39,6 +39,7 @@ done
 dnf5 -y install "${EXCLUDE_ARGS[@]}" \
     @cosmic-desktop-environment \
     flatpak \
+    xdg-desktop-portal-gtk \
     seahorse \
     gnome-keyring \
     libsecret \
