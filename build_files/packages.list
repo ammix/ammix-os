@@ -82,9 +82,6 @@ GRAPHICAL_APPS=(
 
 # Desktop Environment & Theming
 DESKTOP_PACKAGES=(
-    # gnome-shell-extension-gsconnect
-    # nautilus-python
-    # nautilus-gsconnect
     gvfs-nfs
     ibus-mozc
     zenity
