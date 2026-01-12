@@ -19,7 +19,7 @@ dnf5 -y swap --repo='fedora' \
     OpenCL-ICD-Loader ocl-icd
 
 # Install the Desktop environment
-# /ctx/desktop
+/ctx/desktop
 
 # RPM Fusion
 echo "Installing RPM Fusion repositories..."

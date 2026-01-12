@@ -7,10 +7,15 @@ dnf5 -y install \
     gnome-keyring \
     libsecret \
     gvfs \
+    gvfs-afc \
+    gvfs-gphoto2 \
     gvfs-mtp \
     gvfs-smb \
     gvfs-fuse \
     NetworkManager-adsl \
+    NetworkManager-wifi \
+    cups \
+    cups-filters \
     pipewire-alsa \
     pipewire-jack \
     pipewire-pulseaudio \
@@ -29,3 +34,4 @@ systemctl enable cosmic-greeter.service
 systemctl enable NetworkManager.service
 systemctl enable firewalld.service
 systemctl enable bluetooth.service
+systemctl enable cups.service
