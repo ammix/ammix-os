@@ -137,19 +137,11 @@ dnf5 clean packages
 echo "Installing custom fonts..."
 /ctx/fonts
 
-# Compile gsettings schemas
-echo "Compiling gschema..."
-glib-compile-schemas /usr/share/glib-2.0/schemas/
-
-# Installing GNOME Extensions
-# /ctx/gnome-exts
-
 # Enable systemd services
 echo "Enabling systemd services..."
 
 # Desktop
 systemctl enable cosmic-greeter.service
-systemctl enable NetworkManager.service
 systemctl enable firewalld.service
 systemctl enable bluetooth.service
 systemctl enable cups.service
