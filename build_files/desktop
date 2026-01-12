@@ -17,7 +17,6 @@ EXCLUDES=(
     "grubby"
     "grubby-deprecated"
     "setuptool"
-    "ppp"
     "crontabs"
     "at"
     # ABRT - incompatible with ostree
