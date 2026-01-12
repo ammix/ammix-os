@@ -12,6 +12,7 @@ CLI_PACKAGES=(
     sudo-rs
     stow
     just
+    gum
     distrobox
 )
 
