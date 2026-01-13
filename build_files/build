@@ -140,6 +140,7 @@ echo "Installing custom fonts..."
 
 # Enable systemd services
 echo "Enabling systemd services..."
+systemctl enable cosmic-greeter.service
 systemctl enable scx_loader.service
 systemctl enable lactd.service
 systemctl enable libvirtd.service
