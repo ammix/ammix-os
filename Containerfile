@@ -1,4 +1,4 @@
-ARG BASE_IMAGE=quay.io/fedora-ostree-desktops/cosmic-atomic
+ARG BASE_IMAGE=quay.io/fedora/fedora-bootc
 ARG FEDORA_VERSION=43
 
 FROM scratch AS ctx

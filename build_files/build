@@ -4,10 +4,10 @@ set -ouex pipefail
 
 # Install dnf5 if not installed
 if ! rpm -q dnf5 >/dev/null; then
-    rpm-ostree install dnf5 dnf5-plugins
+  rpm-ostree install dnf5 dnf5-plugins
 fi
 
-dnf5 -y install rsync bash sh
+dnf5 -y install rsync
 
 # Copy files
 rsync -rvlK /ctx/files/ /
@@ -15,11 +15,16 @@ rsync -rvlK /ctx/files/ /
 # Make root's home
 mkdir -p /var/roothome
 
+sudo dnf5 install @cosmic-desktop-environment \
+  --exclude=firefox \
+  --exclude=thunderbird \
+  --exclude="libreoffice*"
+dnf5 -y install xdg-desktop-portal-gtk
 
 # mitigate upstream packaging bug: https://bugzilla.redhat.com/show_bug.cgi?id=2332429
 # swap the incorrectly installed OpenCL-ICD-Loader for ocl-icd, the expected package
 dnf5 -y swap --repo='fedora' \
-    OpenCL-ICD-Loader ocl-icd
+  OpenCL-ICD-Loader ocl-icd
 
 # RPM Fusion
 echo "Installing RPM Fusion repositories..."
@@ -29,7 +34,6 @@ dnf5 -y install \
 dnf5 -y config-manager setopt fedora-cisco-openh264.enabled=1
 dnf5 -y install rpmfusion-\*-appstream-data
 dnf5 -y install rpmfusion-nonfree-release-tainted
-
 
 # Add Vivaldi repo
 echo "Adding Vivaldi repository..."
@@ -56,7 +60,7 @@ echo "Successfully configured repositories."
 # Firmware
 echo "Installing firmware packages..."
 dnf5 -y install --repo=rpmfusion-nonfree-tainted "*-firmware"
-dnf5 -y install  alsa-firmware \
+dnf5 -y install alsa-firmware \
   alsa-tools-firmware \
   amd-gpu-firmware \
   realtek-firmware \
@@ -108,15 +112,15 @@ dnf5 install -y "${FONT_PACKAGES[@]}"
 # Install external RPMs
 echo "Installing external RPMs..."
 for rpm_url in "${EXTERNAL_RPMS[@]}"; do
-    echo "Installing from: ${rpm_url}"
-    dnf5 install -y "${rpm_url}"
+  echo "Installing from: ${rpm_url}"
+  dnf5 install -y "${rpm_url}"
 done
 
 # Install group packages
 echo "Installing package groups..."
 for group in "${DNF_GROUPS[@]}"; do
-    echo "Installing group: ${group}"
-    dnf5 group install -y --skip-unavailable "${group}"
+  echo "Installing group: ${group}"
+  dnf5 group install -y --skip-unavailable "${group}"
 done
 
 # Install additional tools
