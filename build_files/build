@@ -7,19 +7,13 @@ if ! rpm -q dnf5 >/dev/null; then
   rpm-ostree install dnf5 dnf5-plugins
 fi
 
-dnf5 -y install rsync
+dnf5 -y install rsync dnf5-plugins
 
 # Copy files
 rsync -rvlK /ctx/files/ /
 
 # Make root's home
 mkdir -p /var/roothome
-
-sudo dnf5 install @cosmic-desktop-environment \
-  --exclude=firefox \
-  --exclude=thunderbird \
-  --exclude="libreoffice*"
-dnf5 -y install xdg-desktop-portal-gtk
 
 # mitigate upstream packaging bug: https://bugzilla.redhat.com/show_bug.cgi?id=2332429
 # swap the incorrectly installed OpenCL-ICD-Loader for ocl-icd, the expected package
@@ -140,7 +134,6 @@ echo "Installing custom fonts..."
 
 # Enable systemd services
 echo "Enabling systemd services..."
-systemctl enable cosmic-greeter.service
 systemctl enable scx_loader.service
 systemctl enable lactd.service
 systemctl enable libvirtd.service
