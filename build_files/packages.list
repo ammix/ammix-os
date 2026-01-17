@@ -29,6 +29,8 @@ CORE_PACKAGES=(
     wl-clipboard
     wireguard-tools
     openssl
+    openssh-askpass
+    tcpdump
     sysprof
     lm_sensors
     flatpak-spawn
@@ -46,6 +48,16 @@ CORE_PACKAGES=(
     smartmontools
     usbutils
     usbmuxd
+    libcamera
+    libcamera-tools
+    libcamera-gstreamer
+    libcamera-ipa
+    libimobiledevice-utils
+    libratbag-ratbagd
+    lshw
+    net-tools
+    nvme-cli
+    fuse
     ifuse
     lact
     scx-scheds
@@ -55,13 +67,20 @@ CORE_PACKAGES=(
     podman-machine
     podman-tui
     firewall-config
+    xhost
+    gvfs-fuse
+    gvfs-smb
+    gvfs-nfs
+    gvfs-mtp
 )
 
 # Media, Graphics & Gaming
 MEDIA_PACKAGES=(
     mpv
+    ffmpeg-libs
     ffmpegthumbnailer
     pipewire-plugin-libcamera
+    pipewire-libs-extra
     vulkan-tools
     libva-utils
     libavcodec-freeworld
@@ -114,4 +133,7 @@ DNF_GROUPS=(
 REMOVE_PACKAGES=(
     firefox
     firefox-langpacks
+    fedora-flathub-remote
+    fedora-third-party
+    fedora-workstation-repositories
 )
