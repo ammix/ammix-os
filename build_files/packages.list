@@ -80,7 +80,6 @@ MEDIA_PACKAGES=(
     ffmpeg-libs
     ffmpegthumbnailer
     pipewire-plugin-libcamera
-    pipewire-libs-extra
     vulkan-tools
     libva-utils
     libavcodec-freeworld
