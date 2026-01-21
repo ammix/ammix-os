@@ -132,9 +132,6 @@ dnf5 clean packages
 echo "Installing custom fonts..."
 /ctx/fonts
 
-echo "Compiling gschema..."
-glib-compile-schemas /usr/share/glib-2.0/schemas/
-
 # Enable systemd services
 echo "Enabling systemd services..."
 systemctl enable scx_loader.service
