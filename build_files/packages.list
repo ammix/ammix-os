@@ -94,7 +94,6 @@ MEDIA_PACKAGES=(
 GRAPHICAL_APPS=(
     ghostty
     kitty
-    vivaldi-stable
     qutebrowser
     Cider
 )
