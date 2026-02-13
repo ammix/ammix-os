@@ -7,7 +7,6 @@ CLI_PACKAGES=(
     jq
     unzip
     unrar
-    7zip
     wcurl
     sudo-rs
     stow
