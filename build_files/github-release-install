@@ -23,17 +23,17 @@ usage() {
 
 }
 
-if [ -z ${ORG_PROJ} ]; then
+if [ -z "${ORG_PROJ}" ]; then
   usage
   exit 1
 fi
 
-if [ -z ${ARCH_FILTER} ]; then
+if [ -z "${ARCH_FILTER}" ]; then
   usage
   exit 2
 fi
 
-if [ -z ${LATEST} ]; then
+if [ -z "${LATEST}" ]; then
   RELTAG="latest"
 else
   RELTAG="tags/${LATEST}"

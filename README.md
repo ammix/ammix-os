@@ -81,7 +81,7 @@ Arguments:
 - `$hwe`: Enable HWE (default: "0").
 - `$gdx`: Enable GDX (default: "0").
 
-##### Building Virtual Machines and ISOs
+##### Building Virtual Machines
 
 ###### `build-qcow2`
 
@@ -97,14 +97,6 @@ Builds a RAW virtual machine image.
 
 ```bash
 just build-raw $target_image $tag
-```
-
-###### `build-iso`
-
-Builds an ISO virtual machine image.
-
-```bash
-just build-iso $target_image $tag
 ```
 
 ###### `rebuild-qcow2`
@@ -123,14 +115,6 @@ Rebuilds a RAW virtual machine image.
 just rebuild-raw $target_image $tag
 ```
 
-###### `rebuild-iso`
-
-Rebuilds an ISO virtual machine image.
-
-```bash
-just rebuild-iso $target_image $tag
-```
-
 ##### Run Virtual Machines
 
 ###### `run-vm-qcow2`
@@ -147,14 +131,6 @@ Runs a virtual machine from a RAW image.
 
 ```bash
 just run-vm-raw $target_image $tag
-```
-
-###### `run-vm-iso`
-
-Runs a virtual machine from an ISO.
-
-```bash
-just run-vm-iso $target_image $tag
 ```
 
 ###### `spawn-vm`

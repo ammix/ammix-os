@@ -46,7 +46,7 @@ url_encode() {
 
 # (Ensure curl, unzip, jq, and python3 (if needed for url_encode) are installed by your build process)
 for cmd in curl unzip jq; do
-    if ! command -v $cmd &> /dev/null; then
+    if ! command -v "$cmd" &> /dev/null; then
         echo "Error: Required command '$cmd' not found. Please install it." >&2
         exit 1
     fi
