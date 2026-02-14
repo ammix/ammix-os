@@ -26,6 +26,7 @@ CORE_PACKAGES=(
     tiptop
     libgtop2-devel
     wl-clipboard
+    socat
     wireguard-tools
     openssl
     openssh-askpass
