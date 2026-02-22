@@ -116,6 +116,7 @@ FONT_PACKAGES=(
 # External RPM URLs
 EXTERNAL_RPMS=(
     "https://cdn.filen.io/@filen/desktop/release/latest/Filen_linux_x86_64.rpm"
+    "https://downloads.1password.com/linux/rpm/stable/x86_64/1password-latest.rpm"
 )
 
 # DNF Group Installs
