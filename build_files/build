@@ -79,6 +79,11 @@ dnf5 -y install \
 # Install fedora-repos-archive
 dnf5 install -y fedora-repos-archive
 
+# Add Vivaldi repo
+echo "Adding Vivaldi repository..."
+dnf5 -y config-manager addrepo --from-repofile=https://repo.vivaldi.com/archive/vivaldi-fedora.repo
+dnf5 -y --nogpgcheck install vivaldi-stable
+
 # Source package lists
 echo "Loading package lists..."
 source /ctx/packages.list
