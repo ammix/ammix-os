@@ -79,10 +79,10 @@ dnf5 -y install \
 # Install fedora-repos-archive
 dnf5 install -y fedora-repos-archive
 
-# Add Vivaldi repo
-echo "Adding Vivaldi repository..."
-dnf5 -y config-manager addrepo --from-repofile=https://repo.vivaldi.com/archive/vivaldi-fedora.repo
-dnf5 -y --nogpgcheck install vivaldi-stable
+# Install Vivaldi from the official RPM. The first install must skip GPG
+# verification so the package can add its repo and keys for future updates.
+echo "Installing Vivaldi from official RPM..."
+dnf5 -y --nogpgcheck install https://vivaldi.com/download/vivaldi-stable.x86_64.rpm
 
 # Source package lists
 echo "Loading package lists..."
