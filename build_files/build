@@ -144,7 +144,6 @@ systemctl enable libvirtd.service
 systemctl enable ammix-bootc-update.timer
 systemctl enable flatpak-update.timer
 systemctl enable podman.socket
-systemctl enable nix-daemon.service
 
 # Mask unwanted services
 echo "Masking systemd services..."
