@@ -13,6 +13,7 @@ CLI_PACKAGES=(
     just
     gum
     distrobox
+    nix
 )
 
 # Development & System Tools
