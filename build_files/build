@@ -20,50 +20,37 @@ mkdir -p /var/roothome
 dnf5 -y swap --repo='fedora' \
   OpenCL-ICD-Loader ocl-icd
 
-# RPM Fusion
-echo "Installing RPM Fusion repositories..."
-dnf5 -y install \
-  https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm \
-  https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
 dnf5 -y config-manager setopt fedora-cisco-openh264.enabled=1
-dnf5 -y install rpmfusion-\*-appstream-data
-dnf5 -y install rpmfusion-nonfree-release-tainted
 
 # Add COPR repos
 echo "Enabling COPR repositories..."
 dnf5 copr enable -y ilyaz/LACT
 
-# Install Terra
+# Install Terra with multimedia and mesa streams
 echo "Installing Terra repositories..."
 dnf5 -y install --nogpgcheck --repofrompath 'terra,https://repos.fyralabs.com/terra$releasever' terra-release
-dnf5 -y install terra-release
-
-# Configure repository priorities
-echo "Setting repository configurations..."
-dnf5 -y config-manager setopt "*rpmfusion*".priority=1
+dnf5 -y install terra-release terra-release-multimedia terra-release-mesa
 
 dnf5 makecache
 echo "Successfully configured repositories."
 
 # Firmware
 echo "Installing firmware packages..."
-dnf5 -y install --repo=rpmfusion-nonfree-tainted "*-firmware"
 dnf5 -y install alsa-firmware \
   alsa-tools-firmware \
   amd-gpu-firmware \
   realtek-firmware \
   mediatek-firmware \
-  broadcom-bt-firmware \
   gnome-firmware \
   steam-devices
 
-# Swap ffmpeg-free for full ffmpeg from RPM Fusion
+# Swap ffmpeg-free for full ffmpeg from Terra
 echo "Swapping ffmpeg-free for full ffmpeg..."
-dnf5 -y --repo=rpmfusion-free swap ffmpeg-free ffmpeg --allowerasing
+dnf5 -y swap ffmpeg-free ffmpeg --allowerasing
 
-# Swapping mesa for rpmfusion
-dnf5 -y swap mesa-va-drivers mesa-va-drivers-freeworld
-dnf5 -y swap mesa-vulkan-drivers mesa-vulkan-drivers-freeworld
+# Upgrade mesa drivers to codec-complete versions from Terra
+echo "Upgrading mesa drivers..."
+dnf5 -y distro-sync mesa-va-drivers mesa-vulkan-drivers
 
 # Install multimedia codecs
 echo "Installing multimedia codecs..."
