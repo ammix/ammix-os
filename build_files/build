@@ -15,11 +15,6 @@ rsync -rvlK /ctx/files/ /
 # Make root's home
 mkdir -p /var/roothome
 
-# mitigate upstream packaging bug: https://bugzilla.redhat.com/show_bug.cgi?id=2332429
-# swap the incorrectly installed OpenCL-ICD-Loader for ocl-icd, the expected package
-dnf5 -y swap --repo='fedora' \
-  OpenCL-ICD-Loader ocl-icd
-
 # RPM Fusion
 echo "Installing RPM Fusion repositories..."
 dnf5 -y install \
@@ -41,8 +36,6 @@ dnf5 -y install terra-release
 # Configure repository priorities
 echo "Setting repository configurations..."
 dnf5 -y config-manager setopt "*rpmfusion*".priority=1
-
-rpm --import https://repo.cider.sh/RPM-GPG-KEY
 
 dnf5 makecache
 echo "Successfully configured repositories."
@@ -81,8 +74,8 @@ dnf5 install -y fedora-repos-archive
 
 # Install Vivaldi from the official RPM. The first install must skip GPG
 # verification so the package can add its repo and keys for future updates.
-echo "Installing Vivaldi from official RPM..."
-dnf5 -y --nogpgcheck install https://vivaldi.com/download/vivaldi-stable.x86_64.rpm
+# echo "Installing Vivaldi from official RPM..."
+# dnf5 -y --nogpgcheck install https://vivaldi.com/download/vivaldi-stable.x86_64.rpm
 
 # Source package lists
 echo "Loading package lists..."

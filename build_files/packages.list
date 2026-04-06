@@ -96,7 +96,6 @@ GRAPHICAL_APPS=(
     ghostty
     kitty
     qutebrowser
-    Cider
 )
 
 # Fonts & Themes
