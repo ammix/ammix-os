@@ -50,14 +50,15 @@ dnf5 -y swap ffmpeg-free ffmpeg --allowerasing
 
 # Upgrade mesa drivers to codec-complete versions from Terra
 echo "Upgrading mesa drivers..."
-dnf5 -y distro-sync mesa-va-drivers mesa-vulkan-drivers
+dnf5 -y install mesa-va-drivers mesa-vulkan-drivers
 
 # Install multimedia codecs
 echo "Installing multimedia codecs..."
 dnf5 -y install \
-  gstreamer1-plugins-bad-freeworld \
+  gstreamer1-plugins-bad \
   gstreamer1-plugins-ugly \
   gstreamer1-libav \
+  gstreamer1-plugin-vaapi \
   lame\* \
   --setopt="install_weak_deps=False" --exclude=PackageKit-gstreamer-plugin
 
@@ -65,7 +66,7 @@ dnf5 -y install \
 dnf5 install -y fedora-repos-archive
 
 # Install Vivaldi from the official RPM. The first install must skip GPG
-# verification so the package can add its repo and keys for future updates.
+# verification
 # echo "Installing Vivaldi from official RPM..."
 # dnf5 -y --nogpgcheck install https://vivaldi.com/download/vivaldi-stable.x86_64.rpm
 
