@@ -15,6 +15,8 @@ rsync -rvlK /ctx/files/ /
 # Make root's home
 mkdir -p /var/roothome
 
+dnf5 -y install ocl-icd
+
 # RPM Fusion
 echo "Installing RPM Fusion repositories..."
 dnf5 -y install \
