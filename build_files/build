@@ -15,7 +15,10 @@ rsync -rvlK /ctx/files/ /
 # Make root's home
 mkdir -p /var/roothome
 
-dnf5 -y install ocl-icd
+# mitigate upstream packaging bug: https://bugzilla.redhat.com/show_bug.cgi?id=2332429
+# swap the incorrectly installed OpenCL-ICD-Loader for ocl-icd, the expected package
+dnf5 -y swap --repo='fedora' \
+  OpenCL-ICD-Loader ocl-icd
 
 # RPM Fusion
 echo "Installing RPM Fusion repositories..."
