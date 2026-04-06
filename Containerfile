@@ -1,5 +1,5 @@
 ARG BASE_IMAGE=quay.io/fedora-ostree-desktops/cosmic-atomic
-ARG FEDORA_VERSION=44
+ARG FEDORA_VERSION=43
 
 FROM scratch AS ctx
 COPY build_files /
