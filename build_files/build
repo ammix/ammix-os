@@ -50,7 +50,7 @@ dnf5 -y swap ffmpeg-free ffmpeg --allowerasing
 
 # Install mesa-va-drivers (not in base image), then sync all mesa to Terra
 echo "Installing codec-complete mesa drivers from Terra..."
-dnf5 -y install mesa-va-drivers
+# dnf5 -y install mesa-va-drivers
 dnf5 -y distro-sync 'mesa*'
 
 # Install multimedia codecs from terra-multimedia (replaces -free variants)
