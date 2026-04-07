@@ -48,18 +48,20 @@ dnf5 -y install alsa-firmware \
 echo "Swapping ffmpeg-free for full ffmpeg..."
 dnf5 -y swap ffmpeg-free ffmpeg --allowerasing
 
-# Upgrade mesa drivers to codec-complete versions from Terra
-echo "Upgrading mesa drivers..."
-dnf5 -y install mesa-va-drivers mesa-vulkan-drivers
+# Install mesa-va-drivers (not in base image), then sync all mesa to Terra
+echo "Installing codec-complete mesa drivers from Terra..."
+dnf5 -y install mesa-va-drivers
+dnf5 -y distro-sync 'mesa*'
 
-# Install multimedia codecs
+# Install multimedia codecs from terra-multimedia (replaces -free variants)
 echo "Installing multimedia codecs..."
 dnf5 -y install \
   gstreamer1-plugins-bad \
   gstreamer1-plugins-ugly \
-  gstreamer1-libav \
+  gstreamer1-plugin-libav \
   gstreamer1-plugin-vaapi \
   lame\* \
+  --allowerasing \
   --setopt="install_weak_deps=False" --exclude=PackageKit-gstreamer-plugin
 
 # Install fedora-repos-archive
