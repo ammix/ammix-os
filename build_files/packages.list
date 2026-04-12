@@ -73,6 +73,7 @@ CORE_PACKAGES=(
     gvfs-smb
     gvfs-nfs
     gvfs-mtp
+    rocm
 )
 
 # Media, Graphics & Gaming
