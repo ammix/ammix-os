@@ -69,8 +69,8 @@ dnf5 install -y fedora-repos-archive
 
 # Install Vivaldi from the official RPM. The first install must skip GPG
 # verification
-# echo "Installing Vivaldi from official RPM..."
-# dnf5 -y --nogpgcheck install https://vivaldi.com/download/vivaldi-stable.x86_64.rpm
+echo "Installing Vivaldi from official RPM..."
+dnf5 -y --nogpgcheck install https://vivaldi.com/download/vivaldi-stable.x86_64.rpm
 
 # Source package lists
 echo "Loading package lists..."
