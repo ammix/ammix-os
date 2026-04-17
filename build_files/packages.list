@@ -121,9 +121,6 @@ EXTERNAL_RPMS=(
 DNF_GROUPS=(
     "multimedia"
     "virtualization"
-    "development-tools"
-    "development-libs"
-    "c-development"
 )
 
 # Packages to Remove
