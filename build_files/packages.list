@@ -98,7 +98,6 @@ GRAPHICAL_APPS=(
 
 # Fonts & Themes
 FONT_PACKAGES=(
-    bibata-cursor-theme
     google-noto-sans-fonts
     google-noto-serif-fonts
     google-noto-emoji-fonts
@@ -108,7 +107,6 @@ FONT_PACKAGES=(
     rsms-inter-fonts
     fira-code-fonts
     nerdfontssymbolsonly-nerd-fonts
-    wqy-zenhei-fonts
 )
 
 # External RPM URLs
