@@ -120,6 +120,7 @@ dnf5 clean packages
 # Enable systemd services
 echo "Enabling systemd services..."
 systemctl enable scx_loader.service
+systemctl enable earlyoom.service
 systemctl enable lactd.service
 systemctl enable libvirtd.service
 systemctl enable ammix-bootc-update.timer
