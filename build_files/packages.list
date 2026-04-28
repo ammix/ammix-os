@@ -18,6 +18,7 @@ CLI_PACKAGES=(
 
 # Development & System Tools
 CORE_PACKAGES=(
+    earlyoom
     elfutils-libelf-devel
     bcc
     bpftop
