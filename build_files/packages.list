@@ -95,6 +95,7 @@ GRAPHICAL_APPS=(
     ghostty
     kitty
     qutebrowser
+    zed
 )
 
 # Fonts & Themes
