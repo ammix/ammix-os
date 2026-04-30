@@ -66,7 +66,7 @@ dnf5 -y distro-sync 'mesa*'
 
 # Install multimedia codec complements from RPM Fusion while terra-multimedia is disabled.
 echo "Installing multimedia codecs..."
-dnf5 -y group upgrade multimedia \
+dnf5 -y group install --skip-unavailable multimedia \
   --setopt="install_weak_deps=False" --exclude=PackageKit-gstreamer-plugin
 
 # Install fedora-repos-archive
