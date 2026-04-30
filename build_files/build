@@ -60,20 +60,13 @@ dnf5 -y install alsa-firmware \
 echo "Swapping ffmpeg-free for full ffmpeg..."
 dnf5 -y swap ffmpeg-free ffmpeg --allowerasing
 
-# Install mesa-va-drivers (not in base image), then sync all mesa to Terra
 echo "Installing codec-complete mesa drivers from Terra..."
 # dnf5 -y install mesa-va-drivers
 dnf5 -y distro-sync 'mesa*'
 
-# Install multimedia codecs from Fedora/RPM Fusion while terra-multimedia is disabled.
+# Install multimedia codec complements from RPM Fusion while terra-multimedia is disabled.
 echo "Installing multimedia codecs..."
-dnf5 -y install \
-  gstreamer1-plugins-bad-freeworld \
-  gstreamer1-plugins-ugly \
-  gstreamer1-plugin-libav \
-  gstreamer1-plugin-vaapi \
-  lame\* \
-  --allowerasing \
+dnf5 -y update @multimedia \
   --setopt="install_weak_deps=False" --exclude=PackageKit-gstreamer-plugin
 
 # Install fedora-repos-archive
@@ -115,7 +108,7 @@ done
 echo "Installing package groups..."
 for group in "${DNF_GROUPS[@]}"; do
   echo "Installing group: ${group}"
-  dnf5 group install -y --skip-unavailable "${group}"
+  dnf5 install -y --skip-unavailable "@${group}"
 done
 
 # Install additional tools
