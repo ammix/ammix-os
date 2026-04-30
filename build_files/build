@@ -26,10 +26,22 @@ dnf5 -y config-manager setopt fedora-cisco-openh264.enabled=1
 echo "Enabling COPR repositories..."
 dnf5 copr enable -y ilyaz/LACT
 
-# Install Terra with multimedia and mesa streams
-echo "Installing Terra repositories..."
+# Install Terra and RPM Fusion repositories. Terra multimedia is temporarily
+# disabled until its ffmpeg and GStreamer builds recover.
+echo "Installing Terra and RPM Fusion repositories..."
 dnf5 -y install --nogpgcheck --repofrompath 'terra,https://repos.fyralabs.com/terra$releasever' terra-release
-dnf5 -y install terra-release terra-release-multimedia terra-release-mesa
+dnf5 -y install \
+  terra-release \
+  terra-release-mesa \
+  https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm
+# dnf5 -y install terra-release-multimedia
+
+dnf5 -y config-manager setopt \
+  terra.priority=80 \
+  terra-mesa.priority=80 \
+  rpmfusion-free.priority=90 \
+  rpmfusion-free-updates.priority=90
+# dnf5 -y config-manager setopt terra-multimedia.priority=80
 
 dnf5 makecache
 echo "Successfully configured repositories."
@@ -44,7 +56,7 @@ dnf5 -y install alsa-firmware \
   gnome-firmware \
   steam-devices
 
-# Swap ffmpeg-free for full ffmpeg from Terra
+# Swap ffmpeg-free for full ffmpeg from RPM Fusion while terra-multimedia is disabled.
 echo "Swapping ffmpeg-free for full ffmpeg..."
 dnf5 -y swap ffmpeg-free ffmpeg --allowerasing
 
@@ -53,10 +65,10 @@ echo "Installing codec-complete mesa drivers from Terra..."
 # dnf5 -y install mesa-va-drivers
 dnf5 -y distro-sync 'mesa*'
 
-# Install multimedia codecs from terra-multimedia (replaces -free variants)
+# Install multimedia codecs from Fedora/RPM Fusion while terra-multimedia is disabled.
 echo "Installing multimedia codecs..."
 dnf5 -y install \
-  gstreamer1-plugins-bad \
+  gstreamer1-plugins-bad-freeworld \
   gstreamer1-plugins-ugly \
   gstreamer1-plugin-libav \
   gstreamer1-plugin-vaapi \
