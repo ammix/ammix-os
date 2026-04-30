@@ -119,7 +119,6 @@ EXTERNAL_RPMS=(
 
 # DNF Group Installs
 DNF_GROUPS=(
-    "multimedia"
     "virtualization"
 )
 
