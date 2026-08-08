@@ -45,15 +45,3 @@ sudo bootc switch --transport containers-storage localhost/ammix-os:dev
 Both deploy recipes are host-changing and do not request an immediate reboot. A local deployment follows the containers-storage image rather than GHCR; run `just deploy-ghcr` to return to the published update channel.
 
 For offline recovery, a locally built image can be exported with Podman to an OCI directory and transported separately.
-
-## Policy
-
-- Fedora 44 COSMIC Atomic remains the base until explicitly changed.
-- Nix and GNU Stow are absent from the image.
-- Chezmoi and age are installed from Fedora repositories.
-- System Flatpak applications and system remotes are removed during the image build. User-only Flatpaks are installed explicitly from the dotfiles repository.
-- GHCR is the normal update channel; rootful local builds and containers-storage deployment remain supported.
-- Vivaldi and Filen require an immutable `/opt`, so the image replaces Fedora's `/opt` symlink before installing packages.
-- 1Password, Vivaldi, and Cider use their vendor repositories and keys. Filen is installed from its official rolling desktop RPM URL.
-- YubiKey/FIDO/PIV tools are installed, but PAM authentication is not enabled automatically.
-- Installer disk layout, EFI, LUKS, filesystems, and machine-specific hardware facts remain installer policy.
