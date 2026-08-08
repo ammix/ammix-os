@@ -1,153 +1,44 @@
-# ammix-os &nbsp; [![CI build](https://github.com/ammix/ammix-os/actions/workflows/build.yml/badge.svg?branch=main)](https://github.com/ammix/ammix-os/actions/workflows/build.yml)
+# ammix-os
 
-My Personal Image based on fedora-bootc, using the Cosmic Desktop Environment
+Locally built Fedora 44 COSMIC Atomic bootc image for the `ammix` workstation. The image owns Fedora packages, fonts, COSMIC, `/etc`, system services, and hardware-neutral policy. User configuration, user Flatpaks, API tokens, and user services live in `ammix/dotfiles`.
 
-## Installation
+This repository does not publish an image. GitHub Actions runs static checks only, and there are no scheduled builds, registry uploads, signatures, disk images, QCOW2 tooling, or VM recipes.
 
-To rebase an existing atomic Fedora installation to the latest build:
+## Local workflow
 
-- First rebase to the unsigned image:
-
-  ```bash
-  sudo bootc switch ghcr.io/ammix/ammix-os:latest
-  ```
-
-- Reboot to complete the rebase:
-
-  ```bash
-  systemctl reboot
-  ```
-
-- Then rebase to the signed image (currently not implemented), like so:
-
-  ```bash
-  sudo bootc switch --enforce-container-sigpolicy ghcr.io/ammix/ammix-os:latest
-  ```
-
-- Reboot again to complete the installation
-
-  ```bash
-  systemctl reboot
-  ```
-
-### Justfile Documentation
-
-This `Justfile` contains various commands and configurations for building and managing container images and virtual machine images using Podman and other utilities.
-
-#### Environment Variables
-
-- `repo_organization`: The GitHub repository owner (default: "yourname").
-- `image_name`: The name of the image (default: "yourimage").
-- `centos_version`: The CentOS version (default: "stream10").
-- `fedora_version`: The Fedora version (default: "41").
-- `default_tag`: The default tag for the image (default: "latest").
-- `bib_image`: The Bootc Image Builder (BIB) image (default: "quay.io/centos-bootc/bootc-image-builder:latest").
-
-#### Aliases
-
-- `build-vm`: Alias for `build-qcow2`.
-- `rebuild-vm`: Alias for `rebuild-qcow2`.
-- `run-vm`: Alias for `run-vm-qcow2`.
-
-
-#### Commands
-
-###### `check`
-
-Checks the syntax of all `.just` files and the `Justfile`.
-
-###### `fix`
-
-Fixes the syntax of all `.just` files and the `Justfile`.
-
-###### `clean`
-
-Cleans the repository by removing build artifacts.
-
-##### Build Commands
-
-###### `build`
-
-Builds a container image using Podman.
-
-```bash
-just build $target_image $tag $dx $hwe $gdx
+```text
+just fmt
+just test
+just image-build
 ```
 
-Arguments:
-- `$target_image`: The tag you want to apply to the image (default: aurora).
-- `$tag`: The tag for the image (default: lts).
-- `$dx`: Enable DX (default: "0").
-- `$hwe`: Enable HWE (default: "0").
-- `$gdx`: Enable GDX (default: "0").
+`just image-build` builds rootfully into `localhost/ammix-os:dev`. Fedora 44 is deliberately selected through the moving `quay.io/fedora-ostree-desktops/cosmic-atomic:44` tag; record the resolved base digest shown by Podman for each build because individual Fedora registry digests expire.
 
-##### Building Virtual Machines
+On a future installed Fedora bootc target, rebuild the same tag on that machine and run:
 
-###### `build-qcow2`
-
-Builds a QCOW2 virtual machine image.
-
-```bash
-just build-qcow2 $target_image $tag
+```text
+just deploy-local
 ```
 
-###### `build-raw`
+The deploy recipe is host-changing, requires typing the full image reference as confirmation, and stages with:
 
-Builds a RAW virtual machine image.
-
-```bash
-just build-raw $target_image $tag
+```text
+sudo bootc switch --transport containers-storage localhost/ammix-os:dev
 ```
 
-###### `rebuild-qcow2`
+It does not request an immediate reboot. Never run it while preparing or validating the backup from the current NixOS host.
 
-Rebuilds a QCOW2 virtual machine image.
+For offline recovery only, a locally built image can be exported with Podman to an OCI directory and transported separately. That is not the normal update channel.
 
-```bash
-just rebuild-qcow2 $target_image $tag
-```
+## Policy
 
-###### `rebuild-raw`
+- Fedora 44 COSMIC Atomic remains the base until an explicit migration changes it.
+- Nix and GNU Stow are absent from the future image.
+- Chezmoi and age are installed from Fedora repositories.
+- System Flatpak applications and system remotes are removed during the image build. User-only Flatpaks are installed explicitly from the dotfiles repository.
+- Image updates are manual local rebuilds and switches. There is no `bootc upgrade` timer.
+- 1Password and Vivaldi use signature-checked vendor repositories. RPM Fusion release packages and the LACT COPR provide capabilities not available in the Fedora base.
+- YubiKey/FIDO/PIV tools are installed, but PAM authentication is not enabled automatically.
+- Installer disk layout, EFI, LUKS, filesystems, and machine-specific hardware facts are deferred to installation time.
 
-Rebuilds a RAW virtual machine image.
-
-```bash
-just rebuild-raw $target_image $tag
-```
-
-##### Run Virtual Machines
-
-###### `run-vm-qcow2`
-
-Runs a virtual machine from a QCOW2 image.
-
-```bash
-just run-vm-qcow2 $target_image $tag
-```
-
-###### `run-vm-raw`
-
-Runs a virtual machine from a RAW image.
-
-```bash
-just run-vm-raw $target_image $tag
-```
-
-###### `spawn-vm`
-
-Runs a virtual machine using systemd-vmspawn.
-
-```bash
-just spawn-vm rebuild="0" type="qcow2" ram="6G"
-```
-
-##### Lint and Format
-
-###### `lint`
-
-Runs shell check on all Bash scripts.
-
-###### `format`
-
-Runs shfmt on all Bash scripts.
-
+See `docs/nixos-parity.md`, `docs/package-gaps.md`, and `docs/cutover.md` before switching a machine.
