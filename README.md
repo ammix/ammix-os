@@ -16,7 +16,7 @@ The recipe requires typing the full image reference and runs:
 sudo bootc switch ghcr.io/ammix/ammix-os:latest
 ```
 
-The enabled `ammix-bootc-update.timer` checks for a new image daily at 13:00 UTC with up to one hour of randomized delay. Scheduled image publication occurs every second calendar day, so checks without a new digest are no-ops. Updates are staged without rebooting automatically.
+The enabled `ammix-bootc-update.timer` checks for a new image daily at 13:00 UTC with up to one hour of randomized delay. Scheduled image publication occurs every third calendar day, so checks without a new digest are no-ops. Updates are staged without rebooting automatically.
 
 Published digests are signed by the GitHub workflow with the existing `SIGNING_SECRET`. The corresponding public key is `cosign.pub`.
 
