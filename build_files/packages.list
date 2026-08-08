@@ -148,6 +148,7 @@ GRAPHICAL_APPS=(
 )
 
 DEVELOPMENT_PACKAGES=(
+	asdf
 	cargo
 	clang
 	clang-tools-extra
