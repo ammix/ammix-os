@@ -134,6 +134,7 @@ MEDIA_PACKAGES=(
 )
 
 GRAPHICAL_APPS=(
+	Cider
 	emacs-pgtk
 	ghostty
 	helix
@@ -196,6 +197,10 @@ FIRMWARE_PACKAGES=(
 	mediatek-firmware
 	realtek-firmware
 	steam-devices
+)
+
+EXTERNAL_RPMS=(
+	https://cdn.filen.io/@filen/desktop/release/latest/Filen_linux_x86_64.rpm
 )
 
 DNF_GROUPS=(
