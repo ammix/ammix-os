@@ -49,6 +49,8 @@ dnf5 makecache
 # shellcheck source=packages.list
 source /ctx/packages.list
 
+dnf5 -y swap ffmpeg-free ffmpeg --allowerasing
+
 dnf5 -y install "${CLI_PACKAGES[@]}"
 dnf5 -y install "${CORE_PACKAGES[@]}"
 dnf5 -y install "${MEDIA_PACKAGES[@]}"
@@ -66,7 +68,6 @@ for group in "${DNF_GROUPS[@]}"; do
 	dnf5 -y group install --skip-unavailable "$group"
 done
 
-dnf5 -y swap ffmpeg-free ffmpeg --allowerasing
 dnf5 -y group install --skip-unavailable multimedia \
 	--setopt=install_weak_deps=False \
 	--exclude=PackageKit-gstreamer-plugin
