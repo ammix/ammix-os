@@ -43,6 +43,8 @@ gpgcheck=1
 gpgkey=https://repo.vivaldi.com/archive/linux_signing_key.pub
 EOF
 
+rpm --import https://repo.cider.sh/RPM-GPG-KEY
+
 dnf5 makecache
 # shellcheck source=packages.list
 source /ctx/packages.list
@@ -55,6 +57,10 @@ dnf5 -y install "${DEVELOPMENT_PACKAGES[@]}"
 dnf5 -y install "${FONT_PACKAGES[@]}"
 dnf5 -y install "${FIRMWARE_PACKAGES[@]}"
 dnf5 -y install 1password 1password-cli vivaldi-stable
+
+for rpm_url in "${EXTERNAL_RPMS[@]}"; do
+	dnf5 -y install "$rpm_url"
+done
 
 for group in "${DNF_GROUPS[@]}"; do
 	dnf5 -y group install --skip-unavailable "$group"
@@ -77,6 +83,7 @@ for remote in "${system_remotes[@]}"; do
 done
 
 systemctl enable \
+	ammix-bootc-update.timer \
 	earlyoom.service \
 	fwupd-refresh.timer \
 	lactd.service \
