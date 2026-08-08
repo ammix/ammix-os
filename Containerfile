@@ -6,6 +6,7 @@ COPY build_files /
 COPY files /files/
 
 FROM ${BASE_IMAGE}:${FEDORA_VERSION}
+ARG FEDORA_VERSION
 
 # Vivaldi and Filen install under /opt; the mutable /var/opt target would omit their payload from deployments.
 RUN if [ -L /opt ]; then rm /opt && mkdir /opt; fi
@@ -16,7 +17,7 @@ RUN --mount=type=bind,from=ctx,source=/,target=/ctx \
     --mount=type=tmpfs,dst=/tmp \
     /ctx/build && \
     /ctx/kargs && \
-    /ctx/build-initramfs && \
+    FEDORA_VERSION="${FEDORA_VERSION}" /ctx/build-initramfs && \
     /ctx/finalize
 
 RUN bootc container lint
