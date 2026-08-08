@@ -13,11 +13,11 @@ mkdir -p "${KARGS_D}"
 
 # Define kernel arguments
 KARGS=(
-    "quiet"
-    "splash"
-    "udev.log_priority=3"
-    "vconsole.keymap=de-us"
-    "amdgpu.ppfeaturemask=0xfffd7fff"
+	"quiet"
+	"splash"
+	"udev.log_priority=3"
+	"vconsole.keymap=de-us"
+	"amdgpu.ppfeaturemask=0xfffd7fff"
 )
 
 # Format kargs for TOML
@@ -26,6 +26,6 @@ formatted_kargs=${formatted_kargs%, }
 
 # Write kargs to TOML file
 echo "Writing kernel arguments to ${KARGS_TOML}"
-echo "kargs = [${formatted_kargs}]" > "${KARGS_TOML}"
+echo "kargs = [${formatted_kargs}]" >"${KARGS_TOML}"
 
 echo "Successfully configured kernel arguments: ${KARGS[*]}"

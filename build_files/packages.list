@@ -1,132 +1,213 @@
-#!/usr/bin/bash
+#!/usr/bin/env bash
 
-# CLI & System Utilities
 CLI_PACKAGES=(
-    fish
-    vim
-    jq
-    unzip
-    unrar
-    wcurl
-    sudo-rs
-    stow
-    just
-    gum
-    distrobox
-    nix
+	7zip
+	age
+	bat
+	btop
+	bottom
+	carapace
+	cbonsai
+	chezmoi
+	curl
+	distrobox
+	eza
+	fastfetch
+	fd-find
+	fish
+	fzf
+	gh
+	git
+	git-lfs
+	gum
+	jq
+	just
+	lazygit
+	lsd
+	nushell
+	openssh-askpass
+	pandoc-cli
+	ripgrep
+	shfmt
+	starship
+	sudo-rs
+	tealdeer
+	tldr
+	ugrep
+	unrar
+	unzip
+	vim
+	wcurl
+	wl-clipboard
+	xlsclients
+	zip
+	zoxide
+	zellij
+	yazi
 )
 
-# Development & System Tools
 CORE_PACKAGES=(
-    earlyoom
-    elfutils-libelf-devel
-    bcc
-    bpftop
-    bpftrace
-    nicstat
-    numactl
-    tiptop
-    libgtop2-devel
-    wl-clipboard
-    socat
-    wireguard-tools
-    openssl
-    openssh-askpass
-    tcpdump
-    sysprof
-    lm_sensors
-    flatpak-spawn
-    zstd
-    xz
-    pam-u2f
-    pamu2fcfg
-    pam_yubico
-    yubikey-manager
-    yubico-piv-tool
-    fido2-tools
-    pcsc-tools
-    restic
-    rclone
-    smartmontools
-    usbutils
-    usbmuxd
-    libcamera
-    libcamera-tools
-    libcamera-gstreamer
-    libcamera-ipa
-    libimobiledevice-utils
-    libratbag-ratbagd
-    lshw
-    net-tools
-    nvme-cli
-    fuse
-    ifuse
-    lact
-    scx-scheds
-    podman
-    podman-docker
-    podman-compose
-    podman-machine
-    podman-tui
-    firewall-config
-    xhost
-    gvfs-fuse
-    gvfs-smb
-    gvfs-nfs
-    gvfs-mtp
+	NetworkManager
+	ShellCheck
+	bcc
+	bpftop
+	bpftrace
+	earlyoom
+	elfutils-libelf-devel
+	fido2-tools
+	firewall-config
+	flatpak-spawn
+	fuse3
+	fwupd
+	gvfs
+	gvfs-fuse
+	gvfs-mtp
+	gvfs-nfs
+	gvfs-smb
+	ifuse
+	lact
+	libcamera
+	libcamera-gstreamer
+	libcamera-ipa
+	libcamera-tools
+	libfido2
+	libgtop2-devel
+	libimobiledevice-utils
+	libratbag-ratbagd
+	libvirt
+	libvirt-daemon-kvm
+	lm_sensors
+	lshw
+	net-tools
+	nicstat
+	numactl
+	nvme-cli
+	pam-u2f
+	pam_yubico
+	pamu2fcfg
+	pcsc-lite
+	pcsc-tools
+	pipewire
+	pipewire-alsa
+	pipewire-jack-audio-connection-kit
+	pipewire-pulseaudio
+	podman
+	podman-compose
+	podman-docker
+	podman-machine
+	podman-tui
+	rclone
+	restic
+	rtkit
+	scx-scheds
+	smartmontools
+	socat
+	swtpm
+	sysprof
+	tcpdump
+	tiptop
+	usbmuxd
+	usbutils
+	virt-manager
+	waydroid
+	wireguard-tools
+	wireplumber
+	xhost
+	yubico-piv-tool
+	yubikey-manager
+	zram-generator
 )
 
-# Media, Graphics & Gaming
 MEDIA_PACKAGES=(
-    mpv
-    ffmpeg-libs
-    ffmpegthumbnailer
-    pipewire-plugin-libcamera
-    vulkan-tools
-    libva-utils
-    vvenc-libs
-    heif-pixbuf-loader
-    libheif
-    gamemode
+	AtomicParsley
+	ImageMagick
+	ffmpeg-libs
+	ffmpegthumbnailer
+	gamemode
+	libheif
+	libheif-tools
+	libva-utils
+	mpv
+	pipewire-plugin-libcamera
+	python3-mutagen
+	vulkan-tools
+	yt-dlp
 )
 
-# Graphical Applications (Browsers, Terminals, Apps)
 GRAPHICAL_APPS=(
-    ghostty
-    kitty
-    qutebrowser
-    zed
+	emacs-pgtk
+	ghostty
+	helix
+	kitty
+	meld
+	mpc
+	mpd
+	neovim
+	qutebrowser
+	zathura
+	zenity
 )
 
-# Fonts & Themes
+DEVELOPMENT_PACKAGES=(
+	cargo
+	clang
+	clang-tools-extra
+	cmake
+	delve
+	diff-so-fancy
+	direnv
+	gdb
+	golang
+	gopls
+	hadolint
+	lldb
+	make
+	meson
+	ninja-build
+	nodejs-bash-language-server
+	nodejs24-npm
+	ruff
+	rust
+	rust-analyzer
+	tokei
+	tree-sitter-cli
+	uv
+)
+
 FONT_PACKAGES=(
-    google-noto-sans-fonts
-    google-noto-serif-fonts
-    google-noto-emoji-fonts
-    google-noto-sans-cjk-fonts
-    google-noto-serif-cjk-fonts
-    liberation-fonts
-    rsms-inter-fonts
-    fira-code-fonts
-    nerdfontssymbolsonly-nerd-fonts
+	adwaita-mono-fonts
+	adwaita-sans-fonts
+	fira-code-fonts
+	google-noto-color-emoji-fonts
+	google-noto-sans-cjk-fonts
+	google-noto-sans-fonts
+	google-noto-serif-cjk-fonts
+	google-noto-serif-fonts
+	liberation-mono-fonts
+	liberation-sans-fonts
+	liberation-serif-fonts
+	rsms-inter-fonts
 )
 
-# External RPM URLs
-EXTERNAL_RPMS=(
-    "https://cdn.filen.io/@filen/desktop/release/latest/Filen_linux_x86_64.rpm"
-    "https://downloads.1password.com/linux/rpm/stable/x86_64/1password-latest.rpm"
+FIRMWARE_PACKAGES=(
+	alsa-firmware
+	alsa-tools-firmware
+	amd-gpu-firmware
+	gnome-firmware
+	linux-firmware
+	mediatek-firmware
+	realtek-firmware
+	steam-devices
 )
 
-# DNF Group Installs
 DNF_GROUPS=(
-    "virtualization"
+	virtualization
 )
 
-# Packages to Remove
 REMOVE_PACKAGES=(
-    firefox
-    firefox-langpacks
-    fedora-flathub-remote
-    fedora-third-party
-    fedora-workstation-repositories
+	fedora-flathub-remote
+	fedora-third-party
+	fedora-workstation-repositories
+	firefox
+	firefox-langpacks
 )
