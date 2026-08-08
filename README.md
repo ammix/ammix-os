@@ -1,10 +1,6 @@
 # ammix-os
 
-Fedora 44 COSMIC Atomic bootc image for the `ammix` workstation. The image owns Fedora packages, fonts, COSMIC, `/etc`, system services, and hardware-neutral policy. User configuration, user Flatpaks, API tokens, and user services live in `ammix/dotfiles`.
-
-GitHub Actions builds the image with rootful Podman, rechunks it with rpm-ostree for smaller delta updates, publishes it to `ghcr.io/ammix/ammix-os`, and signs the published digest. The workflow runs for changes to `main`, manual dispatches, pull requests without publishing, and a scheduled build every second calendar day. Static checks remain a separate workflow.
-
-Disk images, QCOW2, raw/ISO, VM recipes, ArtifactHub publication, and hosted build artifacts are intentionally absent.
+Fedora 44 COSMIC Atomic bootc image for the `ammix` workstation, published as `ghcr.io/ammix/ammix-os:latest`.
 
 ## Remote workflow
 
