@@ -41,7 +41,6 @@ CLI_PACKAGES=(
 	xlsclients
 	zip
 	zoxide
-	zellij
 	yazi
 )
 
@@ -165,7 +164,7 @@ DEVELOPMENT_PACKAGES=(
 	meson
 	ninja-build
 	nodejs-bash-language-server
-	nodejs24-npm
+	nodejs-npm
 	ruff
 	rustup
 	tokei
