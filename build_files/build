@@ -74,15 +74,6 @@ dnf5 -y group install --skip-unavailable multimedia \
 
 dnf5 -y remove "${REMOVE_PACKAGES[@]}"
 
-mapfile -t system_apps < <(flatpak list --system --app --columns=application)
-for app in "${system_apps[@]}"; do
-	flatpak uninstall --system --noninteractive --delete-data "$app"
-done
-mapfile -t system_remotes < <(flatpak remotes --system --columns=name)
-for remote in "${system_remotes[@]}"; do
-	flatpak remote-delete --system --force "$remote"
-done
-
 systemctl enable \
 	ammix-bootc-update.timer \
 	earlyoom.service \
