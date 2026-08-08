@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
+install -d -m 1777 /var/tmp
 dnf5 -y install dnf5 dnf5-plugins rsync
 rsync -rlK /ctx/files/ /
 chmod 0755 /etc/1password/custom_allowed_browsers
@@ -23,26 +24,7 @@ dnf5 -y config-manager setopt \
 	rpmfusion-nonfree-updates.priority=90
 
 rpm --import https://downloads.1password.com/linux/keys/1password.asc
-install -Dm0644 /dev/stdin /etc/yum.repos.d/1password.repo <<'EOF'
-[1password]
-name=1Password Stable Channel
-baseurl=https://downloads.1password.com/linux/rpm/stable/$basearch
-enabled=1
-gpgcheck=1
-repo_gpgcheck=1
-gpgkey=https://downloads.1password.com/linux/keys/1password.asc
-EOF
-
 rpm --import https://repo.vivaldi.com/archive/linux_signing_key.pub
-install -Dm0644 /dev/stdin /etc/yum.repos.d/vivaldi.repo <<'EOF'
-[vivaldi]
-name=Vivaldi
-baseurl=https://repo.vivaldi.com/archive/rpm/$basearch
-enabled=1
-gpgcheck=1
-gpgkey=https://repo.vivaldi.com/archive/linux_signing_key.pub
-EOF
-
 rpm --import https://repo.cider.sh/RPM-GPG-KEY
 
 dnf5 makecache
@@ -85,6 +67,4 @@ systemctl enable \
 	scx_loader.service \
 	usbmuxd.service
 
-install -d -m 1777 /var/tmp
 plymouth-set-default-theme catppuccin-mocha
-dnf5 clean packages
