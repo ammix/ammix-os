@@ -22,12 +22,14 @@ This inventory cross-checks the active `mydots` NixOS and Home Manager profiles 
 | usbmuxd and libimobiledevice | Installed and configured by the image | Packages plus enabled service. |
 | Podman and Docker CLI compatibility | Installed and configured by the image | Podman packages and socket. |
 | Distrobox | Installed by the image | Fedora package. |
-| libvirt, virt-manager, and swtpm | Installed and configured by the image | Virtualization package group and enabled libvirtd. |
+| libvirt, virt-manager, and swtpm | Installed and configured by the image | Virtualization group and enabled libvirtd. |
 | Waydroid | Installed by the image | Fedora package; container initialization remains explicit. |
 | pcscd | Installed and configured by the image | pcsc-lite and enabled socket. |
 | YubiKey, FIDO, and PIV tools | Installed by the image | Tooling only; PAM activation is deferred to avoid lockout. |
 | 1Password and Vivaldi integration | Installed and configured by the image | Signature-checked repositories and browser allow-list. |
 | Controller udev policy | Configured by the image | Tracked `2dc8` hidraw rule. |
+| Fedora development groups | Installed by the image | C development, development libraries, and development tools groups. |
+| Multimedia codecs | Installed by the image | RPM Fusion multimedia group with weak dependencies and the PackageKit GStreamer plugin excluded. |
 | System and development CLI packages | Installed by the image | `build_files/packages.list`; unresolved mappings are recorded separately. |
 | Fonts and font cache locations | Installed by the image | Fedora owns packages and cache paths. |
 | Shells, terminals, editors, Git, SSH, qutebrowser, Yazi | Managed by Chezmoi | `ammix/dotfiles` reproduces the effective user configuration. |

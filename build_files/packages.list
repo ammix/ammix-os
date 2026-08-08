@@ -108,7 +108,6 @@ CORE_PACKAGES=(
 	tiptop
 	usbmuxd
 	usbutils
-	virt-manager
 	waydroid
 	wireguard-tools
 	wireplumber
@@ -167,8 +166,7 @@ DEVELOPMENT_PACKAGES=(
 	nodejs-bash-language-server
 	nodejs24-npm
 	ruff
-	rust
-	rust-analyzer
+	rustup
 	tokei
 	tree-sitter-cli
 	uv
@@ -201,6 +199,9 @@ FIRMWARE_PACKAGES=(
 )
 
 DNF_GROUPS=(
+	c-development
+	development-libs
+	development-tools
 	virtualization
 )
 
