@@ -137,7 +137,7 @@ MEDIA_PACKAGES=(
 GRAPHICAL_APPS=(
 	Cider
 	emacs-pgtk
-	ghostty
+	ghostty-nightly
 	helix
 	kitty
 	meld
