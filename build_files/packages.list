@@ -2,6 +2,7 @@
 
 CLI_PACKAGES=(
 	7zip
+	lzip
 	age
 	bat
 	btop
@@ -188,6 +189,7 @@ FONT_PACKAGES=(
 )
 
 FIRMWARE_PACKAGES=(
+	bibata-cursor-theme
 	alsa-firmware
 	alsa-tools-firmware
 	amd-gpu-firmware
