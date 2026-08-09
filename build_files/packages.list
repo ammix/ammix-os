@@ -131,6 +131,7 @@ MEDIA_PACKAGES=(
 	python3-mutagen
 	vulkan-tools
 	yt-dlp
+	deno
 )
 
 GRAPHICAL_APPS=(
