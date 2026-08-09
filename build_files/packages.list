@@ -111,6 +111,7 @@ CORE_PACKAGES=(
 	wireguard-tools
 	wireplumber
 	xhost
+	xrdb
 	yubico-piv-tool
 	yubikey-manager
 	zram-generator
