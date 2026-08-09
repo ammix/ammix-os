@@ -32,6 +32,8 @@ dnf5 makecache
 source /ctx/packages.list
 
 dnf5 -y swap ffmpeg-free ffmpeg --allowerasing
+dnf5 -y swap mesa-va-drivers mesa-va-drivers-freeworld
+dnf5 -y swap mesa-vulkan-drivers mesa-vulkan-drivers-freeworld
 
 dnf5 -y install "${CLI_PACKAGES[@]}"
 dnf5 -y install "${CORE_PACKAGES[@]}"
@@ -55,6 +57,8 @@ dnf5 -y group install --skip-unavailable multimedia \
 	--exclude=PackageKit-gstreamer-plugin
 
 dnf5 -y remove "${REMOVE_PACKAGES[@]}"
+
+glib-compile-schemas --strict /usr/share/glib-2.0/schemas
 
 systemctl enable \
 	ammix-bootc-update.timer \
