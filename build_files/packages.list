@@ -151,13 +151,11 @@ GRAPHICAL_APPS=(
 
 DEVELOPMENT_PACKAGES=(
 	asdf
-	cargo
 	clang
 	clang-tools-extra
 	cmake
 	delve
 	diff-so-fancy
-	direnv
 	gdb
 	golang
 	gopls
