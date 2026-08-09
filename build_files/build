@@ -11,7 +11,12 @@ dnf5 copr enable -y ilyaz/LACT
 dnf5 config-manager addrepo \
 	--from-repofile=https://raw.githubusercontent.com/terrapkg/subatomic-repos/main/terra.repo
 dnf5 -y install terra-release
-dnf5 -y config-manager setopt terra.priority=80
+dnf5 -y install terra-release-extras
+dnf5 -y install terra-release-mesa
+dnf5 -y config-manager setopt \
+	terra.priority=80 \
+	terra-extras.priority=80 \
+	terra-mesa.priority=80
 
 fedora_version=$(rpm -E %fedora)
 dnf5 -y install \
@@ -32,8 +37,6 @@ dnf5 makecache
 source /ctx/packages.list
 
 dnf5 -y swap ffmpeg-free ffmpeg --allowerasing
-dnf5 -y install mesa-va-drivers-freeworld \
-	mesa-vulkan-drivers-freeworld
 
 dnf5 -y install "${CLI_PACKAGES[@]}"
 dnf5 -y install "${CORE_PACKAGES[@]}"
