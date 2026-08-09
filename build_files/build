@@ -32,8 +32,8 @@ dnf5 makecache
 source /ctx/packages.list
 
 dnf5 -y swap ffmpeg-free ffmpeg --allowerasing
-dnf5 -y swap mesa-va-drivers mesa-va-drivers-freeworld
-dnf5 -y swap mesa-vulkan-drivers mesa-vulkan-drivers-freeworld
+dnf5 -y install mesa-va-drivers-freeworld \
+	mesa-vulkan-drivers-freeworld
 
 dnf5 -y install "${CLI_PACKAGES[@]}"
 dnf5 -y install "${CORE_PACKAGES[@]}"
