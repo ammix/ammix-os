@@ -26,6 +26,10 @@ check:
         just --unstable --fmt --check -f "$file"
     done < <(find . -type f -name "*.just" -print)
     just --unstable --fmt --check -f Justfile
+
+check-local: check
+    #!/usr/bin/env bash
+    set -euo pipefail
     shfmt -d build_files/*
     shellcheck -x -P build_files build_files/build.sh build_files/build-initramfs.sh build_files/finalize.sh build_files/kargs.sh
     [[ "$(tail -n 1 Containerfile)" == "RUN bootc container lint" ]]

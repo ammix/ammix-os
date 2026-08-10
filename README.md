@@ -24,7 +24,7 @@ Published digests are signed by the GitHub workflow with the existing `SIGNING_S
 
 ```text
 just fmt
-just check
+just check-local
 just image-build
 ```
 
