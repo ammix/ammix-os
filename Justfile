@@ -36,7 +36,7 @@ check-local: check
     [[ -e .github/workflows/build.yml ]]
     [[ -e cosign.pub ]]
 
-build target_image=image_name tag=default_tag:
+build $target_image=image_name $tag=default_tag:
     #!/usr/bin/env bash
     set -euo pipefail
 
@@ -62,7 +62,7 @@ build target_image=image_name tag=default_tag:
 
     podman build "${labels[@]}" --pull=newer --tag "${target_image}:${tag}" --file Containerfile .
 
-ostree-rechunk target_image=image_name tag=default_tag:
+ostree-rechunk $target_image=image_name $tag=default_tag:
     #!/usr/bin/env bash
     set -euo pipefail
 
@@ -85,7 +85,7 @@ ostree-rechunk target_image=image_name tag=default_tag:
 generate-default-tag tag=default_tag:
     @echo "{{ tag }}"
 
-generate-build-tags target_image=image_name tag=default_tag:
+generate-build-tags $target_image=image_name $tag=default_tag:
     #!/usr/bin/env bash
     set -euo pipefail
 
@@ -103,13 +103,13 @@ generate-build-tags target_image=image_name tag=default_tag:
 
     echo "${tags[*]}"
 
-tag-images target_image=image_name tag=default_tag tags="":
+tag-images $target_image=image_name $tag=default_tag $tags="":
     #!/usr/bin/env bash
     set -euo pipefail
 
     image_id="$(podman inspect "${target_image}:${tag}" | jq -r '.[].Id')"
     podman untag "${image_id}"
-    for alias_tag in {{ tags }}; do
+    for alias_tag in ${tags}; do
         podman tag "${image_id}" "${target_image}:${alias_tag}"
     done
 
