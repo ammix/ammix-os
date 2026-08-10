@@ -7,10 +7,10 @@ Fedora 44 COSMIC Atomic bootc image for the `ammix` workstation, published as `g
 To stage the published update channel on a Fedora bootc system:
 
 ```text
-just deploy-ghcr
+just switch-ghcr
 ```
 
-The recipe requires typing the full image reference and runs:
+The recipe runs:
 
 ```text
 sudo bootc switch ghcr.io/ammix/ammix-os:latest
@@ -33,15 +33,15 @@ just image-build
 To stage the locally built image:
 
 ```text
-just deploy-local
+just switch-local
 ```
 
-The recipe requires typing the full local image reference and runs:
+The recipe runs:
 
 ```text
 sudo bootc switch --transport containers-storage localhost/ammix-os:dev
 ```
 
-Both deploy recipes are host-changing and do not request an immediate reboot. A local deployment follows the containers-storage image rather than GHCR; run `just deploy-ghcr` to return to the published update channel.
+Both switch recipes change the host deployment and do not request an immediate reboot. A local switch follows the containers-storage image rather than GHCR; run `just switch-ghcr` to return to the published update channel.
 
 For offline recovery, a locally built image can be exported with Podman to an OCI directory and transported separately.
