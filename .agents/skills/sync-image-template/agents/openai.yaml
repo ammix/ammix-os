@@ -1,0 +1,4 @@
+interface:
+  display_name: "Sync Image Template"
+  short_description: "Safely merge Universal Blue template updates"
+  default_prompt: "Use $sync-image-template to sync this bootc image repository with template/main and resolve conflicts safely."
