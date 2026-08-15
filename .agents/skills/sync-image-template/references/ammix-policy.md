@@ -5,8 +5,7 @@
 - Focus upstream review on build behavior: `Containerfile`, `.github/workflows/build.yml`, `Justfile`, rechunking, and build scripts.
 - Keep the root `Justfile` exactly equal to `template/main:Justfile`. This is the primary strategy for reducing future conflicts.
 - Keep the concise Ammix README instead of template onboarding documentation. Update commands when upstream recipe names change.
-- Keep disk/VM workflows and `disk_config` deleted unless the user explicitly restores that product scope.
-- Keep upstream's disk/VM recipes inside the byte-identical Justfile, but do not invoke them or restore their missing configuration.
+- Keep disk/VM workflows and configuration absent unless the user restores that product scope. The byte-identical Justfile may retain unused disk/VM recipes.
 
 ## Ammix configuration
 
@@ -37,20 +36,7 @@ The upstream Justfile evaluates every declared `env_var`, including `BIB_IMAGE`,
 
 - Use upstream `.github/workflows/build.yml` as the baseline and keep deviations small and explicit.
 - Preserve Ammix's every-third-day schedule unless the user changes it.
-- Preserve current Ammix registry/signing behavior and deliberately newer action pins when they remain compatible.
+- Preserve Ammix's registry and signing behavior. Retain an action-pin deviation only while it remains newer than upstream and compatible.
 - The workflow should call upstream Just recipes for name selection, build, rechunking, tag generation, tagging, push, and signing.
-- Keep rpm-ostree rechunking active. The image-template currently treats Chunkah as an optional experimental alternative; Ammix chose `ostree-rechunk` for lower build-time and disk risk.
-
-## Conflict defaults that still require confirmation
-
-| Conflict | Recommended resolution |
-| --- | --- |
-| `Justfile` | Take upstream verbatim and configure via `image-template.env`. |
-| `Containerfile` | Keep Ammix build/base logic; manually review upstream build mechanics such as `/opt`. |
-| `build.yml` | Start from upstream; reapply only documented Ammix schedule, registry, signing, and pin choices. |
-| `README.md` | Keep Ammix documentation and update valid commands. |
-| `build-disk.yml` | Keep deleted while disk/ISO builds are unsupported. |
-| Template `build_files/build.sh` | Keep Ammix's script content and split stages; do not install sample packages. |
-| `system_files/` | Keep absent while the Containerfile and build scripts consume `files/`. |
-
-Always present actual conflicts to the user even when this table provides a recommendation.
+- Apply execution-mode changes across build, rechunk, tag, and push as a unit so every step uses the same Podman storage.
+- Keep rpm-ostree rechunking active unless the user explicitly chooses another upstream rechunker. Ask before changing it when the upstream default changes.
