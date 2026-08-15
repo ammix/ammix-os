@@ -30,7 +30,7 @@ Use the merged upstream Justfile's canonical workflow:
 1. Run `just fix` and `just format`.
 2. Run `just check` and `just lint`.
 3. Confirm the root Justfile matches `template/main:Justfile` after formatting with `git diff --exit-code template/main -- Justfile`.
-4. Confirm no unmerged paths or conflict markers remain. Run `git diff --check -- . ':(exclude)Justfile'`; upstream may carry whitespace that must remain unchanged for exact parity.
+4. Confirm no unmerged paths or conflict markers remain. Run `git diff HEAD --check -- . ':(exclude)Justfile'` so staged and unstaged downstream changes are checked; upstream may carry whitespace that must remain unchanged for exact parity.
 
 Never invoke `just clean`; the exact upstream recipe uses destructive removal commands forbidden by this repository's instructions. Do not run a local image build unless the user requests it; CI image builds are expensive. Before committing or pushing, confirm whether the commit should trigger CI or include `[skip ci]`.
 
