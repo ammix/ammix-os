@@ -139,7 +139,6 @@ GRAPHICAL_APPS=(
 	emacs-pgtk
 	emacsclient
 	ghostty-nightly
-	helix
 	kitty
 	meld
 	mpc
