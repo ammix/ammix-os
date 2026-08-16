@@ -143,7 +143,6 @@ GRAPHICAL_APPS=(
 	meld
 	mpc
 	mpd
-	neovim
 	qutebrowser
 	zathura
 	zenity
