@@ -48,7 +48,6 @@ CLI_PACKAGES=(
 CORE_PACKAGES=(
 	NetworkManager
 	ShellCheck
-	xdg-terminal-exec
 	bcc
 	bpftop
 	bpftrace
