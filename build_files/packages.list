@@ -3,6 +3,7 @@
 CLI_PACKAGES=(
 	7zip
 	lzip
+  exif
 	age
 	bat
 	btop
