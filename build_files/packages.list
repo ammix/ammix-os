@@ -137,7 +137,7 @@ MEDIA_PACKAGES=(
 
 GRAPHICAL_APPS=(
 	Cider
-	ghostty-tip
+	ghostty
 	kitty
 	meld
 	mpc
