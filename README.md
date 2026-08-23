@@ -17,7 +17,7 @@ just fix
 just format
 just check
 just lint
-sudo -E just build localhost/ammix-os dev
+just build localhost/ammix-os dev
 ```
 
 To stage the locally built image:
