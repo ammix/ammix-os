@@ -1,6 +1,6 @@
 # ammix-os
 
-Fedora COSMIC Atomic bootc image for the my workstation.
+Fedora COSMIC Atomic bootc image for the my desktop. Built on the ["Unofficial" Bootable Container images](https://quay.io/repository/fedora-ostree-desktops/cosmic-atomic?tab=info).
 
 ## Remote workflow
 
