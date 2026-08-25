@@ -3,7 +3,7 @@ set -euo pipefail
 
 install -d -m 1777 /var/tmp
 dnf5 -y install dnf5 dnf5-plugins rsync
-rsync -rlK /ctx/files/ /
+rsync -rlK /ctx/system_files/ /
 chmod 0755 /etc/1password/custom_allowed_browsers
 
 dnf5 -y config-manager setopt fedora-cisco-openh264.enabled=1
