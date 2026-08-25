@@ -3,7 +3,7 @@ ARG FEDORA_VERSION=44
 
 FROM scratch AS ctx
 COPY build_files /
-COPY files /files/
+COPY system_files /system_files/
 
 FROM ${BASE_IMAGE}:${FEDORA_VERSION}
 ARG FEDORA_VERSION
