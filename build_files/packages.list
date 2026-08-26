@@ -138,6 +138,7 @@ MEDIA_PACKAGES=(
 GRAPHICAL_APPS=(
 	Cider
 	ghostty
+  osu-lazer
 	kitty
 	meld
 	mpc
@@ -172,6 +173,7 @@ DEVELOPMENT_PACKAGES=(
 )
 
 FONT_PACKAGES=(
+	bibata-cursor-theme
 	adwaita-mono-fonts
 	adwaita-sans-fonts
 	fira-code-fonts
@@ -187,7 +189,6 @@ FONT_PACKAGES=(
 )
 
 FIRMWARE_PACKAGES=(
-	bibata-cursor-theme
 	alsa-firmware
 	alsa-tools-firmware
 	amd-gpu-firmware
