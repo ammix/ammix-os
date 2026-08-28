@@ -157,8 +157,6 @@ DEVELOPMENT_PACKAGES=(
   diff-so-fancy
   hadolint
   lldb
-  go
-  gopls
   meson
   ninja-build
   rustup
