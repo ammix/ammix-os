@@ -21,6 +21,7 @@ CLI_PACKAGES=(
 	gh
 	git
 	git-lfs
+  jujutsu
 	gum
 	jq
 	just
