@@ -144,7 +144,6 @@ GRAPHICAL_APPS=(
   meld
   mpc
   mpd
-  qutebrowser
   zathura
   zenity
 )
@@ -156,17 +155,12 @@ DEVELOPMENT_PACKAGES=(
   cmake
   delve
   diff-so-fancy
-  gdb
-  golang
-  gopls
   hadolint
   lldb
-  make
+  go
+  gopls
   meson
   ninja-build
-  nodejs-bash-language-server
-  nodejs-npm
-  ruff
   rustup
   tokei
   tree-sitter-cli
