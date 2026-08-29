@@ -162,11 +162,6 @@ DEVELOPMENT_PACKAGES=(
   tokei
   tree-sitter-cli
   uv
-  fedpkg
-  rpm-build
-  rpmdevtools
-  anda
-  terra-mock-configs
 )
 
 FONT_PACKAGES=(
