@@ -183,6 +183,7 @@ FONT_PACKAGES=(
   liberation-sans-fonts
   liberation-serif-fonts
   rsms-inter-fonts
+  victor-mono-fonts
 )
 
 FIRMWARE_PACKAGES=(
