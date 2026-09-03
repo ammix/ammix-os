@@ -110,7 +110,6 @@ CORE_PACKAGES=(
   tiptop
   usbmuxd
   usbutils
-  waydroid
   wireguard-tools
   wireplumber
   xhost
