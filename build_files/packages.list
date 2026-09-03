@@ -148,6 +148,11 @@ GRAPHICAL_APPS=(
   zenity
 )
 
+COSMIC_ADDONS=(
+  cosmic-ext-applet-weather
+  minimon-applet
+)
+
 DEVELOPMENT_PACKAGES=(
   asdf
   clang
