@@ -130,9 +130,10 @@ GRAPHICAL_APPS=(
   meld
 )
 
-COSMIC_ADDONS=(
-  cosmic-ext-applet-weather
-  minimon-applet
+GNOME_INTEGRATION_PACKAGES=(
+  adw-gtk3-theme
+  nautilus-gsconnect
+  xdg-terminal-exec
 )
 
 DEVELOPMENT_PACKAGES=(
@@ -198,4 +199,5 @@ REMOVE_PACKAGES=(
   fedora-workstation-repositories
   firefox
   firefox-langpacks
+  ptyxis
 )

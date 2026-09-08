@@ -42,7 +42,7 @@ dnf5 -y install "${CLI_PACKAGES[@]}"
 dnf5 -y install "${CORE_PACKAGES[@]}"
 dnf5 -y install "${MEDIA_PACKAGES[@]}"
 dnf5 -y install "${GRAPHICAL_APPS[@]}"
-dnf5 -y install "${COSMIC_ADDONS[@]}"
+dnf5 -y install "${GNOME_INTEGRATION_PACKAGES[@]}"
 dnf5 -y install "${DEVELOPMENT_PACKAGES[@]}"
 dnf5 -y install "${FONT_PACKAGES[@]}"
 dnf5 -y install "${FIRMWARE_PACKAGES[@]}"
@@ -61,8 +61,6 @@ dnf5 -y group install --skip-unavailable multimedia \
 	--exclude=PackageKit-gstreamer-plugin
 
 dnf5 -y remove "${REMOVE_PACKAGES[@]}"
-
-glib-compile-schemas --strict /usr/share/glib-2.0/schemas
 
 systemctl enable \
 	ammix-bootc-update.timer \

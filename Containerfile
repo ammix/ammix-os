@@ -1,4 +1,4 @@
-ARG BASE_IMAGE=quay.io/fedora-ostree-desktops/cosmic-atomic
+ARG BASE_IMAGE=quay.io/fedora/fedora-silverblue
 ARG FEDORA_VERSION=44
 
 FROM scratch AS ctx
