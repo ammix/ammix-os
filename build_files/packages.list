@@ -6,33 +6,26 @@ CLI_PACKAGES=(
   exif
   age
   bat
-  btop
   bottom
-  carapace
-  cbonsai
   chezmoi
   curl
+  wcurl
   distrobox
-  eza
   fastfetch
   fd-find
   fish
   fzf
   gh
   git
-  git-lfs
   jujutsu
   jjui
   gum
   jq
   just
-  lazygit
   lsd
-  nushell
   openssh-askpass
   pandoc-cli
   ripgrep
-  shfmt
   starship
   sudo-rs
   tldr
@@ -40,12 +33,12 @@ CLI_PACKAGES=(
   unrar
   unzip
   vim
-  wcurl
   wl-clipboard
   xlsclients
   zip
   zoxide
   yazi
+  zenity
 )
 
 CORE_PACKAGES=(
@@ -68,10 +61,6 @@ CORE_PACKAGES=(
   gvfs-smb
   ifuse
   lact
-  libcamera
-  libcamera-gstreamer
-  libcamera-ipa
-  libcamera-tools
   libfido2
   libgtop2-devel
   libimobiledevice-utils
@@ -89,7 +78,6 @@ CORE_PACKAGES=(
   pamu2fcfg
   pcsc-lite
   pcsc-tools
-  pipewire
   pipewire-alsa
   pipewire-jack-audio-connection-kit
   pipewire-pulseaudio
@@ -117,6 +105,7 @@ CORE_PACKAGES=(
   yubico-piv-tool
   yubikey-manager
   zram-generator
+  vulkan-tools
 )
 
 MEDIA_PACKAGES=(
@@ -129,9 +118,7 @@ MEDIA_PACKAGES=(
   libheif-tools
   libva-utils
   mpv
-  pipewire-plugin-libcamera
   python3-mutagen
-  vulkan-tools
   yt-dlp
 )
 
@@ -141,10 +128,6 @@ GRAPHICAL_APPS=(
   osu-lazer
   kitty
   meld
-  mpc
-  mpd
-  zathura
-  zenity
 )
 
 COSMIC_ADDONS=(
@@ -160,6 +143,7 @@ DEVELOPMENT_PACKAGES=(
   delve
   diff-so-fancy
   hadolint
+  shfmt
   lldb
   meson
   ninja-build
