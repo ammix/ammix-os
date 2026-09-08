@@ -17,7 +17,6 @@ RUN --mount=type=bind,from=ctx,source=/,target=/ctx \
     --mount=type=tmpfs,dst=/tmp \
     /ctx/build.sh && \
     /ctx/kargs.sh && \
-    FEDORA_VERSION="${FEDORA_VERSION}" /ctx/build-initramfs.sh && \
     /ctx/finalize.sh
 
 RUN bootc container lint

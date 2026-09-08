@@ -74,5 +74,3 @@ systemctl enable \
 	podman.socket \
 	scx_loader.service \
 	usbmuxd.service
-
-plymouth-set-default-theme catppuccin-mocha
