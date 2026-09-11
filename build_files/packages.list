@@ -39,6 +39,7 @@ CLI_PACKAGES=(
   zoxide
   yazi
   zenity
+  evtest
 )
 
 CORE_PACKAGES=(
