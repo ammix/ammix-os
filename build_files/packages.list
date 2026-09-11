@@ -40,6 +40,8 @@ CLI_PACKAGES=(
   yazi
   zenity
   evtest
+  libevdev
+  libevdev-devel
 )
 
 CORE_PACKAGES=(
